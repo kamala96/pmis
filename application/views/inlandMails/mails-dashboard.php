@@ -1,0 +1,480 @@
+<?php $this->load->view('backend/header'); ?>
+<?php $this->load->view('backend/sidebar');
+$domain = ".posta.co.tz";
+$emid = $this->session->userdata('user_login_id');
+setcookie("emid", $emid, 0, '/', $domain);
+               // setcookie('emid',$emid,time() + (86400 * 30),$domain);
+ ?>
+
+      <div class="page-wrapper">
+            <div class="message"></div>
+            <div class="row page-titles">
+                <div class="col-md-5 align-self-center">
+                    <h3 class="text-themecolor"><i class="fa fa-braille" style="color:#1976d2"></i>&nbsp 
+                    <?php 
+                         $id = $this->session->userdata('user_login_id');
+                         $basicinfo = $this->employee_model->GetBasic($id); 
+                        //     if (!empty($id)) {
+                        //         echo $basicinfo->em_role;
+                        //        } ?>
+                           Mails Dashboard</h3>
+                </div>
+                <div class="col-md-7 align-self-center">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                        <li class="breadcrumb-item active">
+                      </li>
+                    </ol>
+                </div>
+            </div>
+             
+            <!-- Container fluid  -->
+            <!-- ============================================================== -->
+            <div class="container-fluid" style="font-size: 28">
+                 <br>
+                    <div class="row">
+                    <!-- Column -->
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-success"><i class="ti-wallet"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">                                    
+                                    
+                                     </h3>
+                                     
+                                        <a href="<?php echo base_url('Unregistered/Dashboard')?>" class="text-muted m-b-0">Registered</a>
+                                 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-info"><i class="ti-user"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                            
+                                        </h3>
+
+                                        <a href="<?php echo base_url('Stamp/Stamp_form')?>" class="text-muted m-b-0">Sales Of Stamp</a>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Column -->
+                    <!-- Column -->
+                    <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="ti-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <!-- <a href="<?php echo base_url(); ?>inventory/dashboard" class="text-muted m-b-0">Inventory</a> -->
+                                         <a href="<?php echo base_url(); ?>stock/StockBoard" class="text-muted m-b-0">Inventory</a>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="ti-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url('Unregistered/parcel_dashboard')?>" class="text-muted m-b-0">Parcel</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="ti-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url('Unregistered/small_packet')?>" class="text-muted m-b-0">Small Packets</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="ti-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url('Unregistered/posts_cargo')?>" class="text-muted m-b-0">Posts Cargo</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="ti-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        
+                                    <!--
+                                        <a href="<?php echo base_url('FGN_Application/add_fgn'); ?> " class="text-muted m-b-0"> FGN </a>
+                                    -->
+
+                                         <a href="<?php echo base_url()?>unregistered/registered_domestic_dashboard?Ask_for=FGN" class="text-muted m-b-0">FGN</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="ti-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url('Box_Application/BoxRental')?>" class="text-muted m-b-0">Box Rental</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="ti-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url()?>parcel/air_mails_dashboard" class="text-muted m-b-0">Air Mails</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="ti-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url('Bill_Customer/Bill_Dashboard')?>" class="text-muted m-b-0">Bill</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                     <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="ti-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url('Mail_box/callnote');?>" class="text-muted m-b-0"> Call Note </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <!-- 
+                    <div class="col-lg-3 col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-info"><i class="ti-user"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        </h3>
+                                    <a href="<?php echo base_url()?>Necta/necta_info" class="text-muted m-b-0">Necta</a>
+                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                -->
+
+                    <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="ti-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url()?>Mail_box/bulk_callnote" class="text-muted m-b-0"> Bulk Call Note </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+
+                 <!--
+                     <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="fa fa-money"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url('Posta_Cash/postacash_dashboard');?>" class="text-muted m-b-0">Posta Cash</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                -->
+
+
+                     <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="fa fa-money"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url('PostaStamp/dashboard');?>" class="text-muted m-b-0"> Sales of Stamp <sup>NEW</sup></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+                
+
+                     <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="fa fa-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url('Parcel/air_mails_Advertising_domestic_form');?>" class="text-muted m-b-0">Advertising Mail</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="fa fa-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url('Demurrage/Demurrage_form');?>" class="text-muted m-b-0">Demurrage charges</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                    <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="ti-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url()?>Unregistered/unregistered_rtx_bulk_form" class="text-muted m-b-0"> Official / RTS  </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                     <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-success"><i class="ti-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url()?>Posta_delivery/mails_dashboard" class="text-muted m-b-0"> Register Delivery  </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> 
+
+                   <!--   <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="ti-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url()?>Unregistered/mail_bulk_posting" class="text-muted m-b-0">Bulk Posting</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                      <!--  <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="ti-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url()?>Services/PostShop" class="text-muted m-b-0">Posta Shop</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+                     <!-- <div class="col-lg-3 col-md-6" style="">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-row">
+                                    <div class="round align-self-center round-danger"><i class="ti-calendar"></i></div>
+                                    <div class="m-l-10 align-self-center">
+                                        <h3 class="m-b-0">
+                                        
+                                        </h3>
+                                        <a href="<?php echo base_url()?>Services/posta_bus" class="text-muted m-b-0">Posta Bus</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+
+
+                </div>
+            </div> 
+            
+<script type="text/javascript">
+            $(document).ready(function() {
+                $(".parceldetails").click(function(e) {
+                    e.preventDefault(e);
+                    // Get the record's ID via attribute
+                    var iid = $(this).attr('data-id');
+                    $('#leaveapply').trigger("reset");
+                    $('#appmodel').modal('show');
+                    $.ajax({
+                        url: '<?php echo base_url()?>Parcel/parcelAppbyid?id=' + iid,
+                        method: 'GET',
+                        data: '',
+                        dataType: 'json',
+                    }).done(function(response) {
+                        // console.log(response);
+                        // Populate the form fields with the data returned from server
+                        
+                        $('#leaveapply').find('[name="sender_name"]').val(response.parcelvalue.sender_name).end();
+                       
+                    });
+                });
+            });
+        </script>
+
+<script>
+  $(".to-do").on("click", function(){
+      //console.log($(this).attr('data-value'));
+      $.ajax({
+          url: "Update_Todo",
+          type:"POST",
+          data:
+          {
+          'toid': $(this).attr('data-id'),         
+          'tovalue': $(this).attr('data-value'),
+          },
+          success: function(response) {
+              location.reload();
+          },
+          error: function(response) {
+            console.error();
+          }
+      });
+  });			
+</script>      
+
+
+<script type="text/javascript">
+    $(document).ready(function() {
+    // Setup - add a text input to each footer cell
+    $('#example4 thead tr').clone(true).appendTo( '#example4 thead' );
+    $('#example4 thead tr:eq(1) th').not(":eq(6),:eq(7)").each( function (i) {
+        var title = $(this).text();
+        $(this).html( '<input type="text" class="form-control" placeholder="'+title+'" />' );
+ 
+        $( 'input', this ).on( 'keyup change', function () {
+            if ( table.column(i).search() !== this.value ) {
+                table
+                    .column(i)
+                    .search( this.value )
+                    .draw();
+            }
+        } );
+    } );
+ 
+    var table = $('#example4').DataTable( {
+        orderCellsTop: true,
+        fixedHeader: true,
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    } );
+} );
+</script>                    
+<?php $this->load->view('backend/footer'); ?>

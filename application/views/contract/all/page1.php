@@ -1,0 +1,8 @@
+<p style="text-align: justify;">The Contract is made this 01<sup>st</sup> day of July, 2021 between the <strong>Treasury Registrar,</strong> a body corporate, established under the Treasury Registrar (Powers and Functions) Act [CAP. 370 R.E. 2002] as amended of P.O. Box 3193, Dar es Salaam, of one part; </p>
+<p style="text-align: center;"><strong>AND</strong></p>
+<p style="text-align: justify;">The Board of Directors established and existing under section 5 of the Tanzania Posts Corporation Act, No. 19 of 1993 of P.O. Box 9551 Dar es Salaam (hereinafter to be referred as the Board, on the other part.</p>
+<p style="text-align: justify;"><strong>PREAMBLE:</strong></p>
+<ol style="list-style-type: lower-roman;">
+<li><strong>WHEREAS the Treasury Registrar </strong>is vested with the responsibilities of holding all investments comprised of paid-up capital of Public and Statutory Corporations as well as in private investments where the Government owns shares or interests in trust for the President and for the purposes of the Government of the United Republic of Tanzania given responsibilities to the Board to ensure that the Institution meets the objectives of its establishment; and</li>
+<li><strong>WHEREAS The</strong> <strong>Tanzania Posts Corporation</strong> <strong>Board </strong>is responsible for overseeing, monitoring and regulating the conduct of the Tanzania Posts Corporation activities in Tanzania;</li>
+</ol>

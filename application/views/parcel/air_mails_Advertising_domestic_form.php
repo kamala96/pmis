@@ -1,0 +1,149 @@
+<?php $this->load->view('backend/header'); ?>
+<?php $this->load->view('backend/sidebar'); ?>
+<div class="page-wrapper">
+    <div class="message"></div>
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+        <h3 class="text-themecolor"><i class="fa fa-clone" style="color:#1976d2"> </i> <?php echo $this->session->userdata('heading'); ?></h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                <li class="breadcrumb-item active"><?php echo $this->session->userdata('heading'); ?></li>
+            </ol>
+        </div>
+    </div>
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <?php $regionlist = $this->employee_model->regselect(); ?>
+    <?php $tz = 'Africa/Nairobi';
+    $tz_obj = new DateTimeZone($tz);
+    $today = new DateTime("now", $tz_obj);
+    $date = $today->format('Y-m-d');  
+
+    $id=$this->session->userdata('user_login_id'); $getInfo = $this->employee_model->GetBasic($id) ;
+    ?>
+    <div class="container-fluid">
+        <div class="row m-b-10">
+                <div class="col-12">
+                   
+                     <button type="button" class="btn btn-primary"><i class="fa fa-plus"></i><a href="<?php echo base_url() ?>parcel/air_mails_Advertising_domestic_form" class="text-white"><i class="" aria-hidden="true"></i> Add Air Mails Advertising Transaction</a></button>
+               
+                     <button type="button" class="btn btn-primary"><i class="fa fa-bars"></i><a href="<?php echo base_url() ?>parcel/air_mails_domestic_advertising_application_list" class="text-white"><i class="" aria-hidden="true"></i>  Air Mails Advertising Transactions List</a></button>
+                </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card card-outline-info">
+                    <div class="card-header">
+                        <h4 class="m-b-0 text-white"> <?php echo $this->session->userdata('heading'); ?> Form
+                        </h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="card">
+                           <div class="card-body">
+                           <form method="POST" action="<?php echo base_url()?>parcel/Save_air_mails_advertising_domestic">
+                               <div id="div1">
+                                <div class="row">
+
+                               <!--  <div class="col-md-12">
+                                    <h3> Air Mail Form</h3>
+                                </div> -->
+
+                              <div class="col-md-6">
+                            <label>Delivery Category:</label>
+                        <!-- <input type="text" name="StampDetails" class="form-control" id="StampDetails" required="required"> -->
+                     <select name="StampDetails" value="" class="form-control custom-select StampDetails" required id="StampDetails">
+                                    <option value="Local delivery (unaddressed)">Local delivery (unaddressed)</option>
+                                    <option value="Local delivery (addressed)">Local delivery (addressed)</option>
+                                      <option value="Delivery in another town (unaddressed)">Delivery in another town (unaddressed)</option>
+                                        <option value="Delivery in another town (addressed)">Delivery in another town (addressed)</option>
+                                </select>
+                            <span id="" style="color: red;"></span>
+                            </div> 
+
+                                <div class="form-group col-md-6">
+                                    <label>Quantity:</label>
+                                     <input type="text" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');" name="quantity" class="form-control quantity" id="quantity" onkeyup="getPriceFrom()" />
+                                      <span id="weight_error" style="color: red;"></span>
+                                </div>
+
+                               
+                           <!--       <div class="col-md-6">
+                                <label>Amount:</label>
+                            <input type="Number" name="Amount" class="form-control catweight" id="Amount" onkeyup="getPriceFrom()" required="required">
+                                <span id="weight_error" style="color: red;"></span>
+                                </div> -->
+
+                                <div class="col-md-6">
+                                    <label>Customer Name</label>
+                                    <input type="text" name="name" id="name" class="form-control" required="required">
+                                    <span id="errname" style="color: red;"></span>
+                                </div>
+
+                                 <div class="col-md-6">
+                                    <label>Customer Mobile</label>
+                                    <input type="mobile" name="s_mobile" id="s_mobile" class="form-control" onkeyup="myFunction()" required="required">
+                                    <span id="errmobile" style="color: red;"></span>
+                                </div>
+
+                                 
+
+
+                                </div>
+                                <br>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                    <span class ="price" style="font-weight: 60px;font-size: 18px;"></span>
+                                </div>
+                                </div>
+                              
+                                
+                                </div>
+
+
+                                <div class="row"><!--
+                                    <div class="col-md-6"></div> -->
+                                    <div class="col-md-6">
+                                        <button type="submit" class="btn btn-info disable">Save Information</button>
+                                    </div>
+                                </div>
+                                </div>
+                           </form>
+                            </div>
+                           </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+<script type="text/javascript">
+function getPriceFrom() {
+
+ var quantity = $('#quantity').val();
+  var StampDetails  = $('#StampDetails').val();
+if (quantity == '') {
+
+}else{
+    $.ajax({
+                 type : "POST",
+                 url  : "<?php echo base_url('Parcel/mailtarrif_advertising_price_vat')?>",
+                 //dataType : "JSON",
+                 data : {quantity:quantity,StampDetails:StampDetails},
+                 success: function(data){
+                    $('.price').html(data);
+                 }
+             });
+}
+
+    }
+</script>
+
+
+
+<?php $this->load->view('backend/footer'); ?>
