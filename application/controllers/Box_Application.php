@@ -4521,7 +4521,13 @@ public function Ems_Application_List(){
 		$data['emselect'] = $this->employee_model->emselect();
 		$data['agselect'] = $this->employee_model->agselect();
 
-		if ($this->session->userdata('user_type') == "ACCOUNTANT-HQ" || $this->session->userdata('user_type') == "ADMIN" || $this->session->userdata('user_type') == 'SUPPORTER' || $this->session->userdata('user_type') == "BOP") {
+		if ($this->input->server('REQUEST_METHOD') === 'GET')
+		{
+
+		}
+		else
+		{
+			if ($this->session->userdata('user_type') == "ACCOUNTANT-HQ" || $this->session->userdata('user_type') == "ADMIN" || $this->session->userdata('user_type') == 'SUPPORTER' || $this->session->userdata('user_type') == "BOP") {
 
 			$date = $this->input->post('date');
 			$date2 = $this->input->post('date2');
@@ -4575,7 +4581,8 @@ public function Ems_Application_List(){
 					$data['emslist'] = $this->Box_Application_model->get_ems_list();
 				}
 			}
-		}   
+		} 
+		}  
 
 		$this->load->view('domestic_ems/ems_application_list_new',$data);
 
