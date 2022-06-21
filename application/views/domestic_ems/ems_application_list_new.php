@@ -1283,8 +1283,8 @@ $('form').each(function() {
             },
             error: function (data) {
                 $("#isloading").hide();
-                // console.log('An error occurred.');
-                // console.log(data);
+                console.log('An error occurred.');
+                console.log(data);
             },
         });
     });

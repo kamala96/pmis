@@ -4538,44 +4538,34 @@ public function Ems_Application_List_Ajax()
 	echo '<table border="1">';
 	if( ! empty($emslist))
 	{
-		echo '<tr>
-		<th>'.($pay_type == "Cash" ? "Control Number" : "Addressee").'</th>
-		<th>Barcode</th>'.
-		$pay_type == "Bill" ? "<th>Origin</th>" : "".'
-		<th>Destination</th>
-		<th>Date</th>
-		<th>Weight</th>
-		<th>Postage (Tsh.)</th>
-		<th>VAT (Tsh.)</th>
-		<th>Total (Tsh.)</th>
-		<th style="text-align: right;">Payment Status</th>
-		</tr>';
+		echo '<tr>';
+		if($pay_type == 'Cash') echo '<th>Control Number</th>'; else echo '<th>Addressee</th>';
+		echo '<th>Barcode</th>';
+		if($pay_type == "Bill") echo '<th>Origin</th>';
+		echo '<th>Destination</th>';
+		echo '<th>Date</th>';
+		echo '<th>Weight</th>';
+		echo '<th>Postage (Tsh.)</th>';
+		echo '<th>VAT (Tsh.)</th>';
+		echo '<th>Total (Tsh.)</th>';
+		echo '<th style="text-align: right;">Payment Status</th>';
+		echo '</tr>';
 		foreach($emslist as $row)
 		{
 			$total += $row->paidamount;
-			$payment_status = 'Bill';
-			if($row->s_pay_type == 'Cash')
-			{
-				$payment_status = 'Paid'
-				if($row->status == 'NotPaid')
-				{
-					$payment_status = 'Not Paid'
-				}
-			}
 
-
-			echo '<tr>
-			<td>'.($pay_type == "Cash" ? $row->billid : '<a href="#" class="myBtn" data-sender_id="').$row->sender_id.'">'.$row->s_fullname.'</a></td>
-			<td>'.$row->Barcode.'</td>
-			<td>'.$pay_type == "Bill" ? $row->region : "".'</td>
-			<td>'.$row->r_region.'</td>
-			<td>'.$row->paymentdate.'</td>
-			<td>'.$row->weight.'</td>
-			<td>'.$row->postage.'</td>
-			<td>'.$row->vat.'</td>
-			<td>'.$row->paidamount.'</td>
-			<td style="text-align: right;">'.$payment_status.'</td>
-			</tr>';
+			echo '<tr>';
+			if($pay_type == 'Cash') echo '<td>'.$row->billid.'</td>'; else echo '<td>'.$row->s_fullname.'</td>';
+			echo '<td>'.$row->Barcode.'</td>';
+			if($pay_type == "Bill") echo '<td>'.$row->region.'</td>';
+			echo '<td>'.$row->r_region.'</td>';
+			echo '<td>'.$row->paymentdate.'</td>';
+			echo '<td>'.$row->weight.'</td>';
+			echo '<td>'.$row->postage.'</td>';
+			echo '<td>'.$row->vat.'</td>';
+			echo '<td>'.$row->paidamount.'</td>';
+			echo '<td style="text-align: right;">'.$row->status.'</td>';
+			echo '</tr>';
 		}
 	}
 	else
