@@ -93,7 +93,7 @@
                                   <!-- <select name="district_to" value="" class="form-control custom-select"  id="employeeattended" required="required">  
                                             <option value="">--Select Employee--</option>
                                         </select> -->
-                                   <!--  <select class="form-control custom-select emname" >
+                                   <!--  <select class="form-control custom-select get_ems_listAccemname" >
                                       <option value="">--Select Employee--</option>
                                       
                                       <f?php foreach($emselect as $value){?>
@@ -207,6 +207,7 @@
                             <th>Address Type</th>
                             <th>Destination</th>
                             <th>Bill Number</th>
+                            <th>Paid For</th>
                             <th>Tracking Number</th>
                             <th>Barcode Number</th>
                             <th>Transfer Status</th>

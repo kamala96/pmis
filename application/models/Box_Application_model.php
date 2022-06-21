@@ -5,7 +5,7 @@ class Box_Application_model extends CI_Model{
 
 	function __consturct(){
 		parent::__construct();
-    	//$this->db2 = $this->load->database('otherdb', TRUE);
+    	// $this->db2 = $this->load->database('otherdb', TRUE);
 	}
 
 	public function saveSenderInfo($info){
@@ -112,83 +112,83 @@ class Box_Application_model extends CI_Model{
 	        $db2->where('serial', $serial);
 	        $db2->update('transactions');
 
-	      }
-	      public  function get_box_renters(){
+	    }
+	    public  function get_box_renters(){
 
-	      	$db2 = $this->load->database('otherdb', TRUE);
-	      	$query = $db2->get('box_tariff');
-	      	$result = $query->result();
-	      	return $result;
+	    	$db2 = $this->load->database('otherdb', TRUE);
+	    	$query = $db2->get('box_tariff');
+	    	$result = $query->result();
+	    	return $result;
 
-	      }
+	    }
 
 	//TRANSFERED ITEMS
-	      public function transfered_item_list($fromdate,$todate){
+	    public function transfered_item_list($fromdate,$todate){
 
-	      	$db2 = $this->load->database('otherdb', TRUE);
+	    	$db2 = $this->load->database('otherdb', TRUE);
 
             //$info = $this->employee_model->GetBasic($id);
-	      	$o_region = $this->session->userdata('user_region');
-	      	$o_branch = $this->session->userdata('user_branch');
-	      	$emid = $this->session->userdata('user_login_id');
+	    	$o_region = $this->session->userdata('user_region');
+	    	$o_branch = $this->session->userdata('user_branch');
+	    	$emid = $this->session->userdata('user_login_id');
 
-	      	$tz = 'Africa/Nairobi';
-	      	$tz_obj = new DateTimeZone($tz);
-	      	$today = new DateTime("now", $tz_obj);
-	      	$date = $today->format('Y-m-d');
+	    	$tz = 'Africa/Nairobi';
+	    	$tz_obj = new DateTimeZone($tz);
+	    	$today = new DateTime("now", $tz_obj);
+	    	$date = $today->format('Y-m-d');
 
-	      	if ($this->session->userdata('user_type') == "ADMIN" || $this->session->userdata('user_type') == 'SUPPORTER') 
-	      	{
-	      		$sql= "SELECT * FROM `sender_info` 
-	      		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-	      		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-	      		WHERE DATE(`date_registered`) BETWEEN '$fromdate' AND '$todate'";
-	      	}
-	      	else
-	      	{
-	      		$sql= "SELECT * FROM `sender_info` 
-	      		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-	      		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-	      		WHERE `operator`='$emid' AND DATE(`date_registered`) BETWEEN '$fromdate' AND '$todate'";
+	    	if ($this->session->userdata('user_type') == "ADMIN" || $this->session->userdata('user_type') == 'SUPPORTER') 
+	    	{
+	    		$sql= "SELECT * FROM `sender_info` 
+	    		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
+	    		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
+	    		WHERE DATE(`date_registered`) BETWEEN '$fromdate' AND '$todate'";
+	    	}
+	    	else
+	    	{
+	    		$sql= "SELECT * FROM `sender_info` 
+	    		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
+	    		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
+	    		WHERE `operator`='$emid' AND DATE(`date_registered`) BETWEEN '$fromdate' AND '$todate'";
 
 
-	      	}
+	    	}
 
-	      	$query  = $db2->query($sql);
-	      	$result = $query->result();
-	      	return $result;         
-	      } 
+	    	$query  = $db2->query($sql);
+	    	$result = $query->result();
+	    	return $result;         
+	    } 
 	//TRANSFERED ITEMS
 
 	//EMPLOYEE ITEMS NAME
-	      public function check_sender($senderid){
+	    public function check_sender($senderid){
         //HR DATABASE
-	      	$db = $this->load->database('default', TRUE);
-	      	$sql= "SELECT * FROM employee where em_id='$senderid'";
-	      	$query  = $db->query($sql);
-	      	$result = $query->row_array();
-	      	return $result;         
-	      } 
+	    	$db = $this->load->database('default', TRUE);
+	    	$sql= "SELECT * FROM employee where em_id='$senderid'";
+	    	$query  = $db->query($sql);
+	    	$result = $query->row_array();
+	    	return $result;         
+	    } 
   //EMPLOYEE ITEMS NAME
 
-	      public  function get_bulk_customer(){
+	    public  function get_bulk_customer(){
 
-	      	$db2 = $this->load->database('otherdb', TRUE);
-	      	$query = $db2->get('bulk_registration');
-	      	$result = $query->result();
-	      	return $result;
+	    	$db2 = $this->load->database('otherdb', TRUE);
+	    	$query = $db2->get('bulk_registration');
+	    	$result = $query->result();
+	    	return $result;
 
-	      }
+	    }
 
-	      public  function get_bulk_customers2($id){
+	    public  function get_bulk_customers2($id){
 
-	      	$db2 = $this->load->database('otherdb', TRUE);
-	      	$db2->where('Id',$id);
-	      	$query = $db2->get('bulk_registration');
-	      	$result = $query->row();
-	      	return $result;
+	    	$db2 = $this->load->database('otherdb', TRUE);
+	    	$db2->where('Id',$id);
+	    	$query = $db2->get('bulk_registration');
+	    	$result = $query->row();
+	    	return $result;
 
-	      }
+	    }
 
 	// public  function get_box_rental($boxnumber){
 
@@ -200,188 +200,188 @@ class Box_Application_model extends CI_Model{
 
 	// }
 
-	      public  function get_box_rental($boxnumber){
-	      	$db2 = $this->load->database('otherdb', TRUE);
-	      	$id = $this->session->userdata('user_login_id');
-	      	$info = $this->GetBasic($id);
-	      	$o_region = $info->em_region;
-	      	$o_branch = $info->em_branch;
+	    public  function get_box_rental($boxnumber){
+	    	$db2 = $this->load->database('otherdb', TRUE);
+	    	$id = $this->session->userdata('user_login_id');
+	    	$info = $this->GetBasic($id);
+	    	$o_region = $info->em_region;
+	    	$o_branch = $info->em_branch;
 		//$day = date('Y-m-d');
 
-	      	if ( $this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR')
-	      	{
-	      		$db2->where('box_number',$boxnumber);
-	      		$db2->where('region',$o_region);
-	      		$db2->where('branch',$o_branch);
-	      		$query = $db2->get('box_numbers');
-	      		$result = $query->row();
-	      	}
-	      	elseif ( $this->session->userdata('user_type') == 'RM' )
-	      	{
-	      		$db2->where('box_number',$boxnumber);
-	      		$db2->where('region',$o_region);
-	      		$query = $db2->get('box_numbers');
-	      		$result = $query->row();
-	      	}
+	    	if ( $this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR')
+	    	{
+	    		$db2->where('box_number',$boxnumber);
+	    		$db2->where('region',$o_region);
+	    		$db2->where('branch',$o_branch);
+	    		$query = $db2->get('box_numbers');
+	    		$result = $query->row();
+	    	}
+	    	elseif ( $this->session->userdata('user_type') == 'RM' )
+	    	{
+	    		$db2->where('box_number',$boxnumber);
+	    		$db2->where('region',$o_region);
+	    		$query = $db2->get('box_numbers');
+	    		$result = $query->row();
+	    	}
 
-	      	elseif ($this->session->userdata('user_type') == "ADMIN" || $this->session->userdata('user_type') == 'SUPPORTER' ) {
+	    	elseif ($this->session->userdata('user_type') == "ADMIN" || $this->session->userdata('user_type') == 'SUPPORTER' ) {
 
-	      		$db2->where('box_number',$boxnumber);
-	      		$query = $db2->get('box_numbers');
-	      		$result = $query->row();
+	    		$db2->where('box_number',$boxnumber);
+	    		$query = $db2->get('box_numbers');
+	    		$result = $query->row();
 
-	      	}
-
-
-	      	return $result;
-
-	      }
+	    	}
 
 
-	      public  function get_box_rental23($boxnumber,$region){
-	      	$db2 = $this->load->database('otherdb', TRUE);
-	      	$id = $this->session->userdata('user_login_id');
-	      	$info = $this->GetBasic($id);
-	      	$o_region = $info->em_region;
-	      	$o_branch = $info->em_branch;
+	    	return $result;
+
+	    }
+
+
+	    public  function get_box_rental23($boxnumber,$region){
+	    	$db2 = $this->load->database('otherdb', TRUE);
+	    	$id = $this->session->userdata('user_login_id');
+	    	$info = $this->GetBasic($id);
+	    	$o_region = $info->em_region;
+	    	$o_branch = $info->em_branch;
 		//$day = date('Y-m-d');
 
-	      	if ( $this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR')
-	      	{
-	      		$db2->where('box_number',$boxnumber);
-	      		$db2->where('region',$o_region);
-	      		$db2->where('branch',$o_branch);
-	      		$query = $db2->get('box_numbers');
-	      		$result = $query->row();
-	      	}
-	      	elseif ( $this->session->userdata('user_type') == 'RM' )
-	      	{
-	      		$db2->where('box_number',$boxnumber);
-	      		$db2->where('region',$o_region);
-	      		$query = $db2->get('box_numbers');
-	      		$result = $query->row();
-	      	}
+	    	if ( $this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR')
+	    	{
+	    		$db2->where('box_number',$boxnumber);
+	    		$db2->where('region',$o_region);
+	    		$db2->where('branch',$o_branch);
+	    		$query = $db2->get('box_numbers');
+	    		$result = $query->row();
+	    	}
+	    	elseif ( $this->session->userdata('user_type') == 'RM' )
+	    	{
+	    		$db2->where('box_number',$boxnumber);
+	    		$db2->where('region',$o_region);
+	    		$query = $db2->get('box_numbers');
+	    		$result = $query->row();
+	    	}
 
-	      	elseif ($this->session->userdata('user_type') == "ADMIN" || $this->session->userdata('user_type') == 'SUPPORTER' ) {
+	    	elseif ($this->session->userdata('user_type') == "ADMIN" || $this->session->userdata('user_type') == 'SUPPORTER' ) {
 
-	      		$db2->where('box_number',$boxnumber);
-	      		$db2->where('region',$region);
-	      		$query = $db2->get('box_numbers');
-	      		$result = $query->row();
+	    		$db2->where('box_number',$boxnumber);
+	    		$db2->where('region',$region);
+	    		$query = $db2->get('box_numbers');
+	    		$result = $query->row();
 
-	      	}
-
-
-	      	return $result;
-
-	      }
+	    	}
 
 
+	    	return $result;
+
+	    }
 
 
-	      public function get_bulk_customers($id){
-	      	$db2 = $this->load->database('otherdb', TRUE);
-	      	$sql    = "SELECT * FROM `bulk_registration` WHERE  `serial` = '$id' LIMIT 1";
-	      	$query  = $db2->query($sql);
-	      	$result = $query->row();
-	      	return $result;
-	      }
 
 
-	      public function GeEmployeeByBranch($brandname){
-
-	      	$this->db->where('em_branch',$brandname);
-	      	$this->db->order_by('em_branch');
-	      	$query = $this->db->get('employee');
-	      	$output ='<option value="">Select Employee</option>';
-	      	foreach ($query->result() as $row) {
-
-	      		$output .='<option value="'.$row->em_id.'">'.'PF.'.$row->em_code.' '.$row->first_name.' '.$row->last_name.'</option>';
-	      	}
-	      	return $output;
-	      }       
+	    public function get_bulk_customers($id){
+	    	$db2 = $this->load->database('otherdb', TRUE);
+	    	$sql    = "SELECT * FROM `bulk_registration` WHERE  `serial` = '$id' LIMIT 1";
+	    	$query  = $db2->query($sql);
+	    	$result = $query->row();
+	    	return $result;
+	    }
 
 
-	      public function get_box_renter_price($tariffCat){
-	      	$db2 = $this->load->database('otherdb', TRUE);
-	      	$sql    = "SELECT * FROM `box_tariff_price` WHERE  `btp_id` = '$tariffCat' LIMIT 1";
-	      	$query  = $db2->query($sql);
-	      	$result = $query->row();
-	      	return $result;
-	      }
+	    public function GeEmployeeByBranch($brandname){
+
+	    	$this->db->where('em_branch',$brandname);
+	    	$this->db->order_by('em_branch');
+	    	$query = $this->db->get('employee');
+	    	$output ='<option value="">Select Employee</option>';
+	    	foreach ($query->result() as $row) {
+
+	    		$output .='<option value="'.$row->em_id.'">'.'PF.'.$row->em_code.' '.$row->first_name.' '.$row->last_name.'</option>';
+	    	}
+	    	return $output;
+	    }       
 
 
-	      public function get_contract_list(){
-	      	$query = $this->db->get('contract');
-	      	$result = $query->result();
-	      	return $result;
-	      }
-
-	      public function delte_contract_selected($contid){
-	      	$query = "DELETE FROM contract WHERE contid='$contid'";
-	      	$result = $this->db->query($query);
-	      	return $result;
-	      }
+	    public function get_box_renter_price($tariffCat){
+	    	$db2 = $this->load->database('otherdb', TRUE);
+	    	$sql    = "SELECT * FROM `box_tariff_price` WHERE  `btp_id` = '$tariffCat' LIMIT 1";
+	    	$query  = $db2->query($sql);
+	    	$result = $query->row();
+	    	return $result;
+	    }
 
 
-	      public function get_contract_lists()
-	      {
-	      	$sql = "SELECT `contract`.*,
-	      	`contract_type`.*
-	      	FROM `contract`
-	      	LEFT JOIN `contract_type` ON `contract_type`.`cont_id`=`contract`.`cont_type` ORDER BY `contract`.`contid` DESC";
-	      	$query=$this->db->query($sql);
-	      	$result = $query->result();
-	      	return $result;
-	      }
-	      public  function ems_cat(){
+	    public function get_contract_list(){
+	    	$query = $this->db->get('contract');
+	    	$result = $query->result();
+	    	return $result;
+	    }
 
-	      	$db2 = $this->load->database('otherdb', TRUE);
-	      	$query = $db2->get('ems_tariff_category');
-	      	$result = $query->result();
-	      	return $result;
+	    public function delte_contract_selected($contid){
+	    	$query = "DELETE FROM contract WHERE contid='$contid'";
+	    	$result = $this->db->query($query);
+	    	return $result;
+	    }
 
-	      }
-	      public  function get_box_numbers1(){
 
-	      	$db2 = $this->load->database('otherdb', TRUE);
-	      	$query = $db2->get('box_numbers');
-	      	$result = $query->result();
-	      	return $result;
+	    public function get_contract_lists()
+	    {
+	    	$sql = "SELECT `contract`.*,
+	    	`contract_type`.*
+	    	FROM `contract`
+	    	LEFT JOIN `contract_type` ON `contract_type`.`cont_id`=`contract`.`cont_type` ORDER BY `contract`.`contid` DESC";
+	    	$query=$this->db->query($sql);
+	    	$result = $query->result();
+	    	return $result;
+	    }
+	    public  function ems_cat(){
 
-	      }
+	    	$db2 = $this->load->database('otherdb', TRUE);
+	    	$query = $db2->get('ems_tariff_category');
+	    	$result = $query->result();
+	    	return $result;
 
-	      public function getValueForEdit($editId){
+	    }
+	    public  function get_box_numbers1(){
 
-	      	$db2 = $this->load->database('otherdb', TRUE);
-	      	$sql    = "SELECT * FROM `box_numbers` WHERE `box_id`='$editId'";
-	      	$query  = $db2->query($sql);
-	      	$result = $query->row();
-	      	return $result;
-	      }
-	      public function get_region($id){
+	    	$db2 = $this->load->database('otherdb', TRUE);
+	    	$query = $db2->get('box_numbers');
+	    	$result = $query->result();
+	    	return $result;
 
-	      	$db2 = $this->load->database('otherdb', TRUE);
+	    }
 
-	      	$sql = "SELECT `sender_info`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.*
-	      	FROM `sender_info`
-	      	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-	      	LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
-	      	LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-	      	WHERE `transactions`.`id` = '$id'";
+	    public function getValueForEdit($editId){
 
-	      	$query=$db2->query($sql);
-	      	$result = $query->row();
-	      	return $result;
-	      }
+	    	$db2 = $this->load->database('otherdb', TRUE);
+	    	$sql    = "SELECT * FROM `box_numbers` WHERE `box_id`='$editId'";
+	    	$query  = $db2->query($sql);
+	    	$result = $query->row();
+	    	return $result;
+	    }
+	    public function get_region($id){
 
-	      public function get_sender_info123($id){
+	    	$db2 = $this->load->database('otherdb', TRUE);
 
-	      	$db2 = $this->load->database('otherdb', TRUE);
+	    	$sql = "SELECT `sender_info`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.*
+	    	FROM `sender_info`
+	    	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
+	    	LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
+	    	LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
+	    	WHERE `transactions`.`id` = '$id'";
 
-	      	$sql = "SELECT `sender_info`.*,`receiver_info`.*,`transactions`.*
-	      	FROM `sender_info`
-	      	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
+	    	$query=$db2->query($sql);
+	    	$result = $query->row();
+	    	return $result;
+	    }
+
+	    public function get_sender_info123($id){
+
+	    	$db2 = $this->load->database('otherdb', TRUE);
+
+	    	$sql = "SELECT `sender_info`.*,`receiver_info`.*,`transactions`.*
+	    	FROM `sender_info`
+	    	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
 		-- LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
 		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
 		WHERE `transactions`.`id` = '$id'";
@@ -1313,18 +1313,18 @@ class Box_Application_model extends CI_Model{
               $query  = $db2->query($sql);
               $result = $query->result();
               return $result;         
-            } 
+          } 
 
 
-            public  function get_box_listsAdmin($region,$month,$date){
+          public  function get_box_listsAdmin($region,$month,$date){
 
-            	$id = $this->session->userdata('user_login_id');
-            	$basicinfo = $this->employee_model->GetBasic($id);
-            	if ($this->session->userdata('user_type') != 'ADMIN') {
-            		$region = $basicinfo->em_region;
-            	}
+          	$id = $this->session->userdata('user_login_id');
+          	$basicinfo = $this->employee_model->GetBasic($id);
+          	if ($this->session->userdata('user_type') != 'ADMIN') {
+          		$region = $basicinfo->em_region;
+          	}
 
-            	$em_branch = $basicinfo->em_branch;
+          	$em_branch = $basicinfo->em_branch;
 
 		$dates = $date;//->format('Y-m-d');
 		//$date1 = $this->session->userdata('date');
@@ -4423,136 +4423,12 @@ class Box_Application_model extends CI_Model{
 
 	}
 
-	public  function get_ems_listAcc_old($region,$date,$date2,$month,$month2,$year4,$type)
-	{
-
+	public  function get_ems_listAcc_old($start_date, $end_date, $ems_type, $pay_type, $region)
+	{ 
 		$regionfrom = $this->session->userdata('user_region');
 		$emid = $this->session->userdata('user_login_id');
 		$db2 = $this->load->database('otherdb', TRUE);
-		$tz = 'Africa/Nairobi';
-		$tz_obj = new DateTimeZone($tz);
-		$today = new DateTime("now", $tz_obj);
-		$dates = $today->format('Y-m-d');
-		//$date1 = $this->session->userdata('date');
-
-		$id = $this->session->userdata('user_login_id');
-		$info = $this->GetBasic($id);
-		$o_region = $info->em_region;
-		$o_branch = $info->em_branch;
-
-		$d1date = date('d',strtotime($date));
-		$m1date = date('m',strtotime($date));
-		$y1date = date('Y',strtotime($date));
-
-		$d2date = date('d',strtotime($date2));
-		$m2date = date('m',strtotime($date2));
-		$y2date = date('Y',strtotime($date2));
-
-		$month1 = explode('-', $month);
-		$month4 = explode('-', $month2);
-
-		$day = @$month1[0];
-		$year = @$month1[1];
-
-		$day1 = @$month4[0];
-				//$year2 = @$month4[1];
-
-		if ($this->session->userdata('user_type') == 'ACCOUNTANT-HQ' || $this->session->userdata('user_type') == 'RM' || $this->session->userdata('user_type') == "ACCOUNTANT") {
-
-			if (!empty($date) && !empty($date2)) {
-
-				$sql = "SELECT `sender_info`.*,`receiver_info`.*,`transactions`.* FROM `sender_info`
-				INNER JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-
-				INNER JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-				WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `sender_info`.`s_region` = '$o_region'  AND  (date(`sender_info`.`date_registered`) >= '$date' AND date(`sender_info`.`date_registered`) <= '$date2')  ORDER BY `sender_info`.`sender_id` DESC ";
-
-
-			}else{
-
-				if (!empty($month) && !empty($month2)) {
-
-					$sql = "SELECT `sender_info`.*,`receiver_info`.*,`transactions`.* FROM `sender_info`
-					INNER JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-
-					INNER JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-					WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `sender_info`.`s_region` = '$o_region' AND (MONTH(`sender_info`.`date_registered`) >= '$day' AND MONTH(`sender_info`.`date_registered`) <= '$day1' )  AND YEAR(`sender_info`.`date_registered`) = '$year' ORDER BY `sender_info`.`sender_id` DESC ";
-
-				} else {
-
-					if (!empty($month) || !empty($month2)) {
-						$sql = "SELECT `sender_info`.*,`receiver_info`.*,`transactions`.* FROM `sender_info`
-						INNER JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-
-						INNER JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-						WHERE  (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `sender_info`.`s_region` = '$o_region' AND (MONTH(`sender_info`.`date_registered`) = '$day' OR MONTH(`sender_info`.`date_registered`) = '$day1' )  AND YEAR(`sender_info`.`date_registered`) = '$year' ORDER BY `sender_info`.`sender_id` DESC ";
-
-					} else {
-
-						$sql = "SELECT `sender_info`.*,`receiver_info`.*,`transactions`.* FROM `sender_info`
-						INNER JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-
-						INNER JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-						WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `sender_info`.`s_region` = '$o_region' AND ((DAY(`sender_info`.`date_registered`) = '$d1date' AND MONTH(`sender_info`.`date_registered`) = '$m1date' AND YEAR(`sender_info`.`date_registered`) = '$y1date') OR (DAY(`sender_info`.`date_registered`) = '$d2date' AND MONTH(`sender_info`.`date_registered`) = '$m2date' AND YEAR(`sender_info`.`date_registered`) = '$y2date')) ORDER BY `sender_info`.`sender_id` DESC ";
-					}
-				}
-			}
-		} else {
-
-			if (!empty($date) && !empty($date2)) {
-
-				$sql = "SELECT `sender_info`.*,`receiver_info`.*,`transactions`.* FROM `sender_info`
-				INNER JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-
-				INNER JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-				WHERE (date(`sender_info`.`date_registered`) >= '$date' AND date(`sender_info`.`date_registered`) <= '$date2') AND `sender_info`.`s_region` = '$region' AND `transactions`.`PaymentFor` = '$type'  ORDER BY `sender_info`.`sender_id` DESC ";
-
-
-			}else{
-
-				if (!empty($month) && !empty($month2)) {
-
-					$sql = "SELECT `sender_info`.*,`receiver_info`.*,`transactions`.* FROM `sender_info`
-					INNER JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-
-					INNER JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-					WHERE  (MONTH(`sender_info`.`date_registered`) >= '$day' AND MONTH(`sender_info`.`date_registered`) <= '$day1' )  AND YEAR(`sender_info`.`date_registered`) = '$year' AND `sender_info`.`s_region` = '$region' AND `transactions`.`PaymentFor` = '$type' ORDER BY `sender_info`.`sender_id` DESC ";
-
-				} else {
-
-					if (!empty($month)) {
-
-						$sql = "SELECT `sender_info`.*,`receiver_info`.*,`transactions`.* FROM `sender_info`
-						INNER JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-
-						INNER JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-						WHERE  (MONTH(`sender_info`.`date_registered`) = '$day' AND YEAR(`sender_info`.`date_registered`)= '$year') AND `sender_info`.`s_region` = '$region' AND `transactions`.`PaymentFor` = '$type' ORDER BY `sender_info`.`sender_id` DESC ";
-
-					} else {
-
-						$sql = "SELECT `sender_info`.*,`receiver_info`.*,`transactions`.* FROM `sender_info`
-						INNER JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-						INNER JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-						WHERE  ((DAY(`sender_info`.`date_registered`) = '$d1date' AND MONTH(`sender_info`.`date_registered`) = '$m1date' AND YEAR(`sender_info`.`date_registered`) = '$y1date') OR (DAY(`sender_info`.`date_registered`) = '$d2date' AND MONTH(`sender_info`.`date_registered`) = '$m2date' AND YEAR(`sender_info`.`date_registered`) = '$y2date')) AND `sender_info`.`s_region` = '$region' AND `transactions`.`PaymentFor` = '$type' ORDER BY `sender_info`.`sender_id` DESC ";
-
-
-
-
-					}
-				}
-			}
-		}
-
-		$query=$db2->query($sql);
-		$result = $query->result();
-		return $result;
-	}
-	
-	public  function get_ems_listAcc($region, $date_start, $date_end, $ems_type, $pay_type)
-	{
-		$regionfrom = $this->session->userdata('user_region');
-		$emid = $this->session->userdata('user_login_id');
-		$db2 = $this->load->database('otherdb', TRUE);
+		
 		// $tz = 'Africa/Nairobi';
 		// $tz_obj = new DateTimeZone($tz);
 		// $today = new DateTime("now", $tz_obj);
@@ -4581,9 +4457,10 @@ class Box_Application_model extends CI_Model{
 		// $day1 = @$month4[0];
 				//$year2 = @$month4[1];
 
-		if ($this->session->userdata('user_type') == 'ACCOUNTANT-HQ' || $this->session->userdata('user_type') == 'RM' || $this->session->userdata('user_type') == "ACCOUNTANT")
+		// if ($this->session->userdata('user_type') == 'ACCOUNTANT-HQ' || $this->session->userdata('user_type') == 'RM' || $this->session->userdata('user_type') == "ACCOUNTANT")
+		if($this->session->userdata('user_type') == "ACCOUNTANT-HQ" || $this->session->userdata('user_type') == "ADMIN" || $this->session->userdata('user_type') == 'SUPPORTER' || $this->session->userdata('user_type') == "BOP")
 		{
-			if (!empty($date) && !empty($date2))
+			if (!empty($start_date) && !empty($end_date))
 			{
 
 				$sql = "SELECT `sender_info`.*,`receiver_info`.*,`transactions`.* FROM `sender_info`
@@ -4591,12 +4468,11 @@ class Box_Application_model extends CI_Model{
 
 				INNER JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
 				WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `sender_info`.`s_region` = '$o_region'  AND  (date(`sender_info`.`date_registered`) >= '$date' AND date(`sender_info`.`date_registered`) <= '$date2')  ORDER BY `sender_info`.`sender_id` DESC ";
-
-
-			}else{
-
-				if (!empty($month) && !empty($month2)) {
-
+			}
+			else
+			{
+				if (!empty($month) && !empty($month2))
+				{
 					$sql = "SELECT `sender_info`.*,`receiver_info`.*,`transactions`.* FROM `sender_info`
 					INNER JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
 
@@ -4622,9 +4498,10 @@ class Box_Application_model extends CI_Model{
 					}
 				}
 			}
-		} else {
-
-			if (!empty($date_start) && !empty($date_end)) {
+		}
+		else
+		{
+			if (!empty($start_date) && !empty($end_date)) {
 
 				$sql = "SELECT `sender_info`.*,`receiver_info`.*,`transactions`.* FROM `sender_info`
 				INNER JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
@@ -4668,9 +4545,59 @@ class Box_Application_model extends CI_Model{
 			}
 		}
 
-		$query=$db2->query($sql);
-		$result = $query->result();
-		return $result;
+		// $query=$db2->query($sql);
+		// $result = $query->result();
+		// return $result;
+	}
+
+	public  function get_ems_listAcc($start_date, $end_date, $pay_type, $region=false)
+	{
+		$regionfrom = $this->session->userdata('user_region');
+		$emid = $this->session->userdata('user_login_id');
+
+		$otherdb = $this->load->database('otherdb', TRUE);
+
+		$id = $this->session->userdata('user_login_id');
+		$info = $this->GetBasic($id);
+		$o_region = $info->em_region;
+		$o_branch = $info->em_branch;
+
+		$data = array();
+
+		$otherdb->join('sender_info s', 's.sender_id = t.CustomerID', 'left');
+		$otherdb->join('receiver_info r', 'r.from_id = s.sender_id', 'left');
+		$otherdb->where('t.transactiondate >=', $start_date);
+		$otherdb->where('t.transactiondate <=', $end_date);
+		$otherdb->where('LENGTH(t.Barcode)', 13, FALSE);
+
+		// If a region is selected
+		if($region != false) $otherdb->where('t.region', $region);
+
+		// Cash or bill for EMS | Document parcel
+		if ($pay_type == "Cash") $otherdb->like('t.serial', 'EMS', 'after');
+		else $otherdb->like('t.serial', 'EB', 'after');
+
+		// Select only domestic transactions
+		$otherdb->not_like('t.Barcode', 'ee16', 'after');
+
+		$otherdb->limit(10);
+
+		// Now query the results
+		$query = $otherdb->get('transactions t');
+
+		// Check if a query is successfully and have res
+		if($query !== FALSE && $query->num_rows() > 0)
+		{
+			$data = $query->result();
+			foreach ($data as $row) 
+			{				
+				$postage = $row->paidamount / 1.18;
+				$vat = $postage * 0.18;
+				$row->postage = number_format((float)$postage, 2, '.', '');
+				$row->vat = number_format((float)$vat, 2, '.', '');
+			}
+		}
+		return $data;
 	}
 
 	public  function get_ems_bill_listAcc($region,$date,$date2,$month,$month2,$year4,$type){
@@ -5518,7 +5445,7 @@ class Box_Application_model extends CI_Model{
 		$today = new DateTime("now", $tz_obj);
 		$today = $today->format('Y-m-d');
 
-		
+
 
 
 		$regionfrom = $this->session->userdata('user_region');
@@ -5530,7 +5457,7 @@ class Box_Application_model extends CI_Model{
 
 
 		$emid = $this->session->userdata('user_login_id');
-		
+
 		if ($this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
 
 			if(!empty($date)){
@@ -5652,7 +5579,7 @@ class Box_Application_model extends CI_Model{
 		$today = new DateTime("now", $tz_obj);
 		$today = $today->format('Y-m-d');
 
-		
+
 
 
 		$regionfrom = $this->session->userdata('user_region');
@@ -5664,7 +5591,7 @@ class Box_Application_model extends CI_Model{
 
 
 		$emid = $this->session->userdata('user_login_id');
-		
+
 		if ($this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
 
 			if(!empty($date)){
@@ -5793,7 +5720,7 @@ class Box_Application_model extends CI_Model{
 		$today = new DateTime("now", $tz_obj);
 		$today = $today->format('Y-m-d');
 
-		
+
 
 
 		$regionfrom = $this->session->userdata('user_region');
@@ -5805,8 +5732,8 @@ class Box_Application_model extends CI_Model{
 
 
 		$emid = $this->session->userdata('user_login_id');
-		
-		
+
+
 
 		if(!empty($date)){
 			$sql = "SELECT `sender_info`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.* FROM `sender_info`
@@ -5815,7 +5742,7 @@ class Box_Application_model extends CI_Model{
 			LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
 			WHERE `transactions`.`status` != 'OldPaid' AND  `sender_info`.`item_status`='Officeofexchange'
 			AND date(`sender_info`.`date_registered`) = '$date' ";
-			
+
 
 		}elseif (!empty($month)) {
 			$sql = "SELECT `sender_info`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.* FROM `sender_info`
@@ -5824,7 +5751,7 @@ class Box_Application_model extends CI_Model{
 			LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
 			WHERE `transactions`.`status` != 'OldPaid' AND  `sender_info`.`item_status`='Officeofexchange'
 			AND MONTH(`sender_info`.`date_registered`) = '$day' AND YEAR(`sender_info`.`date_registered`) = '$year' ";
-			
+
 		}
 		else{
 			$sql = "SELECT `sender_info`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.* FROM `sender_info`
@@ -5833,12 +5760,12 @@ class Box_Application_model extends CI_Model{
 			LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
 			WHERE `transactions`.`status` != 'OldPaid' AND  `sender_info`.`item_status`='Officeofexchange'
 			AND date(`sender_info`.`date_registered`) = '$today'";
-			
+
 
 		}
-		
 
-		
+
+
 
 
 
@@ -5862,7 +5789,7 @@ class Box_Application_model extends CI_Model{
 		$today = new DateTime("now", $tz_obj);
 		$today = $today->format('Y-m-d');
 
-		
+
 
 
 		$regionfrom = $this->session->userdata('user_region');
@@ -5874,8 +5801,8 @@ class Box_Application_model extends CI_Model{
 
 
 		$emid = $this->session->userdata('user_login_id');
-		
-		
+
+
 
 		if(!empty($date)){
 			$sql = "SELECT `sender_info`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.* FROM `sender_info`
@@ -5884,7 +5811,7 @@ class Box_Application_model extends CI_Model{
 			LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
 			WHERE `transactions`.`status` != 'OldPaid' AND  `sender_info`.`item_status`='Senttoips'
 			AND date(`sender_info`.`date_registered`) = '$date' ";
-			
+
 
 		}elseif (!empty($month)) {
 			$sql = "SELECT `sender_info`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.* FROM `sender_info`
@@ -5893,8 +5820,8 @@ class Box_Application_model extends CI_Model{
 			LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
 			WHERE `transactions`.`status` != 'OldPaid' AND  `sender_info`.`item_status`='Senttoips'
 			AND MONTH(`sender_info`.`date_registered`) = '$day' AND YEAR(`sender_info`.`date_registered`) = '$year' ";
-			
-			
+
+
 		}
 		else{
 			$sql = "SELECT `sender_info`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.* FROM `sender_info`
@@ -5903,12 +5830,12 @@ class Box_Application_model extends CI_Model{
 			LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
 			WHERE `transactions`.`status` != 'OldPaid' AND  `sender_info`.`item_status`='Senttoips'
 			AND date(`sender_info`.`date_registered`) = '$today'";
-			
+
 
 		}
-		
 
-		
+
+
 
 
 
@@ -5952,9 +5879,9 @@ class Box_Application_model extends CI_Model{
 
 
 
-          }else{
-          	$sql = "SELECT `sender_info`.*,`assign_derivery`.*,`receiver_info`.*,`transactions`.* FROM `sender_info`
-          	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
+        }else{
+        	$sql = "SELECT `sender_info`.*,`assign_derivery`.*,`receiver_info`.*,`transactions`.* FROM `sender_info`
+        	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
             -- LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
             LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
             LEFT JOIN `assign_derivery` ON `assign_derivery`.`item_id`=`sender_info`.`sender_id`
@@ -5963,10 +5890,22 @@ class Box_Application_model extends CI_Model{
             AND  `assign_derivery`.`service_type`='EMS'
             AND  `receiver_info`.`r_region`='$o_region' AND  `receiver_info`.`branch`='$o_branch'";
 
-          }
-
         }
-        elseif ($this->session->userdata('user_type') == 'RM' ) {
+
+    }
+    elseif ($this->session->userdata('user_type') == 'RM' ) {
+
+    	$sql = "SELECT `sender_info`.*,`assign_derivery`.*,`receiver_info`.*,`transactions`.* FROM `sender_info`
+    	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
+            -- LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
+            LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
+            LEFT JOIN `assign_derivery` ON `assign_derivery`.`item_id`=`sender_info`.`sender_id`
+
+            WHERE `transactions`.`status` != 'OldPaid' AND  `sender_info`.`item_status`='Assigned'
+            AND  `assign_derivery`.`service_type`='EMS'
+            AND  `receiver_info`.`r_region`='$o_region' ";
+
+        }else{
 
         	$sql = "SELECT `sender_info`.*,`assign_derivery`.*,`receiver_info`.*,`transactions`.* FROM `sender_info`
         	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
@@ -5976,156 +5915,144 @@ class Box_Application_model extends CI_Model{
 
             WHERE `transactions`.`status` != 'OldPaid' AND  `sender_info`.`item_status`='Assigned'
             AND  `assign_derivery`.`service_type`='EMS'
-            AND  `receiver_info`.`r_region`='$o_region' ";
-
-          }else{
-
-          	$sql = "SELECT `sender_info`.*,`assign_derivery`.*,`receiver_info`.*,`transactions`.* FROM `sender_info`
-          	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-            -- LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
-            LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-            LEFT JOIN `assign_derivery` ON `assign_derivery`.`item_id`=`sender_info`.`sender_id`
-
-            WHERE `transactions`.`status` != 'OldPaid' AND  `sender_info`.`item_status`='Assigned'
-            AND  `assign_derivery`.`service_type`='EMS'
             ";
 
-          }
-
-
-
-
-
-
-
-          $query=$db2->query($sql);
-          $result = $query->result();
-          return $result;
         }
 
-        public  function get_pcum_list_assignedfor_delivery(){
 
-        	$regionfrom = $this->session->userdata('user_region');
-        	$emid = $this->session->userdata('user_login_id');
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$tz = 'Africa/Nairobi';
-        	$tz_obj = new DateTimeZone($tz);
-        	$today = new DateTime("now", $tz_obj);
-        	$date = $today->format('Y-m-d');
+
+
+
+
+
+        $query=$db2->query($sql);
+        $result = $query->result();
+        return $result;
+    }
+
+    public  function get_pcum_list_assignedfor_delivery(){
+
+    	$regionfrom = $this->session->userdata('user_region');
+    	$emid = $this->session->userdata('user_login_id');
+    	$db2 = $this->load->database('otherdb', TRUE);
+    	$tz = 'Africa/Nairobi';
+    	$tz_obj = new DateTimeZone($tz);
+    	$today = new DateTime("now", $tz_obj);
+    	$date = $today->format('Y-m-d');
 		//$date1 = $this->session->userdata('date');
 
-        	$id = $this->session->userdata('user_login_id');
-        	$info = $this->GetBasic($id);
-        	$o_region = $info->em_region;
-        	$o_branch = $info->em_branch;
+    	$id = $this->session->userdata('user_login_id');
+    	$info = $this->GetBasic($id);
+    	$o_region = $info->em_region;
+    	$o_branch = $info->em_branch;
 
 
-        	if ($this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
+    	if ($this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
 
-        		$sql = "SELECT `sender_info`.*,`assign_derivery`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.* FROM `sender_info`
-        		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-        		LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
-        		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-        		LEFT JOIN `assign_derivery` ON `assign_derivery`.`item_id`=`sender_info`.`sender_id`
+    		$sql = "SELECT `sender_info`.*,`assign_derivery`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.* FROM `sender_info`
+    		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
+    		LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
+    		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
+    		LEFT JOIN `assign_derivery` ON `assign_derivery`.`item_id`=`sender_info`.`sender_id`
 
-        		WHERE `transactions`.`status` != 'OldPaid' AND  `sender_info`.`item_status`='Assigned'
-        		AND  `assign_derivery`.`service_type`='PCUM'
-        		AND `transactions`.`PaymentFor` = 'PCUM'
-        		AND  `sender_info`.`s_region`='$o_region' AND  `sender_info`.`s_district`='$o_branch'";
+    		WHERE `transactions`.`status` != 'OldPaid' AND  `sender_info`.`item_status`='Assigned'
+    		AND  `assign_derivery`.`service_type`='PCUM'
+    		AND `transactions`.`PaymentFor` = 'PCUM'
+    		AND  `sender_info`.`s_region`='$o_region' AND  `sender_info`.`s_district`='$o_branch'";
 
-        	}elseif ($this->session->userdata('user_type') == "ACCOUNTANT" || $this->session->userdata('user_type') == "RM") {
+    	}elseif ($this->session->userdata('user_type') == "ACCOUNTANT" || $this->session->userdata('user_type') == "RM") {
 					// code...
 
-        		$sql = "SELECT `sender_info`.*,`assign_derivery`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.* FROM `sender_info`
-        		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-        		LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
-        		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-        		LEFT JOIN `assign_derivery` ON `assign_derivery`.`item_id`=`sender_info`.`sender_id`
+    		$sql = "SELECT `sender_info`.*,`assign_derivery`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.* FROM `sender_info`
+    		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
+    		LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
+    		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
+    		LEFT JOIN `assign_derivery` ON `assign_derivery`.`item_id`=`sender_info`.`sender_id`
 
-        		WHERE `transactions`.`status` != 'OldPaid' AND  `sender_info`.`item_status`='Assigned'
-        		AND  `assign_derivery`.`service_type`='PCUM'  AND `transactions`.`PaymentFor` = 'PCUM'
-        		AND  `sender_info`.`s_region`='$o_region' ";
-        	}else{
+    		WHERE `transactions`.`status` != 'OldPaid' AND  `sender_info`.`item_status`='Assigned'
+    		AND  `assign_derivery`.`service_type`='PCUM'  AND `transactions`.`PaymentFor` = 'PCUM'
+    		AND  `sender_info`.`s_region`='$o_region' ";
+    	}else{
 
-        		$sql = "SELECT `sender_info`.*,`assign_derivery`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.* FROM `sender_info`
-        		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-        		LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
-        		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-        		LEFT JOIN `assign_derivery` ON `assign_derivery`.`item_id`=`sender_info`.`sender_id`
+    		$sql = "SELECT `sender_info`.*,`assign_derivery`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.* FROM `sender_info`
+    		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
+    		LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
+    		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
+    		LEFT JOIN `assign_derivery` ON `assign_derivery`.`item_id`=`sender_info`.`sender_id`
 
-        		WHERE `transactions`.`status` != 'OldPaid' AND  `sender_info`.`item_status`='Assigned'
-        		AND  `assign_derivery`.`service_type`='PCUM'  AND `transactions`.`PaymentFor` = 'PCUM'
-        		";
+    		WHERE `transactions`.`status` != 'OldPaid' AND  `sender_info`.`item_status`='Assigned'
+    		AND  `assign_derivery`.`service_type`='PCUM'  AND `transactions`.`PaymentFor` = 'PCUM'
+    		";
 
-        	}
-
-
+    	}
 
 
 
 
-        	$query=$db2->query($sql);
-        	$result = $query->result();
-        	return $result;
-        }
+
+
+    	$query=$db2->query($sql);
+    	$result = $query->result();
+    	return $result;
+    }
 
 
 
-        public  function get_mails_list_incoming(){
+    public  function get_mails_list_incoming(){
 
-        	$regionfrom = $this->session->userdata('user_region');
-        	$emid = $this->session->userdata('user_login_id');
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$tz = 'Africa/Nairobi';
-        	$tz_obj = new DateTimeZone($tz);
-        	$today = new DateTime("now", $tz_obj);
-        	$date = $today->format('Y-m-d');
+    	$regionfrom = $this->session->userdata('user_region');
+    	$emid = $this->session->userdata('user_login_id');
+    	$db2 = $this->load->database('otherdb', TRUE);
+    	$tz = 'Africa/Nairobi';
+    	$tz_obj = new DateTimeZone($tz);
+    	$today = new DateTime("now", $tz_obj);
+    	$date = $today->format('Y-m-d');
 		//$date1 = $this->session->userdata('date');
 
-        	$id = $this->session->userdata('user_login_id');
-        	$info = $this->GetBasic($id);
-        	$o_region = $info->em_region;
-        	$o_branch = $info->em_branch;
+    	$id = $this->session->userdata('user_login_id');
+    	$info = $this->GetBasic($id);
+    	$o_region = $info->em_region;
+    	$o_branch = $info->em_branch;
 
-        	$sql = "SELECT `sender_person_info`.*,`receiver_register_info`.*,`register_transactions`.* 
-        	FROM   `sender_person_info`  
-        	INNER JOIN  `receiver_register_info` ON  `receiver_register_info`.`sender_id` = `sender_person_info`.`senderp_id`
-        	INNER JOIN  `register_transactions`  ON   `sender_person_info`.`senderp_id`   = `register_transactions`.`register_id`  
-        	ORDER BY `sender_person_info`.`sender_date_created` DESC";
+    	$sql = "SELECT `sender_person_info`.*,`receiver_register_info`.*,`register_transactions`.* 
+    	FROM   `sender_person_info`  
+    	INNER JOIN  `receiver_register_info` ON  `receiver_register_info`.`sender_id` = `sender_person_info`.`senderp_id`
+    	INNER JOIN  `register_transactions`  ON   `sender_person_info`.`senderp_id`   = `register_transactions`.`register_id`  
+    	ORDER BY `sender_person_info`.`sender_date_created` DESC";
 
 
-        	$query=$db2->query($sql);
-        	$result = $query->result();
-        	return $result;
-        }
+    	$query=$db2->query($sql);
+    	$result = $query->result();
+    	return $result;
+    }
 
-        public  function get_pcum_list_incoming(){
+    public  function get_pcum_list_incoming(){
 
-        	$regionfrom = $this->session->userdata('user_region');
-        	$emid = $this->session->userdata('user_login_id');
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$tz = 'Africa/Nairobi';
-        	$tz_obj = new DateTimeZone($tz);
-        	$today = new DateTime("now", $tz_obj);
-        	$date = $today->format('Y-m-d');
+    	$regionfrom = $this->session->userdata('user_region');
+    	$emid = $this->session->userdata('user_login_id');
+    	$db2 = $this->load->database('otherdb', TRUE);
+    	$tz = 'Africa/Nairobi';
+    	$tz_obj = new DateTimeZone($tz);
+    	$today = new DateTime("now", $tz_obj);
+    	$date = $today->format('Y-m-d');
 		//$date1 = $this->session->userdata('date');
 
-        	$id = $this->session->userdata('user_login_id');
-        	$info = $this->GetBasic($id);
-        	$o_region = $info->em_region;
-        	$o_branch = $info->em_branch;
+    	$id = $this->session->userdata('user_login_id');
+    	$info = $this->GetBasic($id);
+    	$o_region = $info->em_region;
+    	$o_branch = $info->em_branch;
 
-        	$sql = "SELECT `sender_info`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.* FROM `sender_info`
-        	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-        	LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
-        	LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-        	WHERE `transactions`.`status` != 'OldPaid' AND `transactions`.`PaymentFor` = 'PCUM' AND `transactions`.`office_name` = 'Counter' ORDER BY `sender_info`.`sender_id` DESC";
+    	$sql = "SELECT `sender_info`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.* FROM `sender_info`
+    	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
+    	LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
+    	LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
+    	WHERE `transactions`.`status` != 'OldPaid' AND `transactions`.`PaymentFor` = 'PCUM' AND `transactions`.`office_name` = 'Counter' ORDER BY `sender_info`.`sender_id` DESC";
 
 
-        	$query=$db2->query($sql);
-        	$result = $query->result();
-        	return $result;
-        }
+    	$query=$db2->query($sql);
+    	$result = $query->result();
+    	return $result;
+    }
 
 	public  function get_item_from_bags($trn){ // bags where bag_number bag_branch_from
 
@@ -11301,7 +11228,7 @@ public  function get_details_per_date_by_emid_Parking212($type,$year,$month,$day
                          $query=$db2->query($sql);
                          $result = $query->result();
                          return $result;
-                       }
+                     }
 
 
 
@@ -11309,36 +11236,36 @@ public  function get_details_per_date_by_emid_Parking212($type,$year,$month,$day
 
 
 
-                       public  function get_details_per_date_by_emid_Sender_person($type,$year,$month,$day,$emid,$DB){
+                     public  function get_details_per_date_by_emid_Sender_person($type,$year,$month,$day,$emid,$DB){
 
-                       	$regionfrom = $this->session->userdata('user_region');
-                       	$db2 = $this->load->database('otherdb', TRUE);
-                       	$id = $this->session->userdata('user_login_id');
-                       	$info = $this->GetBasic($id);
-                       	$o_region = $info->em_region;
-                       	$o_branch = $info->em_branch;
-
-
-                       	$sql = "SELECT 
-
-                       	`sender_person_info`.`sender_date_created` as date_registered ,
-                       	`sender_person_info`.`track_number`,
-                       	`sender_person_info`.`sender_region` as s_region ,
-                       	`sender_person_info`.`sender_branch` as s_district ,
-                       	`sender_person_info`.`senderp_id` as sender_id ,
-                       	`sender_person_info`.`sender_fullname` as s_fullname ,
-                       	`sender_person_info`.`operator`,
-                       	`sender_person_info`.`sender_status` as s_status ,
-                       	`sender_person_info`.`sender_address` as s_address ,
-                       	`sender_person_info`.`sender_email` as s_email ,
-                       	`sender_person_info`.`sender_mobile` as s_mobile ,
+                     	$regionfrom = $this->session->userdata('user_region');
+                     	$db2 = $this->load->database('otherdb', TRUE);
+                     	$id = $this->session->userdata('user_login_id');
+                     	$info = $this->GetBasic($id);
+                     	$o_region = $info->em_region;
+                     	$o_branch = $info->em_branch;
 
 
-                       	`receiver_register_info`.`receiver_region` as r_region ,
-                       	`receiver_register_info`.`reciver_branch` as branch ,
-                       	`receiver_register_info`.`receiver_id`,
-                       	`receiver_register_info`.`receiver_fullname` as fullname ,
-                       	`receiver_register_info`.`r_address` as address ,
+                     	$sql = "SELECT 
+
+                     	`sender_person_info`.`sender_date_created` as date_registered ,
+                     	`sender_person_info`.`track_number`,
+                     	`sender_person_info`.`sender_region` as s_region ,
+                     	`sender_person_info`.`sender_branch` as s_district ,
+                     	`sender_person_info`.`senderp_id` as sender_id ,
+                     	`sender_person_info`.`sender_fullname` as s_fullname ,
+                     	`sender_person_info`.`operator`,
+                     	`sender_person_info`.`sender_status` as s_status ,
+                     	`sender_person_info`.`sender_address` as s_address ,
+                     	`sender_person_info`.`sender_email` as s_email ,
+                     	`sender_person_info`.`sender_mobile` as s_mobile ,
+
+
+                     	`receiver_register_info`.`receiver_region` as r_region ,
+                     	`receiver_register_info`.`reciver_branch` as branch ,
+                     	`receiver_register_info`.`receiver_id`,
+                     	`receiver_register_info`.`receiver_fullname` as fullname ,
+                     	`receiver_register_info`.`r_address` as address ,
 		-- `receiver_register_info`.`email`,
 		`receiver_register_info`.`receiver_mobile` as mobile,
 
@@ -14045,498 +13972,498 @@ public function get_senderinfo_senderID($senderid){
                $query  = $db2->query($sql);
                $result = $query->row();
                return $result;
-             }
+           }
 
-             public function ems_catPriceWeight10($emsCat,$tranWeight){
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT * FROM `ems_tariff_price` WHERE `cat_id`='$emsCat' AND `tariff_weight` >= '$tranWeight' LIMIT 1";
+           public function ems_catPriceWeight10($emsCat,$tranWeight){
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT * FROM `ems_tariff_price` WHERE `cat_id`='$emsCat' AND `tariff_weight` >= '$tranWeight' LIMIT 1";
 
-             	$query  = $db2->query($sql);
-             	$resultTarrif = $query->row();
+           	$query  = $db2->query($sql);
+           	$resultTarrif = $query->row();
 
 
-             	if($tranWeight > 10){
+           	if($tranWeight > 10){
 
-             		$weight10    = 10;
+           		$weight10    = 10;
 
-             		$resData['vat']       = isset($resultTarrif->vat);
-             		$resData['emsprice']     = isset($resultTarrif->tariff_price);
+           		$resData['vat']       = isset($resultTarrif->vat);
+           		$resData['emsprice']     = isset($resultTarrif->tariff_price);
 
-             		$totalprice10 = $resData['vat']  + $resData['emsprice'];
+           		$totalprice10 = $resData['vat']  + $resData['emsprice'];
 
-             		$diff   =  $tranWeight - $weight10;
+           		$diff   =  $tranWeight - $weight10;
 
-             		if ($diff <= 0.5) {
+           		if ($diff <= 0.5) {
 
-             			if ($emsCat == 1) {
-             				$resData['totalPrice'] = $totalprice10 + 2300;
-             			} else {
-             				$resData['totalPrice'] = $totalprice10 + 3500;
-             			}
+           			if ($emsCat == 1) {
+           				$resData['totalPrice'] = $totalprice10 + 2300;
+           			} else {
+           				$resData['totalPrice'] = $totalprice10 + 3500;
+           			}
 
-             		} else {
+           		} else {
 
-             			$whole   = floor($diff);
-             			$decimal = fmod($diff,1);
+           			$whole   = floor($diff);
+           			$decimal = fmod($diff,1);
 
-             			if ($decimal == 0) {
+           			if ($decimal == 0) {
 
-             				if ($emsCat == 1) {
-             					$resData['totalPrice'] = $totalprice10 + ($whole*1000/500)*2300;
-             				} else {
-             					$resData['totalPrice'] = $totalprice10 + ($whole*1000/500)*3500;
-             				}
+           				if ($emsCat == 1) {
+           					$resData['totalPrice'] = $totalprice10 + ($whole*1000/500)*2300;
+           				} else {
+           					$resData['totalPrice'] = $totalprice10 + ($whole*1000/500)*3500;
+           				}
 
-             			} else {
+           			} else {
 
-             				if ($decimal <= 0.5) {
+           				if ($decimal <= 0.5) {
 
-             					if ($emsCat == 1) {
-             						$resData['totalPrice'] = $totalprice10 + ($whole*1000/500)*2300 + 2300;
-             					} else {
-             						$resData['totalPrice'] = $totalprice10 + ($whole*1000/500)*3500 + 3500;
-             					}
+           					if ($emsCat == 1) {
+           						$resData['totalPrice'] = $totalprice10 + ($whole*1000/500)*2300 + 2300;
+           					} else {
+           						$resData['totalPrice'] = $totalprice10 + ($whole*1000/500)*3500 + 3500;
+           					}
 
-             				} else {
+           				} else {
 
-             					if ($emsCat == 1) {
-             						$resData['totalPrice'] = $totalprice10 + ($whole*1000/500)*2300 + 2300+2300;
-             					} else {
-             						$resData['totalPrice'] = $totalprice10 + ($whole*1000/500)*3500 + 3500+3500;
-             					}
-             				}
+           					if ($emsCat == 1) {
+           						$resData['totalPrice'] = $totalprice10 + ($whole*1000/500)*2300 + 2300+2300;
+           					} else {
+           						$resData['totalPrice'] = $totalprice10 + ($whole*1000/500)*3500 + 3500+3500;
+           					}
+           				}
 
-             			}
-             		}
+           			}
+           		}
 
 	 //update
 	//   $resData['vat']       = $resData['totalPrice'] * 0.18;
     //  $resData['emsprice']     = $resData['totalPrice'];
 	//  $resData['totalPrice'] = $resData['emsprice'] + $resData['vat'];
 
-             	}else{
-             		$resData['vat'] = $resultTarrif->vat;
-             		$resData['emsprice'] = $resultTarrif->tariff_price;
-             		$resData['totalPrice'] = $resData['vat'] + $resData['emsprice'];
-             	}
+           	}else{
+           		$resData['vat'] = $resultTarrif->vat;
+           		$resData['emsprice'] = $resultTarrif->tariff_price;
+           		$resData['totalPrice'] = $resData['vat'] + $resData['emsprice'];
+           	}
 
-             	return $resData;
-             }
-
-
-             public function ems_cat_price10($emsCat,$weight10){
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT * FROM `ems_tariff_price` WHERE `cat_id`='$emsCat' AND `tariff_weight` >= '$weight10' LIMIT 1";
-             	$query  = $db2->query($sql);
-             	$result = $query->row();
-             	return $result;
-             }
-
-             public function check_barcode($barcode){
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT * FROM `transactions` WHERE `Barcode`='$barcode'";
-             	$query  = $db2->query($sql);
-             	$result = $query->row_array();
-             	return $result;
-             }
-
-             public function check_mails_barcode($barcode){
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT * FROM `register_transactions` WHERE `Barcode`='$barcode'";
-
-             	$query  = $db2->query($sql);
-             	$result = $query->row_array();
-             	return $result;
-             }
-
-             public function check_payment($id,$type){
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT * FROM `transactions` WHERE `id`='$id'";
-             	$query  = $db2->query($sql);
-             	$result = $query->row();
-             	return $result;
-             }
-             public function get_Details($id){
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT * FROM `bags` WHERE `bag_id`='$id'";
-             	$query  = $db2->query($sql);
-             	$result = $query->row();
-             	return $result;
-             }
-             public function getTrackNo($sid){
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT * FROM `sender_info` WHERE `sender_id`='$sid'";
-             	$query  = $db2->query($sql);
-             	$result = $query->row();
-             	return $result;
-             }
-             public function getTrackNo1($sid){
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT * FROM `sender_person_info` WHERE `senderp_id`='$sid'";
-             	$query  = $db2->query($sql);
-             	$result = $query->row();
-             	return $result;
-             }
-             public function get_customer_infos($I){
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT * FROM `bill_credit_customer` WHERE `credit_id`='$I'";
-             	$query  = $db2->query($sql);
-             	$result = $query->row();
-             	return $result;
-             }
-
-             public function get_customer_infos1($I){
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT * FROM `bill_credit_customer` WHERE `acc_no`='$I'";
-             	$query  = $db2->query($sql);
-             	$result = $query->row();
-             	return $result;
-             }
-
-             public function get_customer_infos_new($acc_no){
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT * FROM `credit_customer` WHERE `acc_no`='$acc_no'";
-             	$query  = $db2->query($sql);
-             	$result = $query->row();
-             	return $result;
-             }
+           	return $resData;
+           }
 
 
+           public function ems_cat_price10($emsCat,$weight10){
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT * FROM `ems_tariff_price` WHERE `cat_id`='$emsCat' AND `tariff_weight` >= '$weight10' LIMIT 1";
+           	$query  = $db2->query($sql);
+           	$result = $query->row();
+           	return $result;
+           }
 
-             public function get_credit_customer_byId($I){
+           public function check_barcode($barcode){
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT * FROM `transactions` WHERE `Barcode`='$barcode'";
+           	$query  = $db2->query($sql);
+           	$result = $query->row_array();
+           	return $result;
+           }
 
-             	$id = $this->session->userdata('user_login_id');
-             	$info = $this->GetBasic($id);
-             	$o_region = $info->em_region;
-             	$o_branch = $info->em_branch;
+           public function check_mails_barcode($barcode){
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT * FROM `register_transactions` WHERE `Barcode`='$barcode'";
 
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT * FROM `credit_customer` WHERE `credit_id` = '$I'";
+           	$query  = $db2->query($sql);
+           	$result = $query->row_array();
+           	return $result;
+           }
 
-             	$query  = $db2->query($sql);
-             	$result = $query->row();
-             	return $result;
-             }
-             public function get_credit_customer_byAcc($acc){
+           public function check_payment($id,$type){
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT * FROM `transactions` WHERE `id`='$id'";
+           	$query  = $db2->query($sql);
+           	$result = $query->row();
+           	return $result;
+           }
+           public function get_Details($id){
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT * FROM `bags` WHERE `bag_id`='$id'";
+           	$query  = $db2->query($sql);
+           	$result = $query->row();
+           	return $result;
+           }
+           public function getTrackNo($sid){
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT * FROM `sender_info` WHERE `sender_id`='$sid'";
+           	$query  = $db2->query($sql);
+           	$result = $query->row();
+           	return $result;
+           }
+           public function getTrackNo1($sid){
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT * FROM `sender_person_info` WHERE `senderp_id`='$sid'";
+           	$query  = $db2->query($sql);
+           	$result = $query->row();
+           	return $result;
+           }
+           public function get_customer_infos($I){
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT * FROM `bill_credit_customer` WHERE `credit_id`='$I'";
+           	$query  = $db2->query($sql);
+           	$result = $query->row();
+           	return $result;
+           }
 
-             	$id = $this->session->userdata('user_login_id');
-             	$info = $this->GetBasic($id);
-             	$o_region = $info->em_region;
-             	$o_branch = $info->em_branch;
+           public function get_customer_infos1($I){
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT * FROM `bill_credit_customer` WHERE `acc_no`='$I'";
+           	$query  = $db2->query($sql);
+           	$result = $query->row();
+           	return $result;
+           }
 
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT `customer_region` FROM `credit_customer` WHERE `acc_no` = '$acc' GROUP BY `customer_region`";
+           public function get_customer_infos_new($acc_no){
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT * FROM `credit_customer` WHERE `acc_no`='$acc_no'";
+           	$query  = $db2->query($sql);
+           	$result = $query->row();
+           	return $result;
+           }
 
-             	$query  = $db2->query($sql);
-             	$result = $query->result();
-             	return $result;
-             }
-             public function get_credit_customer_byAcc1($acc){
 
-             	$id = $this->session->userdata('user_login_id');
-             	$info = $this->GetBasic($id);
-             	$o_region = $info->em_region;
-             	$o_branch = $info->em_branch;
 
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT `customer_branch` FROM `credit_customer` WHERE `acc_no` = '$acc' GROUP BY `customer_region`";
+           public function get_credit_customer_byId($I){
 
-             	$query  = $db2->query($sql);
-             	$result = $query->result();
-             	return $result;
-             }
-             public function getCustomerInformation($acc_no){
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT * FROM `credit_customer` WHERE `acc_no` = '$acc_no'";
-             	$query  = $db2->query($sql);
-             	$result = $query->row();
-             	return $result;
-             }
-             public function get_counter(){
-             	$id = $this->session->userdata('user_login_id');
-             	$info = $this->employee_model->GetBasic($id);
-             	$o_region = $info->em_region;
-             	$o_branch = $info->em_branch;
+           	$id = $this->session->userdata('user_login_id');
+           	$info = $this->GetBasic($id);
+           	$o_region = $info->em_region;
+           	$o_branch = $info->em_branch;
 
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT * FROM `counters` WHERE `counter_region` = '$o_region' AND `counter_branch` = '$o_branch'";
-             	$query  = $db2->query($sql);
-             	$result = $query->result();
-             	return $result;
-             }
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT * FROM `credit_customer` WHERE `credit_id` = '$I'";
 
-             public function delete_zone($zone_id){
+           	$query  = $db2->query($sql);
+           	$result = $query->row();
+           	return $result;
+           }
+           public function get_credit_customer_byAcc($acc){
 
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$db2->delete('zones',array('zone_id' => $zone_id ));
+           	$id = $this->session->userdata('user_login_id');
+           	$info = $this->GetBasic($id);
+           	$o_region = $info->em_region;
+           	$o_branch = $info->em_branch;
 
-             }
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT `customer_region` FROM `credit_customer` WHERE `acc_no` = '$acc' GROUP BY `customer_region`";
 
-             public function delete_zoneregionID($zone_id){
+           	$query  = $db2->query($sql);
+           	$result = $query->result();
+           	return $result;
+           }
+           public function get_credit_customer_byAcc1($acc){
 
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$db2->delete('zone_region',array('zone_id' => $zone_id ));
+           	$id = $this->session->userdata('user_login_id');
+           	$info = $this->GetBasic($id);
+           	$o_region = $info->em_region;
+           	$o_branch = $info->em_branch;
 
-             }
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT `customer_branch` FROM `credit_customer` WHERE `acc_no` = '$acc' GROUP BY `customer_region`";
 
-             public function get_zone(){
-             	$id = $this->session->userdata('user_login_id');
-             	$info = $this->employee_model->GetBasic($id);
-             	$o_region = $info->em_region;
-             	$o_branch = $info->em_branch;
+           	$query  = $db2->query($sql);
+           	$result = $query->result();
+           	return $result;
+           }
+           public function getCustomerInformation($acc_no){
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT * FROM `credit_customer` WHERE `acc_no` = '$acc_no'";
+           	$query  = $db2->query($sql);
+           	$result = $query->row();
+           	return $result;
+           }
+           public function get_counter(){
+           	$id = $this->session->userdata('user_login_id');
+           	$info = $this->employee_model->GetBasic($id);
+           	$o_region = $info->em_region;
+           	$o_branch = $info->em_branch;
 
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql    = "SELECT * FROM `zones` WHERE `zone_region` = '$o_region' AND `zone_branch` = '$o_branch'";
-             	$query  = $db2->query($sql);
-             	$result = $query->result();
-             	return $result;
-             }
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT * FROM `counters` WHERE `counter_region` = '$o_region' AND `counter_branch` = '$o_branch'";
+           	$query  = $db2->query($sql);
+           	$result = $query->result();
+           	return $result;
+           }
 
-             public function check_zone_regionlist(){
+           public function delete_zone($zone_id){
 
-             	$db2 = $this->load->database('otherdb', TRUE);
-             	$sql = "SELECT `zone_region`.*, `zones`.*
-             	FROM `zone_region`
-             	LEFT JOIN `zones` ON `zone_region`.`zone_id`=`zones`.`zone_id`
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$db2->delete('zones',array('zone_id' => $zone_id ));
+
+           }
+
+           public function delete_zoneregionID($zone_id){
+
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$db2->delete('zone_region',array('zone_id' => $zone_id ));
+
+           }
+
+           public function get_zone(){
+           	$id = $this->session->userdata('user_login_id');
+           	$info = $this->employee_model->GetBasic($id);
+           	$o_region = $info->em_region;
+           	$o_branch = $info->em_branch;
+
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql    = "SELECT * FROM `zones` WHERE `zone_region` = '$o_region' AND `zone_branch` = '$o_branch'";
+           	$query  = $db2->query($sql);
+           	$result = $query->result();
+           	return $result;
+           }
+
+           public function check_zone_regionlist(){
+
+           	$db2 = $this->load->database('otherdb', TRUE);
+           	$sql = "SELECT `zone_region`.*, `zones`.*
+           	FROM `zone_region`
+           	LEFT JOIN `zones` ON `zone_region`.`zone_id`=`zones`.`zone_id`
           -- WHERE `zones`.`zone_id` !=''
           -- GROUP BY `zones`.`zone_id` ";
           $query  = $db2->query($sql);
           $result = $query->result();
           return $result;
-        }
+      }
 
-        public function check_zone_employlist($emid){
+      public function check_zone_employlist($emid){
 
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$sql = "SELECT `zone_employee`.*, `zones`.*
-        	FROM `zone_employee`
-        	LEFT JOIN `zones` ON `zone_employee`.`zone_id`=`zones`.`zone_id`
-        	WHERE `zone_employee`.`emid` ='$emid'
-        	-- GROUP BY `zones`.`zone_id` ";
-        	$query  = $db2->query($sql);
-        	$result = $query->result();
-        	return $result;
-        }
-
-
-
-        public function GetEmployeeAssignedByDate($region_id){
-
-        	$sql    = "SELECT * FROM `em_region` WHERE `region_name`='$region_id'";
-        	$query  = $this->db->query($sql);
-        	$result = $query->row();
-        	$id = $result->region_id;
-
-        	$this->db->where('region_id',$id);
-        	$this->db->order_by('district_name');
-        	$query = $this->db->get('em_district');
-        	$output ='<option value="">--Select District--</option>';
-        	foreach ($query->result() as $row) {
-        		$output .='<option value="'.$row->district_name.'">'.$row->district_name.'</option>';
-        	}
-        	return $output;
-        }
-
-        public function get_counters_byId($id){
-
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$sql    = "SELECT * FROM `counters` WHERE `counter_id` = '$id'";
-        	$query  = $db2->query($sql);
-        	$result = $query->row();
-        	return $result;
-        }
-        public function get_zone_byId($zone_id){
-
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$sql    = "SELECT * FROM `zones` WHERE `zone_id` = '$zone_id'";
-        	$query  = $db2->query($sql);
-        	$result = $query->row();
-        	return $result;
-        }
-
-        public function get_region_byZoneId($zone_id){
-
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$sql    = "SELECT * FROM `zone_region` WHERE `zone_id` = '$zone_id'";
-        	$query  = $db2->query($sql);
-        	$result = $query->result();
-        	return $result;
-        }
-
-        public function get_bag_number($id){
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$sql    = "SELECT * FROM `bags` WHERE `despatch_no`='$id'";
-        	$query  = $db2->query($sql);
-        	$result = $query->result();
-        	return $result;
-        }
-
-        public function get_bag_itemlist($bag_number){
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$sql    = "SELECT * FROM `transactions` WHERE `isBagNo`='$bag_number'";
-        	$query  = $db2->query($sql);
-        	$result = $query->result();
-        	return $result;
-        }
-
-        public function get_bag_by_id($id){
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$sql    = "SELECT * FROM `bags` WHERE `bag_id`='$id'";
-        	$query  = $db2->query($sql);
-        	$result = $query->row();
-        	return $result;
-        }
-        public function get_sender_id($ids){
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$sql    = "SELECT * FROM `transactions` WHERE `isBagNo`='$ids'";
-        	$query  = $db2->query($sql);
-        	$result = $query->row();
-        	return $result;
-        }
-        public function qrcode_list(){
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$sql    = "SELECT * FROM `bags` WHERE `bags`.`bags_status` != 'isDespatch'";
-        	$query  = $db2->query($sql);
-        	$result = $query->result();
-        	return $result;
-        }
-        public function getSumPostPaid($type){
-
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$sql    = "SELECT SUM(paidamount) as paidamount FROM `transactions` WHERE `transactions`.`PaymentFor` = 'EMS' AND `transactions`.`status` = 'Bill' AND `transactions`.`customer_acc` = '$type'";
-
-        	$query  = $db2->query($sql);
-        	$result = $query->row();
-        	return $result;
-        }
-
-        public function get_ems_sum(){
-        	$id = $this->session->userdata('user_login_id');
-        	$info = $this->employee_model->GetBasic($id);
-        	$o_region = $info->em_region;
-        	$o_branch = $info->em_branch;
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$tz = 'Africa/Nairobi';
-        	$tz_obj = new DateTimeZone($tz);
-        	$today = new DateTime("now", $tz_obj);
-        	$date = $today->format('Y-m-d');
-
-        	if ( $this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
-
-        		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount` 
-        		FROM `sender_info` 
-        		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
-
-        		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `transactions`.`status` = 'Paid' AND date(`sender_info`.`date_registered`) = '$date' AND `sender_info`.`s_region` = '$o_region' AND `sender_info`.`s_district` = '$o_branch' AND `sender_info`.`operator` = '$id'";
-
-        	}elseif($this->session->userdata('user_type') == 'RM' || $this->session->userdata('user_type') == 'ACCOUNTANT'){
-        		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount` 
-        		FROM `sender_info` 
-        		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
-
-        		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `transactions`.`status` = 'Paid' AND date(`sender_info`.`date_registered`) = '$date' AND `sender_info`.`s_region` = '$o_region' ";
-        	}else{
-
-        		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount` 
-        		FROM `sender_info` 
-        		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
-
-        		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `transactions`.`status` = 'Paid' AND date(`sender_info`.`date_registered`) = '$date'";
-        	}
-
-        	$query  = $db2->query($sql);
-        	$result = $query->row();
-        	return $result;
-        }
-
-        public function get_ems_bill_sum(){
-        	$id = $this->session->userdata('user_login_id');
-        	$info = $this->employee_model->GetBasic($id);
-        	$o_region = $info->em_region;
-        	$o_branch = $info->em_branch;
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$tz = 'Africa/Nairobi';
-        	$tz_obj = new DateTimeZone($tz);
-        	$today = new DateTime("now", $tz_obj);
-        	$date = $today->format('Y-m-d');
-
-        	if ( $this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
-
-        		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount` 
-        		FROM `sender_info` 
-        		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
-
-        		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `transactions`.`status` = 'Bill' AND date(`sender_info`.`date_registered`) = '$date' AND `sender_info`.`operator` = '$id'";
-
-        	}elseif($this->session->userdata('user_type') == 'RM' || $this->session->userdata('user_type') == 'ACCOUNTANT'){
-        		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount` 
-        		FROM `sender_info` 
-        		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
-
-        		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `transactions`.`status` = 'Bill' AND date(`sender_info`.`date_registered`) = '$date' AND `sender_info`.`s_region` = '$o_region' ";
-        	}else{
-
-        		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount` 
-        		FROM `sender_info` 
-        		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
-
-        		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `transactions`.`status` = 'Bill' AND date(`sender_info`.`date_registered`) = '$date'";
-        	}
-
-        	$query  = $db2->query($sql);
-        	$result = $query->row();
-        	return $result;
-        }
-
-        public function get_ems_sum_sent(){
-        	$id = $this->session->userdata('user_login_id');
-        	$info = $this->employee_model->GetBasic($id);
-        	$o_region = $info->em_region;
-        	$o_branch = $info->em_branch;
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$tz = 'Africa/Nairobi';
-        	$tz_obj = new DateTimeZone($tz);
-        	$today = new DateTime("now", $tz_obj);
-        	$date = $today->format('Y-m-d');
-
-        	if ( $this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
-
-        		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount`,COUNT(`transactions`.`paidamount`) AS `number` 
-        		FROM `sender_info` 
-        		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
-
-        		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'LOAN BOARD') AND `transactions`.`status` = 'Paid' AND date(`sender_info`.`date_registered`) = '$date' AND `sender_info`.`s_region` = '$o_region' AND `sender_info`.`s_district` = '$o_branch' AND `sender_info`.`operator` = '$id' AND( `transactions`.`office_name` = 'Back' OR `transactions`.`office_name` = 'Received')";
-
-        	}elseif($this->session->userdata('user_type') == 'RM' || $this->session->userdata('user_type') == 'ACCOUNTANT'){
-        		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount` 
-        		FROM `sender_info` 
-        		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
-
-        		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'LOAN BOARD') AND `transactions`.`status` = 'Paid' AND date(`sender_info`.`date_registered`) = '$date' AND `sender_info`.`s_region` = '$o_region' ";
-        	}else{
-
-        		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount` 
-        		FROM `sender_info` 
-        		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
-
-        		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'LOAN BOARD') AND `transactions`.`status` = 'Paid' AND date(`sender_info`.`date_registered`) = '$date'";
-        	}
-
-        	$query  = $db2->query($sql);
-        	$result = $query->row();
-        	return $result;
-        }
+      	$db2 = $this->load->database('otherdb', TRUE);
+      	$sql = "SELECT `zone_employee`.*, `zones`.*
+      	FROM `zone_employee`
+      	LEFT JOIN `zones` ON `zone_employee`.`zone_id`=`zones`.`zone_id`
+      	WHERE `zone_employee`.`emid` ='$emid'
+      	-- GROUP BY `zones`.`zone_id` ";
+      	$query  = $db2->query($sql);
+      	$result = $query->result();
+      	return $result;
+      }
 
 
-        public function get_ems_sum22(){
-        	$id = $this->session->userdata('user_login_id');
-        	$info = $this->employee_model->GetBasic($id);
-        	$o_region = $info->em_region;
-        	$o_branch = $info->em_branch;
-        	$db2 = $this->load->database('otherdb', TRUE);
-        	$tz = 'Africa/Nairobi';
-        	$tz_obj = new DateTimeZone($tz);
-        	$today = new DateTime("now", $tz_obj);
+
+      public function GetEmployeeAssignedByDate($region_id){
+
+      	$sql    = "SELECT * FROM `em_region` WHERE `region_name`='$region_id'";
+      	$query  = $this->db->query($sql);
+      	$result = $query->row();
+      	$id = $result->region_id;
+
+      	$this->db->where('region_id',$id);
+      	$this->db->order_by('district_name');
+      	$query = $this->db->get('em_district');
+      	$output ='<option value="">--Select District--</option>';
+      	foreach ($query->result() as $row) {
+      		$output .='<option value="'.$row->district_name.'">'.$row->district_name.'</option>';
+      	}
+      	return $output;
+      }
+
+      public function get_counters_byId($id){
+
+      	$db2 = $this->load->database('otherdb', TRUE);
+      	$sql    = "SELECT * FROM `counters` WHERE `counter_id` = '$id'";
+      	$query  = $db2->query($sql);
+      	$result = $query->row();
+      	return $result;
+      }
+      public function get_zone_byId($zone_id){
+
+      	$db2 = $this->load->database('otherdb', TRUE);
+      	$sql    = "SELECT * FROM `zones` WHERE `zone_id` = '$zone_id'";
+      	$query  = $db2->query($sql);
+      	$result = $query->row();
+      	return $result;
+      }
+
+      public function get_region_byZoneId($zone_id){
+
+      	$db2 = $this->load->database('otherdb', TRUE);
+      	$sql    = "SELECT * FROM `zone_region` WHERE `zone_id` = '$zone_id'";
+      	$query  = $db2->query($sql);
+      	$result = $query->result();
+      	return $result;
+      }
+
+      public function get_bag_number($id){
+      	$db2 = $this->load->database('otherdb', TRUE);
+      	$sql    = "SELECT * FROM `bags` WHERE `despatch_no`='$id'";
+      	$query  = $db2->query($sql);
+      	$result = $query->result();
+      	return $result;
+      }
+
+      public function get_bag_itemlist($bag_number){
+      	$db2 = $this->load->database('otherdb', TRUE);
+      	$sql    = "SELECT * FROM `transactions` WHERE `isBagNo`='$bag_number'";
+      	$query  = $db2->query($sql);
+      	$result = $query->result();
+      	return $result;
+      }
+
+      public function get_bag_by_id($id){
+      	$db2 = $this->load->database('otherdb', TRUE);
+      	$sql    = "SELECT * FROM `bags` WHERE `bag_id`='$id'";
+      	$query  = $db2->query($sql);
+      	$result = $query->row();
+      	return $result;
+      }
+      public function get_sender_id($ids){
+      	$db2 = $this->load->database('otherdb', TRUE);
+      	$sql    = "SELECT * FROM `transactions` WHERE `isBagNo`='$ids'";
+      	$query  = $db2->query($sql);
+      	$result = $query->row();
+      	return $result;
+      }
+      public function qrcode_list(){
+      	$db2 = $this->load->database('otherdb', TRUE);
+      	$sql    = "SELECT * FROM `bags` WHERE `bags`.`bags_status` != 'isDespatch'";
+      	$query  = $db2->query($sql);
+      	$result = $query->result();
+      	return $result;
+      }
+      public function getSumPostPaid($type){
+
+      	$db2 = $this->load->database('otherdb', TRUE);
+      	$sql    = "SELECT SUM(paidamount) as paidamount FROM `transactions` WHERE `transactions`.`PaymentFor` = 'EMS' AND `transactions`.`status` = 'Bill' AND `transactions`.`customer_acc` = '$type'";
+
+      	$query  = $db2->query($sql);
+      	$result = $query->row();
+      	return $result;
+      }
+
+      public function get_ems_sum(){
+      	$id = $this->session->userdata('user_login_id');
+      	$info = $this->employee_model->GetBasic($id);
+      	$o_region = $info->em_region;
+      	$o_branch = $info->em_branch;
+      	$db2 = $this->load->database('otherdb', TRUE);
+      	$tz = 'Africa/Nairobi';
+      	$tz_obj = new DateTimeZone($tz);
+      	$today = new DateTime("now", $tz_obj);
+      	$date = $today->format('Y-m-d');
+
+      	if ( $this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
+
+      		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount` 
+      		FROM `sender_info` 
+      		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
+
+      		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `transactions`.`status` = 'Paid' AND date(`sender_info`.`date_registered`) = '$date' AND `sender_info`.`s_region` = '$o_region' AND `sender_info`.`s_district` = '$o_branch' AND `sender_info`.`operator` = '$id'";
+
+      	}elseif($this->session->userdata('user_type') == 'RM' || $this->session->userdata('user_type') == 'ACCOUNTANT'){
+      		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount` 
+      		FROM `sender_info` 
+      		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
+
+      		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `transactions`.`status` = 'Paid' AND date(`sender_info`.`date_registered`) = '$date' AND `sender_info`.`s_region` = '$o_region' ";
+      	}else{
+
+      		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount` 
+      		FROM `sender_info` 
+      		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
+
+      		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `transactions`.`status` = 'Paid' AND date(`sender_info`.`date_registered`) = '$date'";
+      	}
+
+      	$query  = $db2->query($sql);
+      	$result = $query->row();
+      	return $result;
+      }
+
+      public function get_ems_bill_sum(){
+      	$id = $this->session->userdata('user_login_id');
+      	$info = $this->employee_model->GetBasic($id);
+      	$o_region = $info->em_region;
+      	$o_branch = $info->em_branch;
+      	$db2 = $this->load->database('otherdb', TRUE);
+      	$tz = 'Africa/Nairobi';
+      	$tz_obj = new DateTimeZone($tz);
+      	$today = new DateTime("now", $tz_obj);
+      	$date = $today->format('Y-m-d');
+
+      	if ( $this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
+
+      		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount` 
+      		FROM `sender_info` 
+      		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
+
+      		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `transactions`.`status` = 'Bill' AND date(`sender_info`.`date_registered`) = '$date' AND `sender_info`.`operator` = '$id'";
+
+      	}elseif($this->session->userdata('user_type') == 'RM' || $this->session->userdata('user_type') == 'ACCOUNTANT'){
+      		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount` 
+      		FROM `sender_info` 
+      		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
+
+      		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `transactions`.`status` = 'Bill' AND date(`sender_info`.`date_registered`) = '$date' AND `sender_info`.`s_region` = '$o_region' ";
+      	}else{
+
+      		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount` 
+      		FROM `sender_info` 
+      		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
+
+      		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'EMS_LOANBOARD') AND `transactions`.`status` = 'Bill' AND date(`sender_info`.`date_registered`) = '$date'";
+      	}
+
+      	$query  = $db2->query($sql);
+      	$result = $query->row();
+      	return $result;
+      }
+
+      public function get_ems_sum_sent(){
+      	$id = $this->session->userdata('user_login_id');
+      	$info = $this->employee_model->GetBasic($id);
+      	$o_region = $info->em_region;
+      	$o_branch = $info->em_branch;
+      	$db2 = $this->load->database('otherdb', TRUE);
+      	$tz = 'Africa/Nairobi';
+      	$tz_obj = new DateTimeZone($tz);
+      	$today = new DateTime("now", $tz_obj);
+      	$date = $today->format('Y-m-d');
+
+      	if ( $this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
+
+      		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount`,COUNT(`transactions`.`paidamount`) AS `number` 
+      		FROM `sender_info` 
+      		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
+
+      		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'LOAN BOARD') AND `transactions`.`status` = 'Paid' AND date(`sender_info`.`date_registered`) = '$date' AND `sender_info`.`s_region` = '$o_region' AND `sender_info`.`s_district` = '$o_branch' AND `sender_info`.`operator` = '$id' AND( `transactions`.`office_name` = 'Back' OR `transactions`.`office_name` = 'Received')";
+
+      	}elseif($this->session->userdata('user_type') == 'RM' || $this->session->userdata('user_type') == 'ACCOUNTANT'){
+      		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount` 
+      		FROM `sender_info` 
+      		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
+
+      		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'LOAN BOARD') AND `transactions`.`status` = 'Paid' AND date(`sender_info`.`date_registered`) = '$date' AND `sender_info`.`s_region` = '$o_region' ";
+      	}else{
+
+      		$sql = "SELECT SUM(`transactions`.`paidamount`) AS `paidamount` 
+      		FROM `sender_info` 
+      		LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id` 
+
+      		LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id` WHERE (`transactions`.`PaymentFor` = 'EMS' OR `transactions`.`PaymentFor` = 'LOAN BOARD') AND `transactions`.`status` = 'Paid' AND date(`sender_info`.`date_registered`) = '$date'";
+      	}
+
+      	$query  = $db2->query($sql);
+      	$result = $query->row();
+      	return $result;
+      }
+
+
+      public function get_ems_sum22(){
+      	$id = $this->session->userdata('user_login_id');
+      	$info = $this->employee_model->GetBasic($id);
+      	$o_region = $info->em_region;
+      	$o_branch = $info->em_branch;
+      	$db2 = $this->load->database('otherdb', TRUE);
+      	$tz = 'Africa/Nairobi';
+      	$tz_obj = new DateTimeZone($tz);
+      	$today = new DateTime("now", $tz_obj);
 		$date = date('Y-m-d');//$today->format('Y-m-d');
 
 		if ( $this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
@@ -16710,28 +16637,28 @@ public  function get_ems_bill_sumACC($region,$date,$date2,$month,$month2,$year4)
         $db2->set('billid', $result->controlno);//if 2 columns
         $db2->where('serial', $serial);
         $db2->update('transactions');
-      }
+    }
 
         //print_r($result);
 
 		//echo $result;
-    }
-    public function getUpdatePayment($serial,$amount){
-    	$db2 = $this->load->database('otherdb', TRUE);
+}
+public function getUpdatePayment($serial,$amount){
+	$db2 = $this->load->database('otherdb', TRUE);
 
-    	$data = array(
-    		'AppID'=>'POSTAPORTAL',
-    		'serial'=>$serial,
-    		'BillAmt'=>$amount,
-    	);
+	$data = array(
+		'AppID'=>'POSTAPORTAL',
+		'serial'=>$serial,
+		'BillAmt'=>$amount,
+	);
 
-    	$url = "http://192.168.33.2/payments/paymentAPI.php";
-    	$ch = curl_init($url);
-    	$json = json_encode($data);
-    	curl_setopt($ch, CURLOPT_URL, $url);
+	$url = "http://192.168.33.2/payments/paymentAPI.php";
+	$ch = curl_init($url);
+	$json = json_encode($data);
+	curl_setopt($ch, CURLOPT_URL, $url);
 		// For xml, change the content-type.
-    	curl_setopt ($ch, CURLOPT_HTTPHEADER, Array("Content-Type: application/json"));
-    	curl_setopt($ch, CURLOPT_POST, 1);curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+	curl_setopt ($ch, CURLOPT_HTTPHEADER, Array("Content-Type: application/json"));
+	curl_setopt($ch, CURLOPT_POST, 1);curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // ask for results to be returned
 
 		// Send to remote and return data to caller.
@@ -16941,20 +16868,20 @@ public  function get_ems_bill_sumACC($region,$date,$date2,$month,$month2,$year4)
 	        $db2->update('parking_transactions');
 	        $db2->update('parking_wallet');
 
-	      } else{
+	    } else{
 
 		// //if (@$result->amount != 0) {
-	      	$db2->set('receipt', @$result->receipt);
+	    	$db2->set('receipt', @$result->receipt);
 		 	//$db2->set('paidamount', @$result->amount);
-	      	$db2->set('paychannel', @$result->channel);
-	      	$db2->set('paymentdate', @$result->paydate);
-	      	$db2->set('status', $paid);
+	    	$db2->set('paychannel', @$result->channel);
+	    	$db2->set('paymentdate', @$result->paydate);
+	    	$db2->set('status', $paid);
 	        $db2->set('billid', @$result->controlno);//if 2 columns
 	        $db2->where('serial', @$serial1);
 	        $db2->update('derivery_transactions');
 	        $db2->update('transactions');
 	        //$db2->update('derivery_transactions');
-	      }
+	    }
 		// }
 
 
@@ -16964,26 +16891,26 @@ public  function get_ems_bill_sumACC($region,$date,$date2,$month,$month2,$year4)
 
 		//echo $result;
 
-	    }
+	}
 
 
 
-	  }
+}
 
-	  public function getBillPaymentrepost($controlno){
-	  	$db2 = $this->load->database('otherdb', TRUE);
-	  	$data = array(
-	  		'AppID'=>'POSTAPORTAL',
-	  		'BillAmt'=>0,
-	  		'controlno'=>$controlno);
+public function getBillPaymentrepost($controlno){
+	$db2 = $this->load->database('otherdb', TRUE);
+	$data = array(
+		'AppID'=>'POSTAPORTAL',
+		'BillAmt'=>0,
+		'controlno'=>$controlno);
 
-	  	$url = "http://192.168.33.2/payments/paymentRepostAPI.php";
-	  	$ch = curl_init($url);
-	  	$json = json_encode($data);
-	  	curl_setopt($ch, CURLOPT_URL, $url);
+	$url = "http://192.168.33.2/payments/paymentRepostAPI.php";
+	$ch = curl_init($url);
+	$json = json_encode($data);
+	curl_setopt($ch, CURLOPT_URL, $url);
 		// For xml, change the content-type.
-	  	curl_setopt ($ch, CURLOPT_HTTPHEADER, Array("Content-Type: application/json"));
-	  	curl_setopt($ch, CURLOPT_POST, 1);curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+	curl_setopt ($ch, CURLOPT_HTTPHEADER, Array("Content-Type: application/json"));
+	curl_setopt($ch, CURLOPT_POST, 1);curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // ask for results to be returned
 
 		// Send to remote and return data to caller.
@@ -17334,32 +17261,32 @@ public  function get_ems_bill_sumACC($region,$date,$date2,$month,$month2,$year4)
         $db2->set('billid', $result->controlno);//if 2 columns
         $db2->where('serial', $serial);
         $db2->update('transactions');
-      }
+    }
 
         //print_r($result);
 
 		//echo $result;
-    }
+}
 
-    public function getControlNumber1($serial,$amount,$id){
+public function getControlNumber1($serial,$amount,$id){
 
-    	$sid = $id;
-    	$track = $this->getTrackNo($sid);
-    	$track2 = $this->getTrackNo1($sid);
+	$sid = $id;
+	$track = $this->getTrackNo($sid);
+	$track2 = $this->getTrackNo1($sid);
 
-    	$data = array(
-    		'AppID'=>'POSTAPORTAL',
-    		'serial'=>$serial,
-    		'BillAmt'=>$amount,
-    	);
+	$data = array(
+		'AppID'=>'POSTAPORTAL',
+		'serial'=>$serial,
+		'BillAmt'=>$amount,
+	);
 
-    	$url = "http://192.168.33.2/payments/paymentAPI.php";
-    	$ch = curl_init($url);
-    	$json = json_encode($data);
-    	curl_setopt($ch, CURLOPT_URL, $url);
+	$url = "http://192.168.33.2/payments/paymentAPI.php";
+	$ch = curl_init($url);
+	$json = json_encode($data);
+	curl_setopt($ch, CURLOPT_URL, $url);
 		// For xml, change the content-type.
-    	curl_setopt ($ch, CURLOPT_HTTPHEADER, Array("Content-Type: application/json"));
-    	curl_setopt($ch, CURLOPT_POST, 1);curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+	curl_setopt ($ch, CURLOPT_HTTPHEADER, Array("Content-Type: application/json"));
+	curl_setopt($ch, CURLOPT_POST, 1);curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // ask for results to be returned
 
 		// Send to remote and return data to caller.
@@ -17449,27 +17376,27 @@ public  function get_ems_bill_sumACC($region,$date,$date2,$month,$month2,$year4)
 	         $db2->update('sender_person_info');
 
 
-	       }
+	     }
 
-	       public function getControlNumber($serial,$amount,$id){
+	     public function getControlNumber($serial,$amount,$id){
 
-	       	$sid = $id;
-	       	$track = $this->getTrackNo($sid);
-	       	$track2 = $this->getTrackNo1($sid);
+	     	$sid = $id;
+	     	$track = $this->getTrackNo($sid);
+	     	$track2 = $this->getTrackNo1($sid);
 
-	       	$data = array(
-	       		'AppID'=>'POSTAPORTAL',
-	       		'serial'=>$serial,
-	       		'BillAmt'=>$amount,
-	       	);
+	     	$data = array(
+	     		'AppID'=>'POSTAPORTAL',
+	     		'serial'=>$serial,
+	     		'BillAmt'=>$amount,
+	     	);
 
-	       	$url = "http://192.168.33.2/payments/paymentAPI.php";
-	       	$ch = curl_init($url);
-	       	$json = json_encode($data);
-	       	curl_setopt($ch, CURLOPT_URL, $url);
+	     	$url = "http://192.168.33.2/payments/paymentAPI.php";
+	     	$ch = curl_init($url);
+	     	$json = json_encode($data);
+	     	curl_setopt($ch, CURLOPT_URL, $url);
 		// For xml, change the content-type.
-	       	curl_setopt ($ch, CURLOPT_HTTPHEADER, Array("Content-Type: application/json"));
-	       	curl_setopt($ch, CURLOPT_POST, 1);curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
+	     	curl_setopt ($ch, CURLOPT_HTTPHEADER, Array("Content-Type: application/json"));
+	     	curl_setopt($ch, CURLOPT_POST, 1);curl_setopt($ch, CURLOPT_POSTFIELDS, $json);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); // ask for results to be returned
 
 		// Send to remote and return data to caller.
@@ -17515,432 +17442,432 @@ public  function get_ems_bill_sumACC($region,$date,$date2,$month,$month2,$year4)
             $query=$db2->query($sql);
             $result = $query->result();
             return $result;
-          }
+        }
 
-          public  function get_derivery_list_by_id0($id){
+        public  function get_derivery_list_by_id0($id){
 
-          	$db2 = $this->load->database('otherdb', TRUE);
-          	$sql = "SELECT `sender_info`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.*,`assign_derivery`.*
-          	FROM `sender_info`
-          	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-          	LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
-          	LEFT JOIN `assign_derivery` ON `assign_derivery`.`item_id`=`sender_info`.`sender_id`
-          	LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-          	WHERE  `assign_derivery`.`em_id` = '$id' AND `assign_derivery`.`service_type` = 'EMS'
-          	AND  `sender_info`.`item_status`='Assigned' ";
+        	$db2 = $this->load->database('otherdb', TRUE);
+        	$sql = "SELECT `sender_info`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.*,`assign_derivery`.*
+        	FROM `sender_info`
+        	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
+        	LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
+        	LEFT JOIN `assign_derivery` ON `assign_derivery`.`item_id`=`sender_info`.`sender_id`
+        	LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
+        	WHERE  `assign_derivery`.`em_id` = '$id' AND `assign_derivery`.`service_type` = 'EMS'
+        	AND  `sender_info`.`item_status`='Assigned' ";
 
 			  // AND `transactions`.`PaymentFor` !='PCUM'AND `sender_info`.`item_status` != 'Derivered'
 
 
-          	$query=$db2->query($sql);
-          	$result = $query->result();
-          	return $result;
-          }
+        	$query=$db2->query($sql);
+        	$result = $query->result();
+        	return $result;
+        }
 
-          public  function get_derivery_pcum_list_by_id($id){
+        public  function get_derivery_pcum_list_by_id($id){
 
-          	$db2 = $this->load->database('otherdb', TRUE);
-          	$sql = "SELECT `sender_info`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.*,`assign_derivery`.*
-          	FROM `sender_info`
-          	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-          	LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
-          	LEFT JOIN `assign_derivery` ON `assign_derivery`.`item_id`=`sender_info`.`sender_id`
-          	LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-          	WHERE  `assign_derivery`.`em_id` = '$id' AND `sender_info`.`item_status` != 'Derivered' AND `assign_derivery`.`service_type` = 'PCUM'";
+        	$db2 = $this->load->database('otherdb', TRUE);
+        	$sql = "SELECT `sender_info`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.*,`assign_derivery`.*
+        	FROM `sender_info`
+        	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
+        	LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
+        	LEFT JOIN `assign_derivery` ON `assign_derivery`.`item_id`=`sender_info`.`sender_id`
+        	LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
+        	WHERE  `assign_derivery`.`em_id` = '$id' AND `sender_info`.`item_status` != 'Derivered' AND `assign_derivery`.`service_type` = 'PCUM'";
 
 
-          	$query=$db2->query($sql);
-          	$result = $query->result();
-          	return $result;
-          }
+        	$query=$db2->query($sql);
+        	$result = $query->result();
+        	return $result;
+        }
 
-          public  function get_derivery_list_mails_by_id($id){
+        public  function get_derivery_list_mails_by_id($id){
 
-          	$db2 = $this->load->database('otherdb', TRUE);
-          	$sql = "SELECT `sender_person_info`.*,`receiver_register_info`.*,`register_transactions`.* ,`assign_derivery`.*
-          	FROM   `sender_person_info`  
-          	INNER JOIN  `receiver_register_info` ON  `receiver_register_info`.`sender_id` = `sender_person_info`.`senderp_id`
-          	INNER JOIN  `register_transactions`  ON   `sender_person_info`.`senderp_id`   = `register_transactions`.`register_id`
-          	INNER JOIN  `assign_derivery`  ON   `assign_derivery`.`item_id`   = `sender_person_info`.`senderp_id`
-          	WHERE  `assign_derivery`.`em_id` = '$id' AND `assign_derivery`.`service_type` = 'MAILS' AND `sender_person_info`.`sender_status` != 'Derivery'";
+        	$db2 = $this->load->database('otherdb', TRUE);
+        	$sql = "SELECT `sender_person_info`.*,`receiver_register_info`.*,`register_transactions`.* ,`assign_derivery`.*
+        	FROM   `sender_person_info`  
+        	INNER JOIN  `receiver_register_info` ON  `receiver_register_info`.`sender_id` = `sender_person_info`.`senderp_id`
+        	INNER JOIN  `register_transactions`  ON   `sender_person_info`.`senderp_id`   = `register_transactions`.`register_id`
+        	INNER JOIN  `assign_derivery`  ON   `assign_derivery`.`item_id`   = `sender_person_info`.`senderp_id`
+        	WHERE  `assign_derivery`.`em_id` = '$id' AND `assign_derivery`.`service_type` = 'MAILS' AND `sender_person_info`.`sender_status` != 'Derivery'";
 
 
-          	$query=$db2->query($sql);
-          	$result = $query->result();
-          	return $result;
-          }
+        	$query=$db2->query($sql);
+        	$result = $query->result();
+        	return $result;
+        }
 
-          public  function get_derivery_list_mails_by_emid($id,$type){
+        public  function get_derivery_list_mails_by_emid($id,$type){
 
-          	$db2 = $this->load->database('otherdb', TRUE);
-          	$sql = "SELECT `sender_person_info`.*,`receiver_register_info`.*,`register_transactions`.* ,`assign_derivery`.*
-          	FROM   `sender_person_info`  
-          	INNER JOIN  `receiver_register_info` ON  `receiver_register_info`.`sender_id` = `sender_person_info`.`senderp_id`
-          	INNER JOIN  `register_transactions`  ON   `sender_person_info`.`senderp_id`   = `register_transactions`.`register_id`
-          	INNER JOIN  `assign_derivery`  ON   `assign_derivery`.`item_id`   = `sender_person_info`.`senderp_id`
-          	WHERE  `assign_derivery`.`em_id` = '$id' AND `assign_derivery`.`service_type` = '$type' AND `sender_person_info`.`sender_status` != 'Derivery'";
+        	$db2 = $this->load->database('otherdb', TRUE);
+        	$sql = "SELECT `sender_person_info`.*,`receiver_register_info`.*,`register_transactions`.* ,`assign_derivery`.*
+        	FROM   `sender_person_info`  
+        	INNER JOIN  `receiver_register_info` ON  `receiver_register_info`.`sender_id` = `sender_person_info`.`senderp_id`
+        	INNER JOIN  `register_transactions`  ON   `sender_person_info`.`senderp_id`   = `register_transactions`.`register_id`
+        	INNER JOIN  `assign_derivery`  ON   `assign_derivery`.`item_id`   = `sender_person_info`.`senderp_id`
+        	WHERE  `assign_derivery`.`em_id` = '$id' AND `assign_derivery`.`service_type` = '$type' AND `sender_person_info`.`sender_status` != 'Derivery'";
 
 
-          	$query=$db2->query($sql);
-          	$result = $query->result();
-          	return $result;
-          }
+        	$query=$db2->query($sql);
+        	$result = $query->result();
+        	return $result;
+        }
 
-          public  function get_new_derivery_list_mails_by_emid($id){
+        public  function get_new_derivery_list_mails_by_emid($id){
 
-          	$db2 = $this->load->database('otherdb', TRUE);
-          	$sql = "SELECT `sender_person_info`.*,`receiver_register_info`.*,`register_transactions`.* ,`assign_derivery`.*
-          	FROM   `sender_person_info`  
-          	INNER JOIN  `receiver_register_info` ON  `receiver_register_info`.`sender_id` = `sender_person_info`.`senderp_id`
-          	INNER JOIN  `register_transactions`  ON   `sender_person_info`.`senderp_id`   = `register_transactions`.`register_id`
-          	LEFT JOIN  `assign_derivery`  ON   `assign_derivery`.`item_id`   = `sender_person_info`.`senderp_id`
-          	WHERE  `sender_person_info`.`operator` = '$id' AND `sender_person_info`.`sender_type` IN('Register') AND `sender_person_info`.`sender_status` != 'Derivery'";
+        	$db2 = $this->load->database('otherdb', TRUE);
+        	$sql = "SELECT `sender_person_info`.*,`receiver_register_info`.*,`register_transactions`.* ,`assign_derivery`.*
+        	FROM   `sender_person_info`  
+        	INNER JOIN  `receiver_register_info` ON  `receiver_register_info`.`sender_id` = `sender_person_info`.`senderp_id`
+        	INNER JOIN  `register_transactions`  ON   `sender_person_info`.`senderp_id`   = `register_transactions`.`register_id`
+        	LEFT JOIN  `assign_derivery`  ON   `assign_derivery`.`item_id`   = `sender_person_info`.`senderp_id`
+        	WHERE  `sender_person_info`.`operator` = '$id' AND `sender_person_info`.`sender_type` IN('Register') AND `sender_person_info`.`sender_status` != 'Derivery'";
 
 
-          	$query=$db2->query($sql);
-          	$result = $query->result();
-          	return $result;
-          }
+        	$query=$db2->query($sql);
+        	$result = $query->result();
+        	return $result;
+        }
 
-          public  function get_client_pcum_list(){
+        public  function get_client_pcum_list(){
 
-          	$db2 = $this->load->database('otherdb', TRUE);
-          	$sql = "";
+        	$db2 = $this->load->database('otherdb', TRUE);
+        	$sql = "";
 
 
-          	$query=$db2->query($sql);
-          	$result = $query->result();
-          	return $result;
-          }
+        	$query=$db2->query($sql);
+        	$result = $query->result();
+        	return $result;
+        }
 
-          public  function get_derivery_list_register_by_id($id){
+        public  function get_derivery_list_register_by_id($id){
 
-          	$db2 = $this->load->database('otherdb', TRUE);
-          	$sql = "SELECT `sender_info`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.*,`assign_derivery`.*
-          	FROM `sender_info`
-          	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
-          	LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
-          	LEFT JOIN `assign_derivery` ON `assign_derivery`.`item_id`=`sender_info`.`sender_id`
-          	LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-          	WHERE  `assign_derivery`.`em_id` = '$id' AND `sender_info`.`item_status` != 'Derivered'";
+        	$db2 = $this->load->database('otherdb', TRUE);
+        	$sql = "SELECT `sender_info`.*,`receiver_info`.*,`ems_tariff_category`.*,`transactions`.*,`assign_derivery`.*
+        	FROM `sender_info`
+        	LEFT JOIN `receiver_info` ON `receiver_info`.`from_id`=`sender_info`.`sender_id`
+        	LEFT JOIN `ems_tariff_category` ON `ems_tariff_category`.`cat_id`=`sender_info`.`cat_type`
+        	LEFT JOIN `assign_derivery` ON `assign_derivery`.`item_id`=`sender_info`.`sender_id`
+        	LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
+        	WHERE  `assign_derivery`.`em_id` = '$id' AND `sender_info`.`item_status` != 'Derivered'";
 
 
-          	$query=$db2->query($sql);
-          	$result = $query->result();
-          	return $result;
-          }
+        	$query=$db2->query($sql);
+        	$result = $query->result();
+        	return $result;
+        }
 
 
-          public function save_AuthorityCards($data){
-          	$db2 = $this->load->database('otherdb', TRUE);
-          	$db2->insert('AuthorityCard',$data);
-          }
-          public function get_AuthorityCard_list(){
+        public function save_AuthorityCards($data){
+        	$db2 = $this->load->database('otherdb', TRUE);
+        	$db2->insert('AuthorityCard',$data);
+        }
+        public function get_AuthorityCard_list(){
 
-          	$db2 = $this->load->database('otherdb', TRUE);
-          	$id2 = $this->session->userdata('user_login_id');
-          	$info = $this->employee_model->GetBasic($id2);
+        	$db2 = $this->load->database('otherdb', TRUE);
+        	$id2 = $this->session->userdata('user_login_id');
+        	$info = $this->employee_model->GetBasic($id2);
 
-          	$id = $info->em_code;
+        	$id = $info->em_code;
 
-          	$o_region = $info->em_region;
-          	$o_branch = $info->em_branch;
+        	$o_region = $info->em_region;
+        	$o_branch = $info->em_branch;
 
-          	if ($this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
-          		$sql = "SELECT * FROM `AuthorityCard`
-          		LEFT JOIN `transactions` ON `transactions`.`serial`=`AuthorityCard`.`serial`
+        	if ($this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
+        		$sql = "SELECT * FROM `AuthorityCard`
+        		LEFT JOIN `transactions` ON `transactions`.`serial`=`AuthorityCard`.`serial`
 
-          		WHERE `transactions`.`status` != 'OldPaid' AND `AuthorityCard`.`region` = '$o_region' AND `AuthorityCard`.`branch` = '$o_branch' AND `AuthorityCard`.`Created_byId` = '$id'  ORDER BY `AuthorityCard`.`date_created` DESC";
+        		WHERE `transactions`.`status` != 'OldPaid' AND `AuthorityCard`.`region` = '$o_region' AND `AuthorityCard`.`branch` = '$o_branch' AND `AuthorityCard`.`Created_byId` = '$id'  ORDER BY `AuthorityCard`.`date_created` DESC";
 
-          	}elseif($this->session->userdata('user_type') == 'RM'){
-          		$sql = "SELECT * FROM `AuthorityCard`
-          		LEFT JOIN `transactions` ON `transactions`.`serial`=`AuthorityCard`.`serial`
+        	}elseif($this->session->userdata('user_type') == 'RM'){
+        		$sql = "SELECT * FROM `AuthorityCard`
+        		LEFT JOIN `transactions` ON `transactions`.`serial`=`AuthorityCard`.`serial`
 
-          		WHERE `transactions`.`status` != 'OldPaid' AND `AuthorityCard`.`region` = '$o_region'    ORDER BY `AuthorityCard`.`date_created` DESC";
+        		WHERE `transactions`.`status` != 'OldPaid' AND `AuthorityCard`.`region` = '$o_region'    ORDER BY `AuthorityCard`.`date_created` DESC";
 
-          	}else{
-          		$sql = "SELECT * FROM `AuthorityCard`
-          		LEFT JOIN `transactions` ON `transactions`.`serial`=`AuthorityCard`.`serial`
+        	}else{
+        		$sql = "SELECT * FROM `AuthorityCard`
+        		LEFT JOIN `transactions` ON `transactions`.`serial`=`AuthorityCard`.`serial`
 
-          		WHERE `transactions`.`status` != 'OldPaid'  ORDER BY `AuthorityCard`.`date_created` DESC";
+        		WHERE `transactions`.`status` != 'OldPaid'  ORDER BY `AuthorityCard`.`date_created` DESC";
 
-          	}
+        	}
 
 
-          	$query = $db2->query($sql);
-          	$result = $query->result();
-          	return $result;
-
-
-          }
-          public function get_AuthorityCard_list_search($date,$month,$region){
-
-          	$db2 = $this->load->database('otherdb', TRUE);
-
-          	$id2 = $this->session->userdata('user_login_id');
-          	$info = $this->employee_model->GetBasic($id2);
-          	$o_region = $info->em_region;
-          	$o_branch = $info->em_branch;
-          	$id = $info->em_code;
-
-          	$month1 = explode('-', $month);
-
-
-          	$day = @$month1[0];
-          	$year = @$month1[1];
-
-
-          	if (!empty($month) || !empty($date) || !empty($region)) {
-
-
-
-          		$sql = "SELECT * FROM `AuthorityCard`
-          		LEFT JOIN `transactions` ON `transactions`.`serial`=`AuthorityCard`.`serial`
-
-          		WHERE `transactions`.`status` != 'OldPaid' AND `AuthorityCard`.`region` = '$region' 
-
-
-          		ORDER BY `AuthorityCard`.`date_created` DESC";
-
- // AND  ( MONTH(`AuthorityCard`.`date_created`) = '$day' AND YEAR(`AuthorityCard`.`AuthorityCard`) = '$year' ) 
-
-          	}
-          	else
-          	{
-          		$sql = "SELECT * FROM `AuthorityCard`
-          		LEFT JOIN `transactions` ON `transactions`.`serial`=`AuthorityCard`.`serial`
-          		WHERE `transactions`.`status` != 'OldPaid' AND `AuthorityCard`.`region` = '$o_region' AND `AuthorityCard`.`Created_byId` = '$id'  
-          		ORDER BY `AuthorityCard`.`date_created` DESC";
-
-          	}
-
-          	$query = $db2->query($sql);
-          	$result = $query->result();
-          	return $result;
-
-
-          }
-
-
-          public function save_Keydepositys($data){
-          	$db2 = $this->load->database('otherdb', TRUE);
-          	$db2->insert('Keydeposity',$data);
-          }
-          public function save_Bulk($data){
-          	$db2 = $this->load->database('otherdb', TRUE);
-          	$db2->insert('bulk_registration',$data);
-          }
-          public function get_Keydeposity_list(){
-
-          	$db2 = $this->load->database('otherdb', TRUE);
-          	$id2 = $this->session->userdata('user_login_id');
-          	$info = $this->employee_model->GetBasic($id2);
-
-          	$id = $info->em_code;
-
-          	$o_region = $info->em_region;
-          	$o_branch = $info->em_branch;
-
-          	if ($this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
-          		$sql = "SELECT * FROM `Keydeposity`
-          		LEFT JOIN `transactions` ON `transactions`.`serial`=`Keydeposity`.`serial`
-
-          		WHERE `transactions`.`status` != 'OldPaid' AND `Keydeposity`.`region` = '$o_region' AND `Keydeposity`.`branch` = '$o_branch' AND `Keydeposity`.`Created_byId` = '$id'  ORDER BY `Keydeposity`.`date_created` DESC";
-
-          	}elseif($this->session->userdata('user_type') == 'RM'){
-          		$sql = "SELECT * FROM `Keydeposity`
-          		LEFT JOIN `transactions` ON `transactions`.`serial`=`Keydeposity`.`serial`
-
-          		WHERE `transactions`.`status` != 'OldPaid' AND `Keydeposity`.`region` = '$o_region'    ORDER BY `Keydeposity`.`date_created` DESC";
-
-          	}else{
-          		$sql = "SELECT * FROM `Keydeposity`
-          		LEFT JOIN `transactions` ON `transactions`.`serial`=`Keydeposity`.`serial`
-
-          		WHERE `transactions`.`status` != 'OldPaid'  ORDER BY `Keydeposity`.`date_created` DESC";
-
-          	}
-
-
-          	$query = $db2->query($sql);
-          	$result = $query->result();
-          	return $result;
-
-
-          }
-
-          public function get_Bulk_list(){
-
-          	$db2 = $this->load->database('otherdb', TRUE);
-          	$id2 = $this->session->userdata('user_login_id');
-          	$info = $this->employee_model->GetBasic($id2);
-
-          	$id = $info->em_code;
-
-          	$o_region = $info->em_region;
-          	$o_branch = $info->em_branch;
-
-          	if ($this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
-          		$sql = "SELECT * FROM `bulk_registration`
-          		LEFT JOIN `transactions` ON `transactions`.`serial`=`bulk_registration`.`serial`
-
-          		WHERE `transactions`.`status` != 'OldPaid' AND `bulk_registration`.`region` = '$o_region' AND `bulk_registration`.`branch` = '$o_branch' AND `bulk_registration`.`Created_byId` = '$id'  ORDER BY `bulk_registration`.`date_created` DESC";
-
-          	}elseif($this->session->userdata('user_type') == 'RM'){
-          		$sql = "SELECT * FROM `bulk_registration`
-          		LEFT JOIN `transactions` ON `transactions`.`serial`=`bulk_registration`.`serial`
-
-          		WHERE `transactions`.`status` != 'OldPaid' AND `bulk_registration`.`region` = '$o_region'    ORDER BY `bulk_registration`.`date_created` DESC";
-
-          	}else{
-          		$sql = "SELECT * FROM `bulk_registration`
-          		LEFT JOIN `transactions` ON `transactions`.`serial`=`bulk_registration`.`serial`
-
-          		WHERE `transactions`.`status` != 'OldPaid'  ORDER BY `bulk_registration`.`date_created` DESC";
-
-          	}
-
-
-          	$query = $db2->query($sql);
-          	$result = $query->result();
-          	return $result;
-
-
-          }
-
-          public function get_Bulk_Boxes_list($serial){
-          	$db2 = $this->load->database('otherdb', TRUE);
-          	$sql = "SELECT `bulk_boxes`.* FROM `bulk_boxes`
-          	WHERE `serial` = '$serial'  ";
-
-          	$query = $db2->query($sql);
-          	$result = $query->result();
-          	return $result;
-          }
-
-          public function get_Keydeposity_list_search($date,$month,$region){
-
-          	$db2 = $this->load->database('otherdb', TRUE);
-
-          	$id2 = $this->session->userdata('user_login_id');
-          	$info = $this->employee_model->GetBasic($id2);
-          	$o_region = $info->em_region;
-          	$o_branch = $info->em_branch;
-          	$id = $info->em_code;
-
-          	$month1 = explode('-', $month);
-
-
-          	$day = @$month1[0];
-          	$year = @$month1[1];
-
-
-          	if (!empty($month) || !empty($date) || !empty($region)) {
-
-
-
-          		$sql = "SELECT * FROM `Keydeposity`
-          		LEFT JOIN `transactions` ON `transactions`.`serial`=`Keydeposity`.`serial`
-
-          		WHERE `transactions`.`status` != 'OldPaid' AND `Keydeposity`.`region` = '$region' 
-
-
-          		ORDER BY `Keydeposity`.`date_created` DESC";
-
- // AND  ( MONTH(`Keydeposity`.`date_created`) = '$day' AND YEAR(`Keydeposity`.`Keydeposity`) = '$year' ) 
-
-          	}
-          	else
-          	{
-          		$sql = "SELECT * FROM `Keydeposity`
-          		LEFT JOIN `transactions` ON `transactions`.`serial`=`Keydeposity`.`serial`
-          		WHERE `transactions`.`status` != 'OldPaid' AND `Keydeposity`.`region` = '$o_region' AND `Keydeposity`.`Created_byId` = '$id'  
-          		ORDER BY `Keydeposity`.`date_created` DESC";
-
-          	}
-
-          	$query = $db2->query($sql);
-          	$result = $query->result();
-          	return $result;
-
-
-          }
-
-          public function get_Bulk_list_search($date,$month,$region){
-
-          	$db2 = $this->load->database('otherdb', TRUE);
-
-          	$id2 = $this->session->userdata('user_login_id');
-          	$info = $this->employee_model->GetBasic($id2);
-          	$o_region = $info->em_region;
-          	$o_branch = $info->em_branch;
-          	$id = $info->em_code;
-
-          	$month1 = explode('-', $month);
-
-
-          	$day = @$month1[0];
-          	$year = @$month1[1];
-
-
-          	if (!empty($month) || !empty($date) || !empty($region)) {
-
-
-
-          		$sql = "SELECT * FROM `bulk_registration`
-          		LEFT JOIN `transactions` ON `transactions`.`serial`=`bulk_registration`.`serial`
-
-          		WHERE `transactions`.`status` != 'OldPaid' AND `bulk_registration`.`region` = '$region' 
-
-
-          		ORDER BY `bulk_registration`.`date_created` DESC";
-
- // AND  ( MONTH(`Keydeposity`.`date_created`) = '$day' AND YEAR(`Keydeposity`.`Keydeposity`) = '$year' ) 
-
-          	}
-          	else
-          	{
-          		$sql = "SELECT * FROM `bulk_registration`
-          		LEFT JOIN `transactions` ON `transactions`.`serial`=`bulk_registration`.`serial`
-          		WHERE `transactions`.`status` != 'OldPaid' AND `bulk_registration`.`region` = '$o_region' AND `bulk_registration`.`Created_byId` = '$id'  
-          		ORDER BY `bulk_registration`.`date_created` DESC";
-
-          	}
-
-          	$query = $db2->query($sql);
-          	$result = $query->result();
-          	return $result;
-
-
-          }
-
-          public  function get_senderinfo_byserial($serial){
-          	$db2 = $this->load->database('otherdb', TRUE);
-          	$db2->where('serial',$serial);
-          	$query = $db2->get('transactions');
-          	$result = $query->row();
-          	return $result;
-
-          }
-
-          public function get_requestid_byserial($serial){
-
-          	$db2 = $this->load->database('otherdb', TRUE);
-    //$sql    = "SELECT * FROM `sender_info` WHERE `track_number`='$trackno'";
-          	$sql = "SELECT *
-          	FROM `sender_info`
-          	LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
-          	WHERE  `transactions`.`serial` = '$serial'
-
-          	";
-
-          	$query  = $db2->query($sql);
-          	$result = $query->row();
-          	return $result;
-          }
-
-
+        	$query = $db2->query($sql);
+        	$result = $query->result();
+        	return $result;
 
 
         }
-        ?>
+        public function get_AuthorityCard_list_search($date,$month,$region){
+
+        	$db2 = $this->load->database('otherdb', TRUE);
+
+        	$id2 = $this->session->userdata('user_login_id');
+        	$info = $this->employee_model->GetBasic($id2);
+        	$o_region = $info->em_region;
+        	$o_branch = $info->em_branch;
+        	$id = $info->em_code;
+
+        	$month1 = explode('-', $month);
+
+
+        	$day = @$month1[0];
+        	$year = @$month1[1];
+
+
+        	if (!empty($month) || !empty($date) || !empty($region)) {
+
+
+
+        		$sql = "SELECT * FROM `AuthorityCard`
+        		LEFT JOIN `transactions` ON `transactions`.`serial`=`AuthorityCard`.`serial`
+
+        		WHERE `transactions`.`status` != 'OldPaid' AND `AuthorityCard`.`region` = '$region' 
+
+
+        		ORDER BY `AuthorityCard`.`date_created` DESC";
+
+ // AND  ( MONTH(`AuthorityCard`.`date_created`) = '$day' AND YEAR(`AuthorityCard`.`AuthorityCard`) = '$year' ) 
+
+        	}
+        	else
+        	{
+        		$sql = "SELECT * FROM `AuthorityCard`
+        		LEFT JOIN `transactions` ON `transactions`.`serial`=`AuthorityCard`.`serial`
+        		WHERE `transactions`.`status` != 'OldPaid' AND `AuthorityCard`.`region` = '$o_region' AND `AuthorityCard`.`Created_byId` = '$id'  
+        		ORDER BY `AuthorityCard`.`date_created` DESC";
+
+        	}
+
+        	$query = $db2->query($sql);
+        	$result = $query->result();
+        	return $result;
+
+
+        }
+
+
+        public function save_Keydepositys($data){
+        	$db2 = $this->load->database('otherdb', TRUE);
+        	$db2->insert('Keydeposity',$data);
+        }
+        public function save_Bulk($data){
+        	$db2 = $this->load->database('otherdb', TRUE);
+        	$db2->insert('bulk_registration',$data);
+        }
+        public function get_Keydeposity_list(){
+
+        	$db2 = $this->load->database('otherdb', TRUE);
+        	$id2 = $this->session->userdata('user_login_id');
+        	$info = $this->employee_model->GetBasic($id2);
+
+        	$id = $info->em_code;
+
+        	$o_region = $info->em_region;
+        	$o_branch = $info->em_branch;
+
+        	if ($this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
+        		$sql = "SELECT * FROM `Keydeposity`
+        		LEFT JOIN `transactions` ON `transactions`.`serial`=`Keydeposity`.`serial`
+
+        		WHERE `transactions`.`status` != 'OldPaid' AND `Keydeposity`.`region` = '$o_region' AND `Keydeposity`.`branch` = '$o_branch' AND `Keydeposity`.`Created_byId` = '$id'  ORDER BY `Keydeposity`.`date_created` DESC";
+
+        	}elseif($this->session->userdata('user_type') == 'RM'){
+        		$sql = "SELECT * FROM `Keydeposity`
+        		LEFT JOIN `transactions` ON `transactions`.`serial`=`Keydeposity`.`serial`
+
+        		WHERE `transactions`.`status` != 'OldPaid' AND `Keydeposity`.`region` = '$o_region'    ORDER BY `Keydeposity`.`date_created` DESC";
+
+        	}else{
+        		$sql = "SELECT * FROM `Keydeposity`
+        		LEFT JOIN `transactions` ON `transactions`.`serial`=`Keydeposity`.`serial`
+
+        		WHERE `transactions`.`status` != 'OldPaid'  ORDER BY `Keydeposity`.`date_created` DESC";
+
+        	}
+
+
+        	$query = $db2->query($sql);
+        	$result = $query->result();
+        	return $result;
+
+
+        }
+
+        public function get_Bulk_list(){
+
+        	$db2 = $this->load->database('otherdb', TRUE);
+        	$id2 = $this->session->userdata('user_login_id');
+        	$info = $this->employee_model->GetBasic($id2);
+
+        	$id = $info->em_code;
+
+        	$o_region = $info->em_region;
+        	$o_branch = $info->em_branch;
+
+        	if ($this->session->userdata('user_type') == 'EMPLOYEE' || $this->session->userdata('user_type') == 'AGENT' || $this->session->userdata('user_type') == 'SUPERVISOR') {
+        		$sql = "SELECT * FROM `bulk_registration`
+        		LEFT JOIN `transactions` ON `transactions`.`serial`=`bulk_registration`.`serial`
+
+        		WHERE `transactions`.`status` != 'OldPaid' AND `bulk_registration`.`region` = '$o_region' AND `bulk_registration`.`branch` = '$o_branch' AND `bulk_registration`.`Created_byId` = '$id'  ORDER BY `bulk_registration`.`date_created` DESC";
+
+        	}elseif($this->session->userdata('user_type') == 'RM'){
+        		$sql = "SELECT * FROM `bulk_registration`
+        		LEFT JOIN `transactions` ON `transactions`.`serial`=`bulk_registration`.`serial`
+
+        		WHERE `transactions`.`status` != 'OldPaid' AND `bulk_registration`.`region` = '$o_region'    ORDER BY `bulk_registration`.`date_created` DESC";
+
+        	}else{
+        		$sql = "SELECT * FROM `bulk_registration`
+        		LEFT JOIN `transactions` ON `transactions`.`serial`=`bulk_registration`.`serial`
+
+        		WHERE `transactions`.`status` != 'OldPaid'  ORDER BY `bulk_registration`.`date_created` DESC";
+
+        	}
+
+
+        	$query = $db2->query($sql);
+        	$result = $query->result();
+        	return $result;
+
+
+        }
+
+        public function get_Bulk_Boxes_list($serial){
+        	$db2 = $this->load->database('otherdb', TRUE);
+        	$sql = "SELECT `bulk_boxes`.* FROM `bulk_boxes`
+        	WHERE `serial` = '$serial'  ";
+
+        	$query = $db2->query($sql);
+        	$result = $query->result();
+        	return $result;
+        }
+
+        public function get_Keydeposity_list_search($date,$month,$region){
+
+        	$db2 = $this->load->database('otherdb', TRUE);
+
+        	$id2 = $this->session->userdata('user_login_id');
+        	$info = $this->employee_model->GetBasic($id2);
+        	$o_region = $info->em_region;
+        	$o_branch = $info->em_branch;
+        	$id = $info->em_code;
+
+        	$month1 = explode('-', $month);
+
+
+        	$day = @$month1[0];
+        	$year = @$month1[1];
+
+
+        	if (!empty($month) || !empty($date) || !empty($region)) {
+
+
+
+        		$sql = "SELECT * FROM `Keydeposity`
+        		LEFT JOIN `transactions` ON `transactions`.`serial`=`Keydeposity`.`serial`
+
+        		WHERE `transactions`.`status` != 'OldPaid' AND `Keydeposity`.`region` = '$region' 
+
+
+        		ORDER BY `Keydeposity`.`date_created` DESC";
+
+ // AND  ( MONTH(`Keydeposity`.`date_created`) = '$day' AND YEAR(`Keydeposity`.`Keydeposity`) = '$year' ) 
+
+        	}
+        	else
+        	{
+        		$sql = "SELECT * FROM `Keydeposity`
+        		LEFT JOIN `transactions` ON `transactions`.`serial`=`Keydeposity`.`serial`
+        		WHERE `transactions`.`status` != 'OldPaid' AND `Keydeposity`.`region` = '$o_region' AND `Keydeposity`.`Created_byId` = '$id'  
+        		ORDER BY `Keydeposity`.`date_created` DESC";
+
+        	}
+
+        	$query = $db2->query($sql);
+        	$result = $query->result();
+        	return $result;
+
+
+        }
+
+        public function get_Bulk_list_search($date,$month,$region){
+
+        	$db2 = $this->load->database('otherdb', TRUE);
+
+        	$id2 = $this->session->userdata('user_login_id');
+        	$info = $this->employee_model->GetBasic($id2);
+        	$o_region = $info->em_region;
+        	$o_branch = $info->em_branch;
+        	$id = $info->em_code;
+
+        	$month1 = explode('-', $month);
+
+
+        	$day = @$month1[0];
+        	$year = @$month1[1];
+
+
+        	if (!empty($month) || !empty($date) || !empty($region)) {
+
+
+
+        		$sql = "SELECT * FROM `bulk_registration`
+        		LEFT JOIN `transactions` ON `transactions`.`serial`=`bulk_registration`.`serial`
+
+        		WHERE `transactions`.`status` != 'OldPaid' AND `bulk_registration`.`region` = '$region' 
+
+
+        		ORDER BY `bulk_registration`.`date_created` DESC";
+
+ // AND  ( MONTH(`Keydeposity`.`date_created`) = '$day' AND YEAR(`Keydeposity`.`Keydeposity`) = '$year' ) 
+
+        	}
+        	else
+        	{
+        		$sql = "SELECT * FROM `bulk_registration`
+        		LEFT JOIN `transactions` ON `transactions`.`serial`=`bulk_registration`.`serial`
+        		WHERE `transactions`.`status` != 'OldPaid' AND `bulk_registration`.`region` = '$o_region' AND `bulk_registration`.`Created_byId` = '$id'  
+        		ORDER BY `bulk_registration`.`date_created` DESC";
+
+        	}
+
+        	$query = $db2->query($sql);
+        	$result = $query->result();
+        	return $result;
+
+
+        }
+
+        public  function get_senderinfo_byserial($serial){
+        	$db2 = $this->load->database('otherdb', TRUE);
+        	$db2->where('serial',$serial);
+        	$query = $db2->get('transactions');
+        	$result = $query->row();
+        	return $result;
+
+        }
+
+        public function get_requestid_byserial($serial){
+
+        	$db2 = $this->load->database('otherdb', TRUE);
+    //$sql    = "SELECT * FROM `sender_info` WHERE `track_number`='$trackno'";
+        	$sql = "SELECT *
+        	FROM `sender_info`
+        	LEFT JOIN `transactions` ON `transactions`.`CustomerID`=`sender_info`.`sender_id`
+        	WHERE  `transactions`.`serial` = '$serial'
+
+        	";
+
+        	$query  = $db2->query($sql);
+        	$result = $query->row();
+        	return $result;
+        }
+
+
+
+
+    }
+    ?>

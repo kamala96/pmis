@@ -1,5 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+$current_date = null;
+$current_time = null;
+$current_datetime = null;
+$time = '';
 
 class Box_Application extends CI_Controller {
 
@@ -7,7 +11,7 @@ class Box_Application extends CI_Controller {
 	function __construct() {
 		parent::__construct();
 		$this->load->database();
-//$db2 = $this->load->database('otherdb', TRUE);
+		//$db2 = $this->load->database('otherdb', TRUE);
 		$this->load->model('login_model');
 		$this->load->model('dashboard_model');
 		$this->load->model('employee_model');
@@ -24,6 +28,14 @@ class Box_Application extends CI_Controller {
 		$this->load->model('ReceivedBranch_ViewModel');
 		$this->load->model('Pcum_model');
 		$this->load->model('Bill_Customer_model');
+
+		$this->load->helper(array("security"));
+
+		date_default_timezone_set('Africa/Nairobi');
+		$datetime = new DateTime();
+		$this->current_date  = $datetime->format('Y-m-d');
+		$this->current_time  = $datetime->format('H:i:s');
+		$this->current_datetime  = $datetime->format('Y-m-d H:i:s');
 
 	}
 	public function Inventory()
@@ -4512,85 +4524,160 @@ public function close_bag_items(){
 
 }
 
+public function Ems_Application_List_Ajax()
+{
+	$start_date = $this->time = date('Y-m-d H:i:s', strtotime($this->input->post("start_date")));
+	$end_date = $this->time = date('Y-m-d H:i:s', strtotime($this->input->post("end_date")));
+	$pay_type = $this->input->post('pay_type');
+	$region = $this->security->xss_clean($this->input->post('region'));
+	$region = $region != "" ? $region : false;
 
-public function Ems_Application_List(){
-	if ($this->session->userdata('user_login_access') != false){
+	$total = 0;
+	$emslist = $this->Box_Application_model->get_ems_listAcc($start_date, $end_date, $pay_type, $region);
 
+	echo '<table border="1">';
+	if( ! empty($emslist))
+	{
+		echo '<tr>
+		<th>'.($pay_type == "Cash" ? "Control Number" : "Addressee").'</th>
+		<th>Barcode</th>'.
+		$pay_type == "Bill" ? "<th>Origin</th>" : "".'
+		<th>Destination</th>
+		<th>Date</th>
+		<th>Weight</th>
+		<th>Postage (Tsh.)</th>
+		<th>VAT (Tsh.)</th>
+		<th>Total (Tsh.)</th>
+		<th style="text-align: right;">Payment Status</th>
+		</tr>';
+		foreach($emslist as $row)
+		{
+			$total += $row->paidamount;
+			$payment_status = 'Bill';
+			if($row->s_pay_type == 'Cash')
+			{
+				$payment_status = 'Paid'
+				if($row->status == 'NotPaid')
+				{
+					$payment_status = 'Not Paid'
+				}
+			}
+
+
+			echo '<tr>
+			<td>'.($pay_type == "Cash" ? $row->billid : '<a href="#" class="myBtn" data-sender_id="').$row->sender_id.'">'.$row->s_fullname.'</a></td>
+			<td>'.$row->Barcode.'</td>
+			<td>'.$pay_type == "Bill" ? $row->region : "".'</td>
+			<td>'.$row->r_region.'</td>
+			<td>'.$row->paymentdate.'</td>
+			<td>'.$row->weight.'</td>
+			<td>'.$row->postage.'</td>
+			<td>'.$row->vat.'</td>
+			<td>'.$row->paidamount.'</td>
+			<td style="text-align: right;">'.$payment_status.'</td>
+			</tr>';
+		}
+	}
+	else
+	{
+		echo "<tr>
+		<td colspan='7'>No Data Found</td>
+		</tr>";
+	}
+	echo "</table>";
+}
+
+
+public function Ems_Application_List()
+{
+	if ($this->session->userdata('user_login_access') != false)
+	{
 		$emid = base64_decode($this->input->get('I'));
 		$data['region'] = $this->employee_model->regselect();
 		$data['emselect'] = $this->employee_model->emselect();
 		$data['agselect'] = $this->employee_model->agselect();
 
-		if ($this->input->server('REQUEST_METHOD') === 'GET')
+		if ($this->input->server('REQUEST_METHOD') === 'POST')
 		{
 
-		}
-		else
-		{
-			if ($this->session->userdata('user_type') == "ACCOUNTANT-HQ" || $this->session->userdata('user_type') == "ADMIN" || $this->session->userdata('user_type') == 'SUPPORTER' || $this->session->userdata('user_type') == "BOP") {
+			// if ($this->session->userdata('user_type') == "ACCOUNTANT-HQ" || $this->session->userdata('user_type') == "ADMIN" || $this->session->userdata('user_type') == 'SUPPORTER' || $this->session->userdata('user_type') == "BOP")
+			// {
 
-			$date = $this->input->post('date');
-			$date2 = $this->input->post('date2');
-			$month = $this->input->post('month');
-			$month = $this->input->post('month');
-			$month2 = $this->input->post('month2');
-			$year4 = $this->input->post('year');
-			$region = $this->input->post('region');
-			$type = $this->input->post('ems_type');
-			if(empty($region))
+			$user_type = $this->session->userdata('user_type');
+
+			$start_date = $this->time = date('Y-m-d H:i:s', strtotime($this->input->post("start_date")));
+
+			$end_date = $this->time = date('Y-m-d H:i:s', strtotime($this->input->post("end_date")));
+
+			$pay_type = $this->input->post('pay_type');
+
+			$region = $this->security->xss_clean($this->input->post('region'));
+			$region = $region != "" ? $region : false;
+
+			// if(empty($region))
+			// {
+			// 	$region = 'Dar es salaam';
+			// }
+			// $data['total'] = $this->Box_Application_model->get_ems_sumACC($region,$date,$date2,$month,$month2,$year4,$type);
+				// $data['emslist'] = $this->Box_Application_model->get_ems_listAcc($region,$date,$date2,$month,$month2,$year4,$type);
+			
+			$emslist = $this->Box_Application_model->get_ems_listAcc($start_date, $end_date, $pay_type, $region);
+			$total = 0;
+			foreach($emslist as $row)
 			{
-				$region = 'Dar es salaam';
-				$type  = 'EMS';
-
+				$total += $row->paidamount;
 			}
+			$data['emslist'] = $emslist;
+			$data['total'] = $total;				
+			$data['pay_type'] = $pay_type;
+			// echo '<pre>';
+			// echo $user_type.'|'.$start_date.'|'.$end_date.'|'.$pay_type.'|'.$region.'<br>';
+			// print_r($emslist);		
+			
+			// }
+			// else
+			// {
+			// 	$pf = $this->input->post('pf');
+			// 	$date = $this->input->post('date');
+			// 	$month = $this->input->post('month');
 
-			$data['total'] = $this->Box_Application_model->get_ems_sumACC($region,$date,$date2,$month,$month2,$year4,$type);
-			$data['emslist'] = $this->Box_Application_model->get_ems_listAcc($region,$date,$date2,$month,$month2,$year4,$type);
+			// 	if(!empty($pf))
+			// 	{
+			// 		//turn code to emid
+			// 		$emid2=$this->Box_Application_model->getemid($pf);
+			// 		$emid2=$emid2->em_id;
+			// 		if(!empty($emid2))
+			// 		{
 
-		} else {
+			// 			if (!empty($date) || !empty($month)) {
 
-			$pf = $this->input->post('pf');
-			$date = $this->input->post('date');
-			$month = $this->input->post('month');
+			// 				$data['total'] = $this->Box_Application_model->get_ems_sumSearchpf($date,$month,$emid2);
+			// 				$data['emslist'] = $this->Box_Application_model->get_ems_listSearchpf($date,$month,$emid2);
+			// 			} else {
+			// 				$data['total'] = $this->Box_Application_model->get_ems_sum();
+			// 				$data['emslist'] = $this->Box_Application_model->get_ems_list();
+			// 			}
 
-			if(!empty($pf)){
-        	//turn code to emid
-				$emid2=$this->Box_Application_model->getemid($pf);
-				$emid2=$emid2->em_id;
-				if(!empty($emid2))
-				{
+			// 		} 
 
-					if (!empty($date) || !empty($month)) {
+			// 	}else{
 
-						$data['total'] = $this->Box_Application_model->get_ems_sumSearchpf($date,$month,$emid2);
-						$data['emslist'] = $this->Box_Application_model->get_ems_listSearchpf($date,$month,$emid2);
-					} else {
-						$data['total'] = $this->Box_Application_model->get_ems_sum();
-						$data['emslist'] = $this->Box_Application_model->get_ems_list();
-					}
-
-				} 
-
-			}else{
-
-				if (!empty($date) || !empty($month)) {
-					$data['total'] = $this->Box_Application_model->get_ems_sumSearch($date,$month);
-					$data['emslist'] = $this->Box_Application_model->get_ems_listSearch($date,$month);
-				} else {
-					$data['total'] = $this->Box_Application_model->get_ems_sum();
-					$data['emslist'] = $this->Box_Application_model->get_ems_list();
-				}
-			}
-		} 
-		}  
-
-		$this->load->view('domestic_ems/ems_application_list_new',$data);
-
+			// 		if (!empty($date) || !empty($month)) {
+			// 			$data['total'] = $this->Box_Application_model->get_ems_sumSearch($date,$month);
+			// 			$data['emslist'] = $this->Box_Application_model->get_ems_listSearch($date,$month);
+			// 		} else {
+			// 			$data['total'] = $this->Box_Application_model->get_ems_sum();
+			// 			$data['emslist'] = $this->Box_Application_model->get_ems_list();
+			// 		}
+			// 	}
+			// }
+		}
+		$this->load->view('domestic_ems/ems_application_list_new', $data, 'refresh');
 	}
-	else{
+	else
+	{
 		redirect(base_url());
 	}
-
 }
 
 

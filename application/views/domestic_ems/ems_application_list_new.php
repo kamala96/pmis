@@ -49,35 +49,35 @@
                     </div>
                     <div class="card-body">
                         <div class="card">
-                           <div class="card-body">
+                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                   <table class="table table-bordered" style="width: 100%;">
+                                 <table class="table table-bordered" style="width: 100%;">
 
-                                      <input type="hidden" name="emid" id="emid" value="<?php echo $this->session->userdata('user_login_id'); ?>"/>
-                                      <?php  if($this->session->userdata('user_type') == "EMPLOYEE" || $this->session->userdata('user_type') == "RM" || $this->session->userdata('user_type') == "ACCOUNTANT") {?>
-                                        <form action="Ems_Application_List" method="POST">
-                                            <tr>
-                                                <th style="">
-                                                 <div class="input-group">
+                                  <input type="hidden" name="emid" id="emid" value="<?php echo $this->session->userdata('user_login_id'); ?>"/>
+                                  <?php  if($this->session->userdata('user_type') == "EMPLOYEE" || $this->session->userdata('user_type') == "RM" || $this->session->userdata('user_type') == "ACCOUNTANT") {?>
+                                    <form action="Ems_Application_List" method="POST">
+                                        <tr>
+                                            <th style="">
+                                               <div class="input-group">
 
-                                                    <input type="text" name="date" class="form-control  mydatetimepickerFull" placeholder="Select Start Date">
-                                                    <input type="text" name="month" class="form-control  mydatetimepicker" placeholder="Select Month">
-                                                    <input type="submit" class="btn btn-success" style="" value="Search Date">
+                                                <input type="text" name="date" class="form-control  mydatetimepickerFull" placeholder="Select Start Date">
+                                                <input type="text" name="month" class="form-control  mydatetimepicker" placeholder="Select Month">
+                                                <input type="submit" class="btn btn-success" style="" value="Search Date">
 
-                                                </div>
-                                            </th>
-
+                                            </div>
                                         </th>
-                                    </tr>
-                                </form>
-                            <?php }else { ?>
-                                <?php if($this->session->userdata('user_type') == "SUPERVISOR" ){ ?>
-                                  <form action="Ems_Application_List" method="POST">
-                                   <tr>
+
+                                    </th>
+                                </tr>
+                            </form>
+                        <?php }else { ?>
+                            <?php if($this->session->userdata('user_type') == "SUPERVISOR" ){ ?>
+                              <form action="Ems_Application_List" method="POST">
+                                 <tr>
                                     <th style="">
-                                     <label>Select Date:</label>
-                                     <div class="input-group">
+                                       <label>Select Date:</label>
+                                       <div class="input-group">
 
                                         <input type="text" name="date" id="dates" class="form-control  mydatetimepickerFull" onChange="getDistrict();">
                                         <!-- <input type="hidden" name="" class="form-control date" value="Date"> -->
@@ -85,10 +85,10 @@
                                     </div>
                                 </th>
                                 <th>
-                                 <label>PF.Number:</label>
-                                 <div class="input-group">
+                                   <label>PF.Number:</label>
+                                   <div class="input-group">
 
-                                   <input type="text" name="pf" id="pf" placeholder="PF.Number" class="form-control  " >
+                                     <input type="text" name="pf" id="pf" placeholder="PF.Number" class="form-control  " >
 
                                   <!-- <select name="district_to" value="" class="form-control custom-select"  id="employeeattended" required="required">  
                                             <option value="">--Select Employee--</option>
@@ -114,39 +114,33 @@
                                 </div>
                             </th> -->
                             <th>
-                             <label>&nbsp;</label>
-                             <div class="input-group">
-                               <input type="submit" class="btn btn-success" style="" value="Search">
-                               <!-- <input type="button" name="" class="btn btn-success BtnSuper" style="width: 100px;" id="" value="Search"> -->
-                           </div>
-                       </th>
-                   </tr>
-               </form>
-           <?php }else{?>
+                               <label>&nbsp;</label>
+                               <div class="input-group">
+                                 <input type="submit" class="btn btn-success" style="" value="Search">
+                                 <!-- <input type="button" name="" class="btn btn-success BtnSuper" style="width: 100px;" id="" value="Search"> -->
+                             </div>
+                         </th>
+                     </tr>
+                 </form>
+             <?php }else{?>
 
-             <tr>
+               <tr>
                 <?php if($this->session->userdata('user_type') == "ACCOUNTANT-HQ" || $this->session->userdata('user_type') == "ADMIN" || $this->session->userdata('user_type') == "BOP"){ ?>
-                    <form action="Ems_Application_List" method="POST">
+                    <form id="fetchEmsApplicationList" action="<?php echo base_url('Box_Application/Ems_Application_List_Ajax'); ?>" method="post">
                         <th style="">
-                         <div class="input-group">
-
-                             <input type="text" name="start_date" class="form-control  mydatetimepickerFull" placeholder="Select Start Date">
-                             <input type="text" name="end_date" class="form-control  mydatetimepickerFull" placeholder="Select End Date">
-                             <select class="form-control custom-select" name="ems_type">
-                                <option>--Select Type--</option>
-                                <option value="EMS">EMS</option>
-                                <option value="LOAN BOARD">Loan Board</option>
-                            </select>
-                             <select class="form-control custom-select" name="pay_type">
+                           <div class="input-group">
+                               <input type="text" name="start_date" id="start_date" class="form-control  mydatetimepickerFull" placeholder="Select Start Date" required>
+                               <input type="text" name="end_date" id="end_date" class="form-control  mydatetimepickerFull" placeholder="Select End Date" required>
+                               <select class="form-control custom-select" name="pay_type" id="pay_type" required>
                                 <option>--Select Payment Type--</option>
                                 <option value="Cash">Cash</option>
                                 <option value="Bill">Bill</option>
                             </select>
-                            <select name="region" value="" class="form-control custom-select" required id="regiono" onChange="getDistrict();">
+                            <select name="region" id="region" class="form-control custom-select" id="regiono" onChange="getDistrict();">
                                 <option value="">--Select Region--</option>
                                 <?php foreach($region as $value): ?>
-                                    <option value="<f?php echo $value->region_name ?>">
-                                        <?php echo $value->region_name ?></option>
+                                    <option value="<?php echo $value->region_name; ?>">
+                                        <?php echo $value->region_name; ?></option>
                                     <?php endforeach; ?>
                                 </select>
 
@@ -180,6 +174,12 @@
 </div>
 </div>
 
+<!-- Table holding AJAX DATA starts -->
+
+<div id="table-container"></div>
+
+<!-- Table holding AJAX DATA ends -->
+
 <form method="POST" action="<?php echo base_url();?>Box_Application/send_to_back_office">
 
     <div class="table-responsive">
@@ -193,161 +193,105 @@
                                 <!-- <tr><th colspan="9"></th><th colspan=""></th>
                                 <th></th>
                             </tr> -->
-                        <tr>
-                            <th>Sender Name</th>
-                            <th>Receiver Name</th>
-                            <th>Registered Date</th>
-                            <th>Amount (Tsh.)</th>
-                            <th>Weight</th>
-                            <th>Region Origin</th>
-                            <th>Branch Origin</th>
-                            <th>Address Type</th>
-                            <th>Destination</th>
-                            <th>Bill Number</th>
-                            <th>Tracking Number</th>
-                            <th>Barcode Number</th>
-                            <th>Transfer Status</th>
-                            <th style="text-align: right;">Payment Status</th>
-                            <th>Payment Channel</th>
-                            <?php if($this->session->userdata('user_type') == "ACCOUNTANT"){?>
-                            <?php }else{ ?>
+                            <tr>
                                 <th>
-                                    <div class="form-check" style="padding-left:50px;" id="showCheck">
-                                        <input type="checkbox"  class="form-check-input" id="checkAll" style="">
-                                        <label class="form-check-label" for="remember-me">All</label>
-                                    </div>
+                                    <?php $pay_type == "Cash" ? "Control Number" : "Addressee"; ?>
+
                                 </th>
-                                <th>
-                                   Action
-                               </th>
-                           <?php } ?>
+                                <th>Barcode</th>
+                                <?php $pay_type == 'Bill' ? '<th>Barcode</th>' : ''; ?>
+                                <th>Destination</th>
+                                <th>Date</th>
+                                <th>Weight</th>
+                                <th>Postage (Tsh.)</th>
+                                <th>VAT (Tsh.)</th>
+                                <th>Total (Tsh.)</th>                            
+                                <th style="text-align: right;">Payment Status</th>
+                                <?php if($this->session->userdata('user_type') == "ACCOUNTANT"){?>
+                                <?php }else{ ?>
+                                    <th>
+                                        <div class="form-check" style="padding-left:50px;" id="showCheck">
+                                            <input type="checkbox"  class="form-check-input" id="checkAll" style="">
+                                            <label class="form-check-label" for="remember-me">All</label>
+                                        </div>
+                                    </th>
+                                    <th>
+                                     Action
+                                 </th>
+                             <?php } ?>
 
-                       </tr>
-                   </thead>
+                         </tr>
+                     </thead>
 
-                   <tbody class="">
-                       <?php foreach ($emslist as  $value) {?>
-                           <tr>
-                              <td><a href="#" class="myBtn" data-sender_id="<?php echo $value->sender_id; ?>"><?php echo $value->s_fullname;?></a></td>
-                              <td><?php echo $value->fullname; ?></td>
-                              <td><?php
-                              echo $value->date_registered;
-                          ?></td>
-                          <td><?php echo $value->paidamount; ?></td>
-                          <td><?php echo $value->weight;?></td>
-                          <td><?php echo $value->s_region;?></td>
-                          <td><?php echo $value->s_district;?></td>
-                          <td><?php echo $value->add_type;?></td>
-                          <td><?php echo $value->r_region;?></td>
-                          <td> 
-                            <?php if ($value->s_pay_type == "Cash") {
-                                echo $value->billid;
-                                if(empty($value->billid)){
-                                 $serial = $value->serial;
-                                 $amount = $value->paidamount;
-                                 $id = $value->sender_id;
-                                 $this->Box_Application_model->getControlNumber($serial,$amount,$id);
-                             }
-                             $serial = $value->serial;
-                             $amount = $value->paidamount;
-                                                //$this->Box_Application_model->getUpdatePaymentEMS($serial,$amount);
-                         } else {
-                            echo strtoupper($value->s_pay_type);
-                        }
-                        ?>
-                    </td>
-                    <td>
-                        <a href="<?php echo base_url();?>Box_Application/item_qrcode?code=<?php echo base64_encode($value->track_number) ?>" target="_blank"><?php
-                        echo $value->track_number;
-
-                        if ($value->s_pay_type== "Cash") {
-                         $trackno = $value->track_number;
-                         $controlno = $value->billid;
-                         $id = $value->sender_id;
-                                    //$this->Box_Application_model->update_tracking_number($id ,$controlno,$trackno);
-                     } else {
-                                    // $trackno = $value->track_number;
-                                    // $controlno = rand(1000000,2000000);
-                                    // $id = $value->sender_id;
-                                    // $this->Box_Application_model->update_tracking_number1($id ,$controlno,$trackno);
-                     }
-
-
-                     ?>
-                 </a>
-
-             </td>
-             <td><?php echo $value->Barcode; ?></td>
-             <td>
-                <?php if ($value->office_name == 'Received') {?>
-                    <button type="button" class="btn  btn-success btn-sm" disabled="disabled">Successfully Transfer</button>
-                <?php }else{ ?>
-                   <button type="button" class="btn btn-danger btn-sm" disabled="disabled"> Pending To Back Office</button>
-               <?php }?>
-
-           </td>
-
-           <td style="text-align: right;">
-            <?php 
-            if ($value->s_pay_type == "Cash") {
-               if($value->status == 'NotPaid'){
+                     <tbody class="">
+                         <?php foreach ($emslist as $value) {?>
+                             <tr>
+                                <td>
+                                    <?php $pay_type == "Cash" ? $value->billid : '<a href="#" class="myBtn" data-sender_id="'.$value->sender_id.'">'.$value->s_fullname.'</a>'; ?>
+                                </td>
+                                <td><?php echo $value->Barcode; ?></td>
+                                <?php $pay_type == 'Bill' ? '<td>'.$value->region.'</td>' : ''; ?>
+                                <td><?php echo $value->r_region;?></td>
+                                <td><?php echo $value->paymentdate;?></td>
+                                <td><?php echo $value->weight;?></td>
+                                <td><?php echo $value->postage;?></td>
+                                <td><?php echo $value->vat;?></td>
+                                <td><?php echo $value->paidamount; ?></td>
+                                <td style="text-align: right;">
+                                    <?php if ($value->s_pay_type == "Cash") {
+                                     if($value->status == 'NotPaid'){
                                 //echo "<button class='btn btn-danger btn-sm' disabled>Not Paid</button>";
-                ?>
+                                        ?>
 
-                <a href="<?php echo base_url('Loan_Board/updateControlNumber/'.$value->serial);?>" class="btn btn-danger btn-sm"><i class="fa fa fa-bars"></i> NOT PAID</a>
+                                        <a href="<?php echo base_url('Loan_Board/updateControlNumber/'.$value->serial);?>" class="btn btn-danger btn-sm"><i class="fa fa fa-bars"></i> NOT PAID</a>
+                                    <?php }else{
+                                       echo "<button class='btn btn-success btn-sm' disabled>Paid</button>";
+                                   }
+                               } else {
+                                 echo "<button class='btn btn-success btn-sm' disabled>Paid</button>";
+                             }
+                             ?>
 
+                         </td>
+                         <?php if($this->session->userdata('user_type') == "ACCOUNTANT"){?>
+                         <?php }else{ ?>
+                            <td style = "text-align:center;">
+                                <div class="form-check">"
+                                    <?php
+                                    if ($value->s_pay_type == "Cash") {
+                                        if ($value->status == 'Paid' && $value->office_name == 'Counter'){
+                                            echo "<input type='checkbox' name='I[]' class='form-check-input checkSingle' id='remember-me' value='$value->id'>
+                                            <label class='form-check-label' for='remember-me'></label>";
+                                        }elseif($value->status == 'Bill' && $value->office_name == 'Counter'){
+                                          echo "<input type='checkbox' name='I[]' class='form-check-input checkSingle' id='remember-me' value='$value->id'>
+                                          <label class='form-check-label' for='remember-me'></label>";
+                                      }else{
+                                       echo "<input type='checkbox' name='' class='form-check-input' disabled='disabled' style='padding-right:50px;' checked>
+                                       <label class='form-check-label' for='remember-me'></label>";
+                                   }
+                               } else {
+                                 if ($value->s_pay_type != 'Cash' && $value->office_name == 'Counter'){
+                                    echo "<input type='checkbox' name='I[]' class='form-check-input checkSingle' id='remember-me' value='$value->id'>
+                                    <label class='form-check-label' for='remember-me'></label>";
 
-            <?php }else{
-             echo "<button class='btn btn-success btn-sm' disabled>Paid</button>";
-         }
-     } else {
-       echo "<button class='btn btn-success btn-sm' disabled>Paid</button>";
-   }
+                                }else{
+                                   echo "<input type='checkbox' name='' class='form-check-input' disabled='disabled' style='padding-right:50px;' checked>
+                                   <label class='form-check-label' for='remember-me'></label>";
+                               }
+                           }
 
-   ?>
-
-</td>
-<td><?php echo $value->paychannel; ?></td>
-<?php if($this->session->userdata('user_type') == "ACCOUNTANT"){?>
-<?php }else{ ?>
-    <td style = "text-align:center;">
-        <div class="form-check">"
-            <?php
-            if ($value->s_pay_type == "Cash") {
-                if ($value->status == 'Paid' && $value->office_name == 'Counter'){
-                    echo "<input type='checkbox' name='I[]' class='form-check-input checkSingle' id='remember-me' value='$value->id'>
-                    <label class='form-check-label' for='remember-me'></label>";
-                }elseif($value->status == 'Bill' && $value->office_name == 'Counter'){
-                  echo "<input type='checkbox' name='I[]' class='form-check-input checkSingle' id='remember-me' value='$value->id'>
-                  <label class='form-check-label' for='remember-me'></label>";
-              }else{
-                 echo "<input type='checkbox' name='' class='form-check-input' disabled='disabled' style='padding-right:50px;' checked>
-                 <label class='form-check-label' for='remember-me'></label>";
-             }
-         } else {
-           if ($value->s_pay_type != 'Cash' && $value->office_name == 'Counter'){
-            echo "<input type='checkbox' name='I[]' class='form-check-input checkSingle' id='remember-me' value='$value->id'>
-            <label class='form-check-label' for='remember-me'></label>";
-            
-        }else{
-         echo "<input type='checkbox' name='' class='form-check-input' disabled='disabled' style='padding-right:50px;' checked>
-         <label class='form-check-label' for='remember-me'></label>";
-     }
- }
-
- ?>
-</div>
-</td>
-<td style = "text-align:center;">
-    <a href="#" class="btn btn-info btn-sm getDetails" data-sender_id="<?php echo $value->sender_id ?>" data-receiver_id="<?php echo $value->receiver_id ?>" data-s_fullname="<?php echo $value->s_fullname ?>" data-s_address="<?php echo $value->s_address ?>" data-sbranch="<?php echo $value->s_district ?>" data-rbranch="<?php echo $value->branch ?>" data-s_email="<?php echo $value->s_email ?>" data-s_mobile="<?php echo $value->s_mobile ?>" data-s_region="<?php echo $value->s_region ?>" data-r_fullname="<?php echo $value->fullname ?>" data-s_address="<?php echo $value->address ?>" data-r_email="<?php echo $value->email ?>" data-r_mobile="<?php echo $value->mobile ?>" data-r_region="<?php echo $value->r_region ?>" data-operator="<?php
-    $id = $value->operator;
-    $info = $this->employee_model->GetBasic($id);
-    echo @$info->em_code.'  '.@$info->first_name.'  '.@$info->middle_name.'  '.@$info->last_name ?>" data-billid="<?php echo $value->billid ?>" data-channel="<?php echo $value->paychannel ?>">Details</a>
-</td>
-<?php } ?>
-
-</tr>
-<?php } }?>
+                           ?>
+                       </div>
+                   </td>
+                   <td style = "text-align:center;">
+                    <a href="#" class="btn btn-info btn-sm getDetails" data-sender_id="<?php echo $value->sender_id ?>" data-receiver_id="<?php echo $value->receiver_id ?>" data-s_fullname="<?php echo $value->s_fullname ?>" data-s_address="<?php echo $value->s_address ?>" data-sbranch="<?php echo $value->s_district ?>" data-rbranch="<?php echo $value->branch ?>" data-s_email="<?php echo $value->s_email ?>" data-s_mobile="<?php echo $value->s_mobile ?>" data-s_region="<?php echo $value->s_region ?>" data-r_fullname="<?php echo $value->fullname ?>" data-s_address="<?php echo $value->address ?>" data-r_email="<?php echo $value->email ?>" data-r_mobile="<?php echo $value->mobile ?>" data-r_region="<?php echo $value->r_region ?>" data-operator="<?php
+                    $id = $value->operator;
+                    $info = $this->employee_model->GetBasic($id);
+                    echo @$info->em_code.'  '.@$info->first_name.'  '.@$info->middle_name.'  '.@$info->last_name ?>" data-billid="<?php echo $value->billid ?>" data-channel="<?php echo $value->paychannel ?>">Details</a>
+                </td>
+            <?php } ?>
+        </tr>
+    <?php } }?>
 
 </tbody>
 <footer>
@@ -383,7 +327,7 @@
                 <td>&nbsp;</td>
             </tr>
             <?PHP }else{?>
-             <tr>
+               <tr>
 
                 <td colspan="15">
                     <?php if(empty($emslist)){?>
@@ -393,7 +337,7 @@
                         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         &nbsp;&nbsp;&nbsp;
                         <span ><b>Total Amount ::</b>&nbsp;&nbsp;</span>
-                        <?php echo number_format($total->paidamount,2);?>
+                        <?php echo number_format($total,2);?>
                         <input type="hidden" class="id" name="emid" id="emid" value="<?php echo $this->session->userdata('user_login_id'); ?>">
                         <span style="float: left;"><button type="submit" class="btn btn-info endshift" name="endshift" value="EndShift">End Shift >>></button></span>
                         <span style="float: right;"><button type="submit" class="btn btn-info">Back Office >>></button>
@@ -536,12 +480,12 @@
                 </select>
             </div>
             <div class="col-md-6">
-               <label>Weight Step in KG:</label>
-               <input type="number" name="weight" class="form-control catweight" id="weight" onkeyup="getPriceFrom()">
-           </div>
-       </div>
-       <br>
-       <div class="row">
+             <label>Weight Step in KG:</label>
+             <input type="number" name="weight" class="form-control catweight" id="weight" onkeyup="getPriceFrom()">
+         </div>
+     </div>
+     <br>
+     <div class="row">
         <div class="col-md-12">
             <span class ="price" style="font-weight: 60px;font-size: 18px;"></span>
         </div>
@@ -635,11 +579,11 @@
                     <option value="">--Select Job--</option>
 
                     <?php foreach($sup_service as $value){?>
-                     <option><?php echo $value->serv_name; ?></option>
-                 <?php } ?>
-             </select>
-             <br><br>
-             <div class="" style="float: right;padding-bottom: 10px;">
+                       <option><?php echo $value->serv_name; ?></option>
+                   <?php } ?>
+               </select>
+               <br><br>
+               <div class="" style="float: right;padding-bottom: 10px;">
 
                 <input type="hidden" name="empid" id="empid">
                 <button type="submit" class="btn btn-info pull-left"><span class="glyphicon glyphicon-remove"></span>Save Information</button>
@@ -692,14 +636,14 @@ $('form').submit(function(){
 <script>
     function getPriceFrom() {
 
-     var weight = $('#weight').val();
-     var tariffCat  = $('#tariffCat').val();
-     if (weight == '') {
+       var weight = $('#weight').val();
+       var tariffCat  = $('#tariffCat').val();
+       if (weight == '') {
 
-     }else{
+       }else{
         $.ajax({
-         type : "POST",
-         url  : "<?php echo base_url('Box_Application/Ems_price_vat')?>",
+           type : "POST",
+           url  : "<?php echo base_url('Box_Application/Ems_price_vat')?>",
                  //dataType : "JSON",
                  data : {weight:weight,tariffCat:tariffCat},
                  success: function(data){
@@ -720,8 +664,8 @@ $('form').submit(function(){
 
         }else{
             $.ajax({
-             type : "POST",
-             url  : "<?php echo base_url('Box_Application/Ems_price_vat')?>",
+               type : "POST",
+               url  : "<?php echo base_url('Box_Application/Ems_price_vat')?>",
                  //dataType : "JSON",
                  data : {weight:weight,tariffCat:tariffCat},
                  success: function(data){
@@ -737,21 +681,21 @@ $('form').submit(function(){
 
         $(".BtnSubmit").on("click", function(event) {
 
-         event.preventDefault();
+           event.preventDefault();
 
 
-         var datetime = $('.mydatetimepickerFull').val();
-         var emid = $('#emid').val();
-         var month2 = $('.month2').val();
-         var date = $('.date').val();
-         var month = $('.month').val();
-         console.log(datetime);
+           var datetime = $('.mydatetimepickerFull').val();
+           var emid = $('#emid').val();
+           var month2 = $('.month2').val();
+           var date = $('.date').val();
+           var month = $('.month').val();
+           console.log(datetime);
                 // alert(datetime);
                 $.ajax({
-                 type: "POST",
-                 url: "<?php echo base_url();?>Box_Application/Get_EMSDate1",
-                 data:'date_time='+ datetime +'&emid='+ emid,
-                 success: function(response) {
+                   type: "POST",
+                   url: "<?php echo base_url();?>Box_Application/Get_EMSDate1",
+                   data:'date_time='+ datetime +'&emid='+ emid,
+                   success: function(response) {
 
                     $('.table2').show();
                     $('.table1').hide();
@@ -779,21 +723,21 @@ $('form').submit(function(){
 
         $(".BtnSuper").on("click", function(event) {
 
-         event.preventDefault();
+           event.preventDefault();
 
 
-         var datetime = $('.mydatetimepickerFull').val();
-         var emid = $('.emname').val();
-         var emidag = $('.agname').val();
+           var datetime = $('.mydatetimepickerFull').val();
+           var emid = $('.emname').val();
+           var emidag = $('.agname').val();
 
-         console.log(datetime);
+           console.log(datetime);
                 // alert(datetime);
                 $.ajax({
 
-                 type: "POST",
-                 url: "<?php echo base_url();?>Box_Application/Get_EMSDate1",
-                 data:'date_time='+ datetime +'&emid='+ emid+'&emidag='+ emidag,
-                 success: function(response) {
+                   type: "POST",
+                   url: "<?php echo base_url();?>Box_Application/Get_EMSDate1",
+                   data:'date_time='+ datetime +'&emid='+ emid+'&emidag='+ emidag,
+                   success: function(response) {
 
                     $('.table2').show();
                     $('.table1').hide();
@@ -821,21 +765,21 @@ $('form').submit(function(){
 
         $(".BtnSubmit1").on("click", function(event) {
 
-         event.preventDefault();
+           event.preventDefault();
 
 
-         var datetime = $('.mydatetimepickerFull').val();
-         var emid = $('#emid').val();
-         var month2 = $('.month2').val();
-         var date = $('.date').val();
-         var month = $('.month').val();
-         console.log(datetime);
+           var datetime = $('.mydatetimepickerFull').val();
+           var emid = $('#emid').val();
+           var month2 = $('.month2').val();
+           var date = $('.date').val();
+           var month = $('.month').val();
+           console.log(datetime);
                 // alert(datetime);
                 $.ajax({
-                 type: "POST",
-                 url: "<?php echo base_url();?>Box_Application/Get_EMSDate2",
-                 data:'date_time='+ datetime +'&emid='+ emid,
-                 success: function(response) {
+                   type: "POST",
+                   url: "<?php echo base_url();?>Box_Application/Get_EMSDate2",
+                   data:'date_time='+ datetime +'&emid='+ emid,
+                   success: function(response) {
 
                     $('.table2').show();
                     $('.table1').hide();
@@ -861,19 +805,19 @@ $('form').submit(function(){
 
         $(".BtnRegBra").on("click", function(event) {
 
-         event.preventDefault();
+           event.preventDefault();
 
-         var region = $('#regiono').val();
-         var branch = $('#branchdropo').val();
+           var region = $('#regiono').val();
+           var branch = $('#branchdropo').val();
      //var date   = $('.date').val();
      var emid = $('#emid').val();
      console.log(region);
                 // alert(region);
                 $.ajax({
-                 type: "POST",
-                 url: "<?php echo base_url();?>Box_Application/Get_EMSRegionBranch",
-                 data:'region='+ region +'&branch='+ branch +'&emid='+ emid,
-                 success: function(response) {
+                   type: "POST",
+                   url: "<?php echo base_url();?>Box_Application/Get_EMSRegionBranch",
+                   data:'region='+ region +'&branch='+ branch +'&emid='+ emid,
+                   success: function(response) {
 
                     $('.table2').show();
                     $('.table1').hide();
@@ -931,13 +875,13 @@ $('form').submit(function(){
     function getRecDistrict() {
         var val = $('#rec_region').val();
         $.ajax({
-         type: "POST",
-         url: "<?php echo base_url();?>Employee/GetBranch",
-         data:'region_id='+ val,
-         success: function(data){
-             $("#rec_dropp").html(data);
-         }
-     });
+           type: "POST",
+           url: "<?php echo base_url();?>Employee/GetBranch",
+           data:'region_id='+ val,
+           success: function(data){
+               $("#rec_dropp").html(data);
+           }
+       });
     };
 </script>
 <script type="text/javascript">
@@ -1046,13 +990,13 @@ $('#btn_save').on('click',function(){
     function getDistrict() {
         var val = $('#regionp').val();
         $.ajax({
-         type: "POST",
-         url: "<?php echo base_url();?>Employee/GetDistrict",
-         data:'region_id='+ val,
-         success: function(data){
-             $("#branchdropp").html(data);
-         }
-     });
+           type: "POST",
+           url: "<?php echo base_url();?>Employee/GetDistrict",
+           data:'region_id='+ val,
+           success: function(data){
+               $("#branchdropp").html(data);
+           }
+       });
     };
 </script>
 
@@ -1060,31 +1004,31 @@ $('#btn_save').on('click',function(){
     function getEmployeeinshift() {
         var val = $('#dates').val();
         $.ajax({
-         type: "POST",
-         url: "<?php echo base_url();?>Box_Application/getEmployeeinshift",
-         data:'date='+ val,
-         success: function(data){
-             $("#employeeattended").html(data);
-         }
-     });
+           type: "POST",
+           url: "<?php echo base_url();?>Box_Application/getEmployeeinshift",
+           data:'date='+ val,
+           success: function(data){
+               $("#employeeattended").html(data);
+           }
+       });
     };
 </script>
 
 <script type="text/javascript">
     function getTariffCategory() {
 
-     var val = $('#boxtype').val();
-     $.ajax({
-         type: "POST",
-         url: "<?php echo base_url();?>Box_Application/GetTariffCategory",
-         data:'bt_id='+ val,
-         success: function(data){
+       var val = $('#boxtype').val();
+       $.ajax({
+           type: "POST",
+           url: "<?php echo base_url();?>Box_Application/GetTariffCategory",
+           data:'bt_id='+ val,
+           success: function(data){
             $('#tariffCat').html(data);
             $('#indv').show();
             $('#error1').html('');
         }
     });
- };
+   };
 </script>
 
 
@@ -1096,17 +1040,17 @@ $('#btn_save').on('click',function(){
 
         }else{
 
-         $.ajax({
-             type: "POST",
-             url: "<?php echo base_url();?>Box_Application/UpdateBoxFull",
-             data:'box_id='+ val,
-             success: function(data){
+           $.ajax({
+               type: "POST",
+               url: "<?php echo base_url();?>Box_Application/UpdateBoxFull",
+               data:'box_id='+ val,
+               success: function(data){
      //$("#branchdropp").html(data);
  }
 });
 
-     }
- };
+       }
+   };
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -1207,19 +1151,19 @@ $('#btn_save').on('click',function(){
     //var text1 = $(this).attr('data-sender_id');
     var emid = $('.id').val();
     $.ajax({
-     type: "POST",
-     url: "<?php echo base_url();?>Box_Application/send_to_back_office",
-     data:'emid='+ emid,
-     success: function(response) {
+       type: "POST",
+       url: "<?php echo base_url();?>Box_Application/send_to_back_office",
+       data:'emid='+ emid,
+       success: function(response) {
                     //$('.results').html(response);
                     if ($.trim(response) == "No") {
-                       $("#myModalEndDay").modal();
-                   }else{
-                      $("#myModalEndDay2").modal();
-                      $("#empid").val(emid);
-                  }
+                     $("#myModalEndDay").modal();
+                 }else{
+                  $("#myModalEndDay2").modal();
+                  $("#empid").val(emid);
               }
-          });
+          }
+      });
 });
   });
 </script>
@@ -1280,7 +1224,7 @@ $('#btn_save').on('click',function(){
     });
 </script> -->
 
-</script>
+<!-- </script> -->
 <!-- <script type="text/javascript">
 $('form').each(function() {
     $(this).validate({
@@ -1315,6 +1259,36 @@ $('form').each(function() {
 });
 
 </script> -->
+
+<script>
+    var frm = $('#fetchEmsApplicationList');
+
+    frm.submit(function (e) {
+
+        e.preventDefault();
+
+        $("#table-container").html("");
+        $("#isloading").show();
+
+        $.ajax({
+            type: frm.attr('method'),
+            url: frm.attr('action'),
+            dataType: "html",
+            data: frm.serialize(),
+            success: function (data) {
+                $("#isloading").hide();
+                // console.log('Submission was successful.');
+                // console.log(data);
+                $("#table-container").html(data);
+            },
+            error: function (data) {
+                $("#isloading").hide();
+                // console.log('An error occurred.');
+                // console.log(data);
+            },
+        });
+    });
+</script>
 <?php $this->load->view('backend/footer'); ?>
 
 <!-- Modal content-->
