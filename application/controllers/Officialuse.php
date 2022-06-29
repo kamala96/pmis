@@ -86,9 +86,10 @@ class Officialuse extends CI_Controller {
     $this->load->view('inventory/store_hod_sendrequest',$data);
     }
 
-    public function requests(){
-    $data['list'] = $this->OfficialuseModel->list_my_requests();
-    $this->load->view('inventory/officialuse_request',$data);
+    public function requests()
+    {
+        $data['list'] = $this->OfficialuseModel->list_my_requests();
+        $this->load->view('inventory/officialuse_request',$data);    
     }
 
     public function hod_requests(){

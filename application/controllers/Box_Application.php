@@ -4535,7 +4535,7 @@ public function Ems_Application_List_Ajax()
 	$total = 0;
 	$emslist = $this->Box_Application_model->get_ems_listAcc($start_date, $end_date, $pay_type, $region);
 
-	echo '<table border="1">';
+	echo '<table id="Ems_Application_List_Ajax_Table" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">';
 	if( ! empty($emslist))
 	{
 		echo '<tr>';

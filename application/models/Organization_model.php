@@ -53,7 +53,7 @@ class Organization_model extends CI_Model{
   }
 
   public function get_services_byId($id){
-    $sql    = "SELECT * FROM `emp_services` WHERE `serv_id`='$id'";
+    $sql = "SELECT * FROM `emp_services` WHERE `serv_id`='$id'";
           $query  = $this->db->query($sql);
           $result = $query->row();
     return $result;
@@ -116,7 +116,7 @@ class Organization_model extends CI_Model{
       
         $sql = "SELECT * FROM `emp_services`";
       
-    $query=$this->db->query($sql);
+      $query=$this->db->query($sql);
       $result = $query->result();
       return $result;
   }

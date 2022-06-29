@@ -20,9 +20,8 @@ if($this->session->userdata('user_type') =='SUPER ADMIN'){
     $usertype = $this->employee_model->getusertype_superadmin(); 
 }else{
     $usertype = $this->employee_model->getusertype(); 
-}
+} 
 
- 
 
  ?>
 <?php $empservices = $this->organization_model->get_services(); ?>
@@ -703,12 +702,12 @@ $depvalue1 = $this->employee_model->getdepartment1($dep_id); ?>
                  <label><h2>Assign Service</h2></label>
                 <br>
 
-                <?php foreach ($empservices as $value1) {?>
+                <?php foreach ($empservices as $value1) { ?>
 
-                    <?php echo $value1->serv_name?> :
+                    <?php echo $value1->serv_name ?> :
                     <input type="checkbox" name="serv_id[]" value="<?php echo $value1->serv_id?>" class="" style="padding-bottom: 50px;" 
                     <?php 
-                    foreach ($service2 as $val){
+                    foreach ($service2 as $val) {
                         if ($value1->serv_id == $val->servc_id) {
                             echo "checked";
                             break;

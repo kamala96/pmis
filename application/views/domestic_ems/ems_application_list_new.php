@@ -174,11 +174,23 @@
 </div>
 </div>
 
+
+
+
+
+
 <!-- Table holding AJAX DATA starts -->
 
-<div id="table-container"></div>
+<div class="card card-outline-info">
+    <div class="card-body">
+        <div class="table-responsive" id="table-container"></div>
+    </div>
+</div>
 
 <!-- Table holding AJAX DATA ends -->
+
+
+
 
 <form method="POST" action="<?php echo base_url();?>Box_Application/send_to_back_office">
 
@@ -1181,35 +1193,6 @@ $('#btn_save').on('click',function(){
     };
 </script>
 
-<script type="text/javascript">
-
-    // CODE BY NEW PROGRAMMERS STARTS
-    // -------------------------------------------------------------------
-
-    $(document).ready(function(){
-
-   //     $.ajax({ 
-   //       url: "<h?php echo base_url();?>Ems_Domestic/document_parcel_ajax_select",
-   //       type: 'GET',
-   //       dataType: "html",
-   //       success: function(response){
-   //         $("#selectEMSCat").html(response);
-   //         console.log(response);
-   //     }
-   // });
-
-   $.ajax({ 
-    url: "<?php echo base_url();?>Box_Application/Ems_Application_List_ajax_regionList",
-    type: 'GET',
-    dataType: "html",
-    success: function(response){
-        $("#regionList").html(response);
-           // console.log(response);
-       }
-   });
-});
-</script>
-
 <!-- <script type="text/javascript">
     $(document).ready(function(){
         $.ajax({ 
@@ -1260,7 +1243,23 @@ $('form').each(function() {
 
 </script> -->
 
-<script>
+<script type="text/javascript">
+    // CODE BY NEW PROGRAMMERS STARTS
+    // -------------------------------------------------------------------
+    
+    $(document).ready(function () {
+      $('#Ems_Application_List_Ajax_Table').DataTable({
+        orderCellsTop: true,
+        order: [[0,"asc" ]],
+        "pageLength": 4,
+        dom: 'Bfrtip',
+        buttons: [
+        'copy', 'csv', 'excel', 'pdf', 'print'
+        ]
+    });
+  });
+
+
     var frm = $('#fetchEmsApplicationList');
 
     frm.submit(function (e) {

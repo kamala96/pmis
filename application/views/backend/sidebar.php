@@ -2,21 +2,22 @@
             <!-- Sidebar scroll-->
             <div class="scroll-sidebar">
                 <!-- User profile -->
-                        <?php 
-                        $id = $this->session->userdata('user_login_id');
-                        $basicinfo = $this->employee_model->GetBasic($id);
-                        $basicinfos = $this->employee_model->GetBasic($id);
-						$dep_id = $basicinfos->dep_id;
-						 $dep = $this->employee_model->getdepartment1($dep_id);
-						
-                        if (!empty($dep)) {
-                            $dep_name = $dep->dep_name;
-                        }else{}
-                        ?>
+                <?php
 
-                                
-
-
+                $id = $this->session->userdata('user_login_id');
+                $basicinfo = $this->employee_model->GetBasic($id);
+                $basicinfos = $this->employee_model->GetBasic($id);
+                $dep_id = $basicinfos->dep_id;
+                $dep = $this->employee_model->getdepartment1($dep_id);
+                
+                if (!empty($dep))
+                {
+                    $dep_name = $dep->dep_name;
+                }
+                else
+                {}
+                ?> 
+                
                 <div class="user-profile">
                     <!-- User profile image -->
                     <div class="profile-img">
@@ -803,15 +804,14 @@
                          <?php if($this->session->userdata('user_type') =='ADMIN') { ?>
 
                              <ul aria-expanded="false" class="collapse">
-                            <li><a href="<?php echo base_url(); ?>Services/search_master">Search Master</a></li>
-                            <li><a href="<?php echo base_url(); ?>Services/mail_search_master">Mail Search Master</a></li>
-                                </ul>
-
+                                <li><a href="<?php echo base_url(); ?>Services/search_master">Search Master</a></li>
+                                <li><a href="<?php echo base_url(); ?>Services/mail_search_master">Mail Search Master</a></li>
+                            </ul>
 
                          <?php } ?>
 
                          
-                        <?php  $id = $basicinfos->em_id;
+                        <?php $id = $basicinfos->em_id;
                             $data = $this->employee_model->get_services_byEmId($id);
 							$data1 = $this->employee_model->get_services_byEmId1($id);
                             $section = $this->employee_model->getEmpDepartmentSections($id);
@@ -888,18 +888,12 @@
                             
                                 }
                             }
-
-
-
                                 }
                                 else{
                                 
 
                                 if(!empty($data1) && !empty($data))
                                {
-
-
-
                                   foreach ($data1 as $value) {
                                     foreach ($data as $val){
                                     if ($value->serv_id == $val->servc_id) {
@@ -907,8 +901,7 @@
                                  <li><a href='"; echo base_url(); echo "Services/$value->serv_name'>$value->description</a></li>
                                 </ul>";
                                     }
-                                }
-                               
+                                }                               
                             
                                 }
 

@@ -3,6 +3,7 @@ class OfficialuseModel extends CI_Model{
 
 public  function list_items(){
 $db2 = $this->load->database('otherdb', TRUE);
+
 $sql = "select * from officialuse_items";
 $query=$db2->query($sql);
 $result = $query->result();

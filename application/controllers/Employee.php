@@ -125,8 +125,8 @@ public function GetBoxBranch(){
     }
 
 }
-public function GetBranch1(){
-
+public function GetBranch1()
+{
       if ($this->input->post('region_id') != '') {
 
          $reg = $this->input->post('region_id');
@@ -134,10 +134,9 @@ public function GetBranch1(){
           //print_r($this->employee_model->GetBranchById1($reg,$acc));
           echo $this->employee_model->GetBranchById1($reg,$acc);
       }
-
 }
-   public function GetDistrict(){
-
+   public function GetDistrict()
+   {
       $region_id = $this->input->post('region_id',TRUE);  
       //run the query for the cities we specified earlier  
       echo $this->employee_model->GetDistrictById($region_id);
@@ -151,6 +150,7 @@ public function GetBranch1(){
 		redirect(base_url() , 'refresh');
 	}            
     }
+
 	public function Save(){ 
     if($this->session->userdata('user_login_access') != False) {     
     $eid = $this->input->post('eid');    
@@ -502,21 +502,21 @@ public function GetBranch1(){
 
 
 
-    public function view(){
+    public function view()
+    {
+        if($this->session->userdata('user_login_access') != False)
+        {
+            $id = base64_decode($this->input->get('I'));
+            $emcode = base64_decode($this->input->get('emcode'));
+            $data['basic'] = $this->employee_model->GetBasic($id);
 
-        if($this->session->userdata('user_login_access') != False) {
-
-        $id = base64_decode($this->input->get('I'));
-        $emcode = base64_decode($this->input->get('emcode'));
-        $data['basic'] = $this->employee_model->GetBasic($id);
-
-        if ($data['basic']->sectionid) {
+        if ($data['basic']->sectionid)
+        {
             $data['sectiondata'] = $this->employee_model->getDepartmentSections($departId='',$data['basic']->sectionid);
-
             $data['sectiondata'] = $data['sectiondata'][0];
         }
 
-       // $data['permanent'] = $this->employee_model->GetperAddress($id);
+        // $data['permanent'] = $this->employee_model->GetperAddress($id);
         $data['present'] = $this->employee_model->GetpreAddress($id);
         $data['education'] = $this->employee_model->GetEducation($id);
         $data['family'] = $this->employee_model->GetFamily($id);
