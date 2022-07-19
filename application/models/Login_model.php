@@ -15,6 +15,35 @@
 	$result=$query->result();
 	return $result;
 	}
+	
+	public function is_current_password_available($currentPassword, $email)
+	{
+		$this->db->select('id');
+		$this->db->where('em_email', $email);
+		$this->db->where('em_password', $currentPassword);
+		$query = $this->db->get('employee');
+
+		if($query->num_rows() > 0)
+		return $query->row_array();
+		else FALSE;
+	}	
+
+	public function update_pmis_login_password($newPassword, $emp_id, $date)
+	{
+		// $this->db->set('em_password', $newPassword);
+		// $this->db->set('last_modified_password', $date);
+		// $this->db->where('id', $emp_id);
+		// $this->db->update('employee');
+
+		$data = array('em_password' => $newPassword, 'last_modified_password' => $date);
+		$where = array('id' => $emp_id);
+		if($this->db->update('employee', $data, $where))
+		{
+			return TRUE;
+		}
+		return FALSE;
+	}
+
 	//**exists employee email check**//
     public function Does_email_exists($email) {
 		$user = $this->db->dbprefix('users');

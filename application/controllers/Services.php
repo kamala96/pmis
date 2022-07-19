@@ -18,23 +18,23 @@
             $this->load->view('ems/ems-dashboard',@$data);
             
         } else {
-         redirect(base_url());
-     }
+           redirect(base_url());
+       }
 
- }
+   }
 
- public function Search_international()
- {
+   public function Search_international()
+   {
     if ($this->session->userdata('user_login_access') != false) {
 
-     $data['region'] = $this->employee_model->regselect();
-     $date = $this->input->post('date');
-     $month= $this->input->post('month');
-     $region= $this->input->post('region');
-     $barcode= $this->input->post('barcode');
+       $data['region'] = $this->employee_model->regselect();
+       $date = $this->input->post('date');
+       $month= $this->input->post('month');
+       $region= $this->input->post('region');
+       $barcode= $this->input->post('barcode');
 
 
-     if (!empty($barcode) ) {
+       if (!empty($barcode) ) {
         $data['inter'] = $this->Ems_International_model->get_ems_international_Search_list_search($barcode);
         $data['sum'] = $this->Ems_International_model->get_ems_international_search_sum_sarch($barcode);
 
@@ -47,7 +47,7 @@
 
     } else {
 
-     if ($this->session->userdata('user_type') == "ACCOUNTANT" || $this->session->userdata('user_type') == "ADMIN"  || $this->session->userdata('user_type') == "RM" || $this->session->userdata('user_type') == "BOP") {
+       if ($this->session->userdata('user_type') == "ACCOUNTANT" || $this->session->userdata('user_type') == "ADMIN"  || $this->session->userdata('user_type') == "RM" || $this->session->userdata('user_type') == "BOP") {
         $data['inter'] = $this->Ems_International_model->get_ems_international_list_search($date,$month,$region);
         $data['sum'] = $this->Ems_International_model->get_ems_international_sum_sarch($date,$month,$region);
     }else{
@@ -172,8 +172,8 @@ public function Fleet(){
         $data['region'] = $this->FleetModel->get_regions();
         $this->load->view('fleet/add_vehicle',$data); 
     } else {
-     redirect(base_url());
- }
+       redirect(base_url());
+   }
 
 }
 
@@ -183,8 +183,8 @@ public function Foreign_parcel(){
         $data['region'] = $this->employee_model->regselect();
         $this->load->view('FP/add_foreign_parcel',$data);
     } else {
-     redirect(base_url());
- }
+       redirect(base_url());
+   }
 }
 
 /*public function Foreign_letter(){
@@ -216,8 +216,8 @@ public function Small_Packets(){
 
         $this->load->view('FGN/add_fgn',$data);
     } else {
-     redirect(base_url());
- }
+       redirect(base_url());
+   }
 
 }
 
@@ -242,7 +242,7 @@ public function Posta_mlangoni(){
         $data['current_controller'] = $staff_section[0]['controller'];
 
         if (!empty($emslist)) {
-         foreach ($emslist as $key => $list) {
+           foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list->created_by);
 
             $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -268,8 +268,8 @@ public function Pcum(){
         $this->load->view('pcum/pcum_dashboard',@$data);
 
     } else {
-     redirect(base_url());
- }
+       redirect(base_url());
+   }
 
 }
 
@@ -280,8 +280,8 @@ public function Bureau(){
         $this->load->view('bureau/dashboard',@$data);
 
     } else {
-     redirect(base_url());
- }
+       redirect(base_url());
+   }
 
 }
 
@@ -323,57 +323,57 @@ public function Giro(){
 }
 public function Internet()
 {
- if ($this->session->userdata('user_login_access') != false) {
+   if ($this->session->userdata('user_login_access') != false) {
 
     $data['cash'] = $this->dashboard_model->get_ems_international();
     $this->session->set_userdata('heading','Internet Dashboard');
     $this->load->view('internet/Internet-dashboard',@$data);
 
 } else {
- redirect(base_url());
+   redirect(base_url());
 }
 }
 
 public function Ebusiness()
 {
- if ($this->session->userdata('user_login_access') != false) {
+   if ($this->session->userdata('user_login_access') != false) {
 
             //$data['cash'] = @$this->dashboard_model->get_ems_international();
     $this->session->set_userdata('heading','Ebusiness Dashboard');
     $this->load->view('Eshoping/Ebusiness-dashboard');
 
 } else {
- redirect(base_url());
+   redirect(base_url());
 }
 }
 
 
 public function Miscellaneous()
 {
- if ($this->session->userdata('user_login_access') != false) {
+   if ($this->session->userdata('user_login_access') != false) {
 
             $data['cash'] = "";//$this->dashboard_model->get_ems_international();
             $this->session->set_userdata('heading','Miscellaneous Dashboard');
             $this->load->view('Miscellaneous/Miscellaneous-dashboard',@$data);
             
         } else {
-         redirect(base_url());
-     }
- }
+           redirect(base_url());
+       }
+   }
 
 
 
- public function PostShop()
- {
-     if ($this->session->userdata('user_login_access') != false) {
+   public function PostShop()
+   {
+       if ($this->session->userdata('user_login_access') != false) {
 
         $data['cash'] = $this->dashboard_model->get_ems_international();
         $this->session->set_userdata('heading','Posta Shop Dashboard');
         $this->load->view('Post_shop/Post_shop-dashboard',@$data);
 
     } else {
-     redirect(base_url());
- }
+       redirect(base_url());
+   }
 }
 public function posta_bus()
 {
@@ -384,8 +384,8 @@ public function posta_bus()
         $this->load->view('postabus/Postabus-dashboard',@$data);
 
     } else {
-     redirect(base_url());
- }
+       redirect(base_url());
+   }
 }
 
 public function Inland_Mail()
@@ -438,7 +438,7 @@ public function Inland_Mail()
 
 
                     if (!empty($emslist)) {
-                     foreach ($emslist as $key => $list) {
+                       foreach ($emslist as $key => $list) {
                         $emplyo = $this->employee_model->GetBasic($list->created_by);
 
                         $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -540,7 +540,7 @@ public function Distributer(){
         $data = array();
 
         if (!empty($emslist)) {
-         foreach ($emslist as $key => $list) {
+           foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list['created_by']);
 
             $NewList[$list['created_by']]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -573,7 +573,7 @@ public function Foreign_letter(){
 
 
         if (!empty($emslist)) {
-         foreach ($emslist as $key => $list) {
+           foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list->created_by);
 
             $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -602,7 +602,7 @@ public function InWard(){
         $data['bags'] = $this->Box_Application_model->count_bags();
 
         if (!empty($emslist)) {
-         foreach ($emslist as $key => $list) {
+           foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list['created_by']);
 
             $NewList[$list['created_by']]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -692,24 +692,24 @@ public function pcum_passed_receive_list(){
         $data['bags'] = $this->Box_Application_model->count_bags();
 
         if (!empty($emslist)) {
-         foreach ($emslist as $key => $list) {
+           foreach ($emslist as $key => $list) {
             if ($list['created_by']) {
-               $emplyo = $this->employee_model->GetBasic($list['created_by']);
+             $emplyo = $this->employee_model->GetBasic($list['created_by']);
 
-               $NewList[$list['created_by']]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
-               $NewList[$list['created_by']]['em_sub_role'] = $emplyo->em_sub_role;
-               $NewList[$list['created_by']]['em_image'] = $emplyo->em_image;
-               $NewList[$list['created_by']]['pass_from'] = $list['pass_from'];
-               $NewList[$list['created_by']]['last_name'] = $emplyo->last_name;
+             $NewList[$list['created_by']]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
+             $NewList[$list['created_by']]['em_sub_role'] = $emplyo->em_sub_role;
+             $NewList[$list['created_by']]['em_image'] = $emplyo->em_image;
+             $NewList[$list['created_by']]['pass_from'] = $list['pass_from'];
+             $NewList[$list['created_by']]['last_name'] = $emplyo->last_name;
                 //$NewList[$list['created_by']]['total'] = count($list['created_by']);
-           }
+         }
 
-       }
+     }
 
-       if (!empty($NewList)) $data['counter_list'] = $NewList;
-   }
+     if (!empty($NewList)) $data['counter_list'] = $NewList;
+ }
 
-   $this->load->view('domestic_ems/pcum_passed_receive_list',$data);
+ $this->load->view('domestic_ems/pcum_passed_receive_list',$data);
 }else{
     redirect(base_url());
 }
@@ -775,7 +775,7 @@ public function Despatch(){
         $data['bags'] = $this->Box_Application_model->count_bags();
 
         if (!empty($emslist)) {
-         foreach ($emslist as $key => $list) {
+           foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list['created_by']);
 
             $NewList[$list['created_by']]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -812,18 +812,18 @@ public function Despatch_pass(){
 
 public function tracing(){
     if ($this->session->userdata('user_login_access') != false){
-       $this->load->view('backend/trace_edit.php');
+     $this->load->view('backend/trace_edit.php');
 
-   }else{
+ }else{
     redirect(base_url());
 }
 }
 
 public function deliver_report(){
     if ($this->session->userdata('user_login_access') != false){
-       $this->load->view('ems/deliverer_report.php');
+     $this->load->view('ems/deliverer_report.php');
 
-   }else{
+ }else{
     redirect(base_url());
 }
 }
@@ -891,11 +891,11 @@ public function tracing_master(){
                 $fromFullName = @$fromdata->first_name.' '.@$fromdata->middle_name.' '.@$fromdata->last_name;
 
                 if ($value['pass_to']) {
-                 $todata  = $this->Box_Application_model->GetBasic($value['pass_to']);
+                   $todata  = $this->Box_Application_model->GetBasic($value['pass_to']);
 
-                 $toFullName = @$todata->first_name.' '.@$todata->middle_name.' '.@$todata->last_name;
+                   $toFullName = @$todata->first_name.' '.@$todata->middle_name.' '.@$todata->last_name;
 
-             }else{
+               }else{
                 $toFullName = 'Null';
             }
             
@@ -945,7 +945,7 @@ public function InWard_mails(){
 
 
         if (!empty($emslist)) {
-         foreach ($emslist as $key => $list) {
+           foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list->created_by);
 
             $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -966,9 +966,9 @@ public function InWard_mails(){
 
 public function mail_tracing(){
     if ($this->session->userdata('user_login_access') != false){
-       $this->load->view('backend/mail_trace_edit.php');
+     $this->load->view('backend/mail_trace_edit.php');
 
-   }else{
+ }else{
     redirect(base_url());
 }
 }
@@ -996,7 +996,7 @@ public function InLand_reg(){
 
 
         if (!empty($emslist)) {
-         foreach ($emslist as $key => $list) {
+           foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list->created_by);
 
             $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -1035,7 +1035,7 @@ public function mails_counters(){
 
 
         if (!empty($emslist)) {
-         foreach ($emslist as $key => $list) {
+           foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list->created_by);
 
             $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -1079,7 +1079,7 @@ public function InLand_parcel(){
 
         if (!empty($emslist)) {
 
-         foreach ($emslist as $key => $list) {
+           foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list->created_by);
 
             $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -1124,7 +1124,7 @@ public function OutBound(){
 
         if (!empty($emslist)) {
 
-         foreach ($emslist as $key => $list) {
+           foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list->created_by);
 
             $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -1169,7 +1169,7 @@ public function Return_letter_office(){
 
         if (!empty($emslist)) {
 
-         foreach ($emslist as $key => $list) {
+           foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list->created_by);
 
             $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -1221,11 +1221,11 @@ public function mail_tracing_master(){
                 $fromFullName = $fromdata->first_name.' '.$fromdata->middle_name.' '.$fromdata->last_name;
 
                 if ($value['pass_to']) {
-                 $todata  = $this->Box_Application_model->GetBasic($value['pass_to']);
+                   $todata  = $this->Box_Application_model->GetBasic($value['pass_to']);
 
-                 $toFullName = $todata->first_name.' '.$todata->middle_name.' '.$todata->last_name;
+                   $toFullName = $todata->first_name.' '.$todata->middle_name.' '.$todata->last_name;
 
-             }else{
+               }else{
                 $toFullName = 'Null';
             }
 
@@ -1277,9 +1277,9 @@ public function mail_tracing_master(){
 
 public function search_master(){
     if ($this->session->userdata('user_login_access') != false){
-       $this->load->view('backend/master_search');
+     $this->load->view('backend/master_search');
 
-   }else{
+ }else{
     redirect(base_url());
 }
 }
@@ -1342,19 +1342,19 @@ public function search_transaction(){
 }
 
 public function cancelTransaction($transid){
-   if ($this->session->userdata('user_login_access') != false){
+ if ($this->session->userdata('user_login_access') != false){
         // print_r($transid);
         // die();
 
     if ($transid) {
-       $data  = $this->Box_Application_model->searchTransaction($transid,$barcode='',$cnumber='',$mobile='');
+     $data  = $this->Box_Application_model->searchTransaction($transid,$barcode='',$cnumber='',$mobile='');
             //delete the transaction
-       $this->Box_Application_model->transactionDelete($transid);
+     $this->Box_Application_model->transactionDelete($transid);
             //process of copying data
-       $this->Box_Application_model->copyTransaction($data[0]);
+     $this->Box_Application_model->copyTransaction($data[0]);
 
-       redirect('Services/search_master');
-   }else{
+     redirect('Services/search_master');
+ }else{
     redirect('Services/search_master');
 }
 
@@ -1365,8 +1365,8 @@ public function cancelTransaction($transid){
 
 public function mail_search_master(){
     if ($this->session->userdata('user_login_access') != false){
-       $this->load->view('backend/mail_master_search');
-   }else{
+     $this->load->view('backend/mail_master_search');
+ }else{
     redirect(base_url());
 }
 }
@@ -1425,7 +1425,7 @@ public function mail_search_transaction(){
 }
 
 public function cancelMailTransaction($transid){
-   if ($this->session->userdata('user_login_access') != false){
+ if ($this->session->userdata('user_login_access') != false){
 
     if ($transid) {
         $data  = $this->unregistered_model->mail_searchTransaction($transid,$barcode='',$mobile='');
@@ -1646,7 +1646,8 @@ public function Parking()
 }
 
 
-// ICT DEVICE REGISTER START
+##############################################################################################
+############    ICT DEVICE REGISTER START   ##################################################
 
 public function ICT_Devices_Register()
 {
@@ -1657,11 +1658,41 @@ public function ICT_Devices_Register()
     $this->load->view('ict_devices_register/register_home', $data);
 }
 
+public function check_if_serial_exist($str)
+{
+    $str = $this->security->xss_clean($str);
+    $checking = $this->ict_devices_register_model->check_if_exists('ict_device_register', 'dev_serial_number ', $str);
+
+    if ($checking)
+    {
+        $this->form_validation->set_message('check_if_serial_exist', 'The {field} field can not be "'.$str.'", it already exists');
+        return FALSE;
+    }
+    else
+    {
+        return TRUE;
+    }
+}
+
+public function check_if_asset_exist($str)
+{
+    $str = $this->security->xss_clean($str);
+    $checking = $this->ict_devices_register_model->check_if_exists('ict_device_register', 'dev_asset_number ', $str);
+
+    if ($checking)
+    {
+        $this->form_validation->set_message('check_if_asset_exist', 'The {field} field can not be "'.$str.'", it already exists');
+        return FALSE;
+    }
+    else
+    {
+        return TRUE;
+    }
+}
+
 public function get_all_ict_devices_ajax()
 {
     $ict_devices = $this->ict_devices_register_model->get_all_ict_devices();
-
-        // Response
     $response = array(
             // "echo" => 1,
             // "totalrecords" => count($ict_devices),
@@ -1671,79 +1702,81 @@ public function get_all_ict_devices_ajax()
     echo json_encode($response);
 }
 
+public function get_all_devices_by_category_ajax()
+{
+    $output = '';
+    $selected_category = $this->security->xss_clean($this->input->get('category'));
+    $all_devices_by_category = $this->ict_devices_register_model->get_all_devices_by_category($selected_category);
+
+    echo json_encode($all_devices_by_category);
+}
+
     // Add ICT device ajax post
 public function add_ict_device_ajax_call()
 {
     if ($this->input->server('REQUEST_METHOD') === 'POST')
     {
-        $category = $this->input->post('category');
-        $model = $this->input->post('model');
-        $serial_number = $this->input->post('serial');
-        $asset_number = $this->input->post('asset');
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+        $this->form_validation->set_rules('category','Device Category', 'required');
+        $this->form_validation->set_rules('model','Device Model', 'required');
+        $this->form_validation->set_rules('serial','Serial Number', 'required|callback_check_if_serial_exist',
+            array('required' => 'You must provide a %s.'));
+        $this->form_validation->set_rules('asset', 'Asset Number', 'callback_check_if_asset_exist');
 
-        if(!empty($category) && !empty($model)  && !empty($serial_number))
+        if ($this->form_validation->run() == FALSE)
         {
-            if($this->ict_devices_register_model->check_if_exists('ict_device_register', 'dev_serial_number ', $this->security->xss_clean($serial_number)))
-            {
-                echo json_encode(array("status" => false , 'data' => 'Oops!, serial number, arleady exist!'));                  
-            }
-            else
-            {
-                if($this->ict_devices_register_model->check_if_exists('ict_device_register', 'dev_asset_number ', $this->security->xss_clean($asset_number)))
-                {
-                    echo json_encode(array("status" => false , 'data' => 'Oops!, asset number, arleady exist!'));
-                }
-                else
-                {
-                    $category = $this->security->xss_clean($category);
-                    $model = $this->security->xss_clean($model);
-                    $serial_number = $this->security->xss_clean($serial_number);
-
-                    $detailed_specs = '';
-                    $category_specs = $this->ict_devices_register_model->get_all_ict_device_specifications($category);
-
-                    foreach ($category_specs as $spec)
-                    {
-                        $input_post = $spec['spec_name'];
-                        $detailed_specs = $detailed_specs . $spec['spec_label'] . ': '. $this->security->xss_clean($this->input->post($input_post)).' | ';
-                    }
-                    $detailed_specs = trim($detailed_specs);
-                    $detailed_specs = rtrim($detailed_specs, '|');
-
-                    $insert_data_array = array(
-                        'dev_title' => strtoupper($category),
-                        'dev_model' => strtoupper($model),
-                        'dev_serial_number' => strtoupper($serial_number),
-                        'dev_detailed_specs' => $detailed_specs);
-
-                    if(!empty($this->security->xss_clean($asset_number)))
-                    {
-                        $insert_data_array['dev_asset_number'] = strtoupper($this->security->xss_clean($asset_number));
-                    }
-
-                    $insert_action = $this->ict_devices_register_model->save_data_to_table('ict_device_register', $insert_data_array);
-
-                    if($insert_action){
-                        echo json_encode(array("status" => true , 'data' => 'Success!, ICT device register created'));               
-                    }
-                    else{
-                        echo json_encode(array("status" => false , 'data' => 'Oops!, Not Created'.'Msg: '.var_dump($insert_action)));
-                    }
-                }                       
-            } 
+            echo json_encode(array("status"=>false ,'data'=>validation_errors()));
         }
         else
         {
-            echo json_encode(
-                array(
-                    "status" => false , 
-                    'data' => 'No data supplied'.'Model ',
-                ));
+            $category = $this->security->xss_clean($this->input->post('category'));
+            $model = $this->security->xss_clean($this->input->post('model'));
+            $serial_number = $this->security->xss_clean($this->input->post('serial'));
+            $asset_number = $this->security->xss_clean($this->input->post('asset'));
+
+            $detailed_specs = '';
+            $category_specs = $this->ict_devices_register_model->get_all_ict_device_specifications($category);
+
+            foreach ($category_specs as $spec)
+            {
+                $spec_post = $this->input->post($spec['spec_name']);
+                $input_post = $this->security->xss_clean($spec_post);
+                if( ! empty($input_post))
+                {
+                    $detailed_specs .= $spec['spec_label'] . ': '. $input_post.' | ';
+                }
+            }
+
+            $detailed_specs = trim($detailed_specs);
+            $detailed_specs = trim(rtrim($detailed_specs, '|'));
+
+            $insert_data_array = array(
+                'dev_title' => strtoupper($category),
+                'dev_model' => strtoupper($model),
+                'dev_serial_number' => strtoupper($serial_number),
+                'dev_detailed_specs' => $detailed_specs,
+                'dev_date_tracker' => now(),
+                'dev_status' => 'IHQ',
+            );
+
+            if(!empty($asset_number))
+            {
+                $insert_data_array['dev_asset_number'] = strtoupper($asset_number);
+            }
+
+            $insert_action = $this->ict_devices_register_model->save_data_to_table('ict_device_register', $insert_data_array);
+
+            if($insert_action){
+                echo json_encode(array("status" => true , 'data' => 'Success!, ICT device register created'));               
+            }
+            else{
+                echo json_encode(array("status" => false , 'data' => 'Oops!, Not Created'.'Msg: '.var_dump($insert_action)));
+            } 
         }
     }
     else
     {
-        echo json_encode(array("status" => false , 'data' => 'Request not allowed'));
+        echo json_encode(array("status" => false , 'data' => 'No service'));
     }
 }
 
@@ -1820,10 +1853,18 @@ public function get_all_ict_device_categories_ajax()
     echo json_encode($response);
 }
 
+// Get Categories for all devices
 public function get_all_ict_device_categories_ajax_dropdown()
 {
     $ict_device_categories = $this->ict_devices_register_model->get_all_ict_device_categories();
     echo json_encode($ict_device_categories);
+}
+
+// count all devices in a pool
+public function count_devices_in_a_pool()
+{
+    $total = $this->ict_devices_register_model->count_devices_in_a_pool();
+    echo json_encode($total);
 }
 
     // Get category specifications via ajax
@@ -1858,25 +1899,42 @@ public function add_ict_category_specs_ajax_call()
 {
     if ($this->input->server('REQUEST_METHOD') === 'POST')
     {
-        $category = $this->security->xss_clean($this->input->post('category'));
-        $label = $this->security->xss_clean($this->input->post('label'));
-        $type = $this->security->xss_clean($this->input->post('type'));
-        $name = str_replace(' ', '_', $this->security->xss_clean($this->input->post('name')));
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+        $this->form_validation->set_rules('category','Input Category', 'required');
+        $this->form_validation->set_rules('label','Specification Label', 'required');
+        $this->form_validation->set_rules('type','Input Type', 'required');
+        $this->form_validation->set_rules('name', 'Input Name', 'required');
+        $this->form_validation->set_rules('is_mandatory', 'Mandatory Field', 'required');
 
-        try 
+        if ($this->form_validation->run() == FALSE)
         {
+            echo json_encode(array("status"=>false ,'data'=>validation_errors()));
+        }
+        else
+        {
+            $name = $this->input->post('name');
+            $name = str_replace(' ', '_', $this->security->xss_clean($name));
+            $category = $this->security->xss_clean($this->input->post('category'));
+
             if($this->ict_devices_register_model->check_if_exists_based_on_other_column(
                 'ict_device_specifications', 'spec_name', 'spec_category', $name, $category, False))
             {
-                echo json_encode(array("status" => false , 'data' => 'Oops!, this name arleady exist!'));                   
+                $message = 'The Input Name field can not be "'.$name.'", it already exists';
+                echo json_encode(array("status" => false , 'data' => $message));                   
             }
             else
             {
+                $label = $this->security->xss_clean($this->input->post('label'));
+                $type = $this->security->xss_clean($this->input->post('type'));
+                $is_mandatory = $this->security->xss_clean($this->input->post('is_mandatory'));
+
                 $insert_data_array = array(
                     'spec_category' => $category,
                     'spec_label' => $label,
                     'spec_type' => $type,
-                    'spec_name' => strtolower($name),);
+                    'spec_name' => strtolower($name),
+                    'spec_is_required' => $is_mandatory,
+                );
 
                 $insert_action = $this->ict_devices_register_model->save_data_to_table('ict_device_specifications', $insert_data_array);
 
@@ -1887,18 +1945,183 @@ public function add_ict_category_specs_ajax_call()
 
             }
         }
-        catch (\Throwable $th) 
-        {
-            echo json_encode(array("status" => false , 'data' => $th));
-        }
     }
     else
     {
-        echo json_encode(array("status" => false , 'data' => 'Request not allowed'));
+        echo json_encode(array("status" => false , 'data' => 'No servive'));
     }
 }
 
-// ICT DEVICE REGISTER END
+// Processing similar devices: on send action
+public function get_similar_devices_ajax_call()
+{
+    $postId = $this->security->xss_clean($this->input->post('id'));
+    if( ! empty($postId))
+    {
+        $get_rms = $this->ict_devices_register_model->get_all_regional_managers();
+
+        $get_post_id_data = $this->ict_devices_register_model->get_device_info($postId);
+
+        if($get_post_id_data == FALSE)
+        {
+            echo json_encode(array("status" => FALSE , 'data' => "No such record"));
+        }
+        else
+        {
+            $count_similar = $this->ict_devices_register_model->get_similar_devices($get_post_id_data['dev_detailed_specs'], $get_post_id_data['dev_id']);
+          
+            $data = array(
+                'device' => $get_post_id_data,
+                'total' =>  $count_similar['total'],
+                'ids' => $count_similar['records'],
+                'regions' => $get_rms,
+            );
+            
+            echo json_encode(array("status" => true , 'data' => $data));
+        } 
+    }
+    else
+    {
+        echo json_encode(array("status" => false , 'data' => "Request Not Allowed!"));
+    }
+}
+
+// Add devices to pool (temporary table - concept like that of e-commerce cat)
+public function add_devices_to_pool_ajax()
+{
+    if ($this->input->server('REQUEST_METHOD') === 'POST')
+    {
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+        $this->form_validation->set_rules('ids','Oops!, some informations were not well captured!', 'required');
+        $this->form_validation->set_rules('modalCount','Devices Count', 'required|is_natural_no_zero');
+        $this->form_validation->set_rules('modalDestination','Devices Destination', 'required|is_natural_no_zero');
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            echo json_encode(array("status"=>FALSE ,'data'=>validation_errors()));
+        }
+        else
+        {
+            $ids = $this->security->xss_clean($this->input->post('ids'));
+            $modalCount = $this->security->xss_clean($this->input->post('modalCount'));
+            $modalDestination = $this->security->xss_clean($this->input->post('modalDestination'));
+
+            $all_ids = explode(',', $ids);
+            $final_ids = array_slice($all_ids, 0, $modalCount);
+
+            $insert_array = [];
+            foreach($final_ids as $id)
+            {
+                $id = (Int)$id;
+                $is_available_in_register = $this->ict_devices_register_model->get_device_info_to_add_pool($id);
+                $is_not_available_in_pool = $this->ict_devices_register_model->check_not_available_in_pool($id);
+                if($is_available_in_register && $is_not_available_in_pool)
+                {
+                    $insert_array[] = array
+                    (
+                        'pool_device' => $id,
+                        'pool_destination' => $modalDestination,
+                    );
+                }
+
+            }
+
+            if(empty($insert_array))
+            {
+                echo json_encode(array("status" => FALSE , 'data' => "Oops!, No data found"));
+            }
+            else
+            {
+                $insert = $this->ict_devices_register_model->save_to_pool($insert_array);
+                if($insert)
+                {
+                    echo json_encode(array("status" => TRUE , 'data' => "Sucess"));
+                }
+                else
+                {
+                    echo json_encode(array("status" => FALSE , 'data' => "Internal Server Error: " . $insert)); 
+                }
+            }
+        }
+    }
+    else
+    {        
+        echo json_encode(array("status" => FALSE , 'data' => "Request Not Allowed!"));
+    }
+}
+
+public function get_pool_data_ajax()
+{
+    $data = $this->ict_devices_register_model->get_pool_data();
+    $response = array(
+            // "echo" => 1,
+            // "totalrecords" => count($ict_devices),
+            // "totaldisplayrecords" => count($ict_devices),
+        "aaData" => $data
+    );
+    echo json_encode($response);
+}
+
+public function remove_pool_ajax_call()
+{
+    if ($this->input->server('REQUEST_METHOD') === 'POST')
+    {
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+        $this->form_validation->set_rules('id','Device', 'required');
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            echo json_encode(array("status"=>FALSE ,'data'=>validation_errors()));
+        }
+        else
+        {
+            $id = $this->security->xss_clean($this->input->post('id'));
+            $delete = $this->ict_devices_register_model->delete_pool_by_id($id);
+            echo json_encode(array("status" => TRUE , 'data' => "Sucess"));            
+        }
+    }
+    else
+    {        
+        echo json_encode(array("status" => FALSE , 'data' => "Request Not Allowed!"));
+    }
+}
+
+public function confirm_pool_ajax_call()
+{
+    if ($this->input->server('REQUEST_METHOD') === 'POST')
+    {
+        $pool_data = $this->ict_devices_register_model->get_pool_data_for_confirmation();
+        if(empty($pool_data))
+        {
+            echo json_encode(array("status" => FALSE , 'data' => "Oops!, there is no data in the pool"));
+        }
+        else
+        {
+            $unixTime = now();
+
+            $update_array = [];
+            foreach($pool_data as $row)
+            {
+                $time = $row['dev_date_tracker']."-". $unixTime;
+                $status = $row['dev_status'] . "-RM" . $row['pool_destination'];
+
+                $update_array[] = array
+                (
+                    'dev_id' => $row['pool_device'],
+                    'dev_date_tracker' => $time,
+                    'dev_status' => $status,
+                );
+            }
+            
+            $this->ict_devices_register_model->update_sent_devices($update_array);
+            $this->ict_devices_register_model->empty_pool_table();            
+            echo json_encode(array("status" => TRUE , 'data' => "Sent sucessful"));
+        }
+    }
+}
+
+###############   ICT DEVICE REGISTER END   ##################################################
+##############################################################################################
 
 
 }

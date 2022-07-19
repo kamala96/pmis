@@ -41,6 +41,8 @@
     <link href="<?php echo base_url(); ?>assets/plugins/calendar/dist/fullcalendar.css" rel="stylesheet" type="text/css" />   
     <link rel="icon" type="image/ico" href="<?php echo base_url(); ?>assets/images/pmisfavicon.ico" />
 
+    <link type="text/css" href="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/css/dataTables.checkboxes.css" rel="stylesheet" />
+
     <style type="text/css">
         
         /* Absolute Center Spinner */

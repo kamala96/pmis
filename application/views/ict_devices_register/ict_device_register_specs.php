@@ -59,17 +59,25 @@
                                     </div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group">
-                                        <label>Input Field</label>
+                                    <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+                                        <label>Input Type</label>
                                         <select name="type" id="type" class="form-control">
                                             <option disabled selected>Please Select Input Field</option>
                                             <option value="text">Text Field</option>
                                             <option value="number">Number Field</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-12 col-md-6 col-lg-6 form-group">
+                                    <div class="col-sm-12 col-md-4 col-lg-4 form-group">
                                         <label>Input Name</label>
                                         <input type="text" id="name" name="name" class="form-control" >
+                                    </div>
+                                    <div class="col-sm-12 col-md-4 col-lg-4 form-group">
+                                        <label>Is This Field Mandatory?</label>
+                                        <select name="is_mandatory" id="is_mandatory" class="form-control">
+                                            <option disabled selected>Choose...</option>
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
                                     </div>
                                 </div>                      
                                 <div class="form-group">
@@ -95,9 +103,10 @@
                             <table class="table table-bordered" id="ICTRegisterCategoriesSpecsDataTable">
                                 <thead>
                                     <tr>
-                                        <th>Category</th>
-                                        <th>Label</th>
-                                        <th>Input Field</th>
+                                        <th>CATEGORY</th>
+                                        <th>LABEL</th>
+                                        <th>INPUT TYPE</th>
+                                        <th>IS MANDATORY</th>
                                     </tr>
                                 </thead>
                             </table>
@@ -113,11 +122,11 @@
 <script type="text/javascript">
 // Populate category dropdown list with ajax on page load
 $(document).ready(function () {  
- $.ajax({  
-     type: "GET",  
-     url: "<?php echo base_url('services/get_all_ict_device_categories_ajax_dropdown'); ?>",  
-     data: "{}",
-     success: function (data) {  
+   $.ajax({  
+       type: "GET",  
+       url: "<?php echo base_url('services/get_all_ict_device_categories_ajax_dropdown'); ?>",  
+       data: "{}",
+       success: function (data) {  
         data = JSON.parse(data)
         var s = '<option disabled selected>Please Select a Category</option>'; 
         $.each(data, function(key, value) {
@@ -137,6 +146,7 @@ $(document).ready(function() {
         {data: 'category'},
         {data: 'label'},
         {data: 'input_field'},
+        {data: 'is_mandatory'},
         ],
         dom: 'Bfrtip',
         buttons: [
@@ -160,9 +170,13 @@ $(function () {
             type: {
                 required: true,
             },
-            name: {
-                required: true,
-            },
+            // name: {
+            //     required: true,
+            // },
+            // is_mandatory: {
+            //     required: true,
+            //     number: true,
+            // },
         },
         messages: {},
 
@@ -173,7 +187,9 @@ $(function () {
                 url: "<?php echo base_url('services/add_ict_category_specs_ajax_call'); ?>",
                 type: "POST",
                 data: formdata,
-                dataType: "JSON",
+                dataType: "JSON", 
+                tryCount : 0,
+                retryLimit : 3,
                 success: function (data) {
                     if (data.status) {
                         // Reload a table
@@ -201,12 +217,22 @@ $(function () {
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
-                    $("#isloading").hide()
-                    $('#error_message').fadeIn().html(
-                        'An error occured, request not sent' + textStatus);
-                    setTimeout(function () {
-                        $('#error_message').fadeOut("slow");
-                    }, 4000);
+                    if (textStatus == 'timeout') {
+                        this.tryCount++;
+                        if (this.tryCount <= this.retryLimit) {
+                            //try again
+                            $.ajax(this);
+                            return;
+                        }
+                        return;
+                    } else {
+                        $("#isloading").hide()
+                        $('#error_message').fadeIn().html(
+                            'An error occured, request not sent: "'+textStatus+'"');
+                        setTimeout(function () {
+                            $('#error_message').fadeOut("slow");
+                        }, 4000);
+                    }
                 }
             });
         }

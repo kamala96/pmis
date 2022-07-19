@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
+$today_date = NULL;
 
 class Login extends CI_Controller {
 
@@ -25,6 +26,11 @@ class Login extends CI_Controller {
         $this->load->model('dashboard_model');
         $this->load->model('employee_model'); 
 		$this->load->model('Box_Application_model');
+		$this->load->helper(array('date', 'security'));
+
+
+		$datetime = new DateTime();
+    	$this->today_date  = $datetime->format('Y-m-d');
   
     }
     
@@ -35,8 +41,9 @@ class Login extends CI_Controller {
             redirect(base_url() . 'dashboard');
             $data=array();
             #$data['settingsvalue'] = $this->dashboard_model->GetSettingsValue();
-			$this->load->view('login');
+			$this->load->view('login_new');
 	}
+
 	public function Login_Auth(){	
 	$response = array();
     //Recieving post input of email, password from request
@@ -134,26 +141,49 @@ class Login extends CI_Controller {
     		$query = $this->login_model->getUserForLogin($credential);
         if ($query->num_rows() > 0) {
             $row = $query->row();
-            $this->session->set_userdata('user_login_access', '1');
-            $this->session->set_userdata('user_login_id', $row->em_id);
-            $this->session->set_userdata('name', $row->first_name);
-            $this->session->set_userdata('email', $row->em_email);
-            $this->session->set_userdata('user_image', $row->em_image);
-            $this->session->set_userdata('user_type', $row->em_role);
-            $this->session->set_userdata('user_emid', $row->em_id);
-            $this->session->set_userdata('user_emcode', $row->em_code);
-            $this->session->set_userdata('user_region', $row->em_region);
-            $this->session->set_userdata('user_branch', $row->em_branch);
-			$this->session->set_userdata('status', $row->assign_status);
-			$this->session->set_userdata('date', $row->date_assign);
-			$this->session->set_userdata('sub_user_type', $row->em_sub_role);
-			$this->session->set_userdata('departmentid', $row->dep_id);
-			$this->session->set_userdata('designationid', $row->des_id);
 
-            $data = array();
-            $data = array('em_id'=>$row->em_id,'first_name'=>$row->first_name,'middle_name'=>$row->middle_name,'last_name'=>$row->last_name,'date_created'=>date('Y-m-d'));
-            $this->login_model->insert_activity($data);
-            return 'success';
+			if($this->is_password_expired($row->last_modified_password))
+			{
+				// password expired
+        		$this->session->set_flashdata('error', 'Oops!, your password has expired, please reset it here');
+				$this->session->set_userdata('password_reset_email', $row->em_email);
+				redirect(base_url('login/change_password'), 'refresh');
+			}
+			else
+			{
+				$this->session->set_userdata('user_login_access', '1');
+				$this->session->set_userdata('user_login_id', $row->em_id);
+				$this->session->set_userdata('name', $row->first_name);
+				$this->session->set_userdata('email', $row->em_email);
+				$this->session->set_userdata('user_image', $row->em_image);
+				$this->session->set_userdata('user_type', $row->em_role);
+				$this->session->set_userdata('user_emid', $row->em_id);
+				$this->session->set_userdata('user_emcode', $row->em_code);
+				$this->session->set_userdata('user_region', $row->em_region);
+				$this->session->set_userdata('user_branch', $row->em_branch);
+				$this->session->set_userdata('status', $row->assign_status);
+				$this->session->set_userdata('date', $row->date_assign);
+				$this->session->set_userdata('sub_user_type', $row->em_sub_role);
+				$this->session->set_userdata('departmentid', $row->dep_id);
+				$this->session->set_userdata('designationid', $row->des_id);
+	
+				$data = array();
+				$data = array('em_id'=>$row->em_id,'first_name'=>$row->first_name,'middle_name'=>$row->middle_name,'last_name'=>$row->last_name,'date_created'=>date('Y-m-d'));
+				
+				// if($diffDays >= 30)
+				// {
+				// 	unset($_SESSION);
+				// 	// session_destroy();
+				// 	$this->session->set_userdata('email', $row->em_email);
+				// 	redirect(base_url('login/change_password'), 'refresh');
+				// }
+				// else
+				// {
+					$this->login_model->insert_activity($data);
+					return 'success';
+				// }
+
+			}
         }
 	}
     /*Logout method*/
@@ -172,6 +202,69 @@ class Login extends CI_Controller {
         $this->session->set_flashdata('feedback', 'logged_out');
         redirect(base_url(), 'refresh');
     }
+
+	private function is_password_expired($previous_date)
+	{
+		$date = date('Y-m-d');
+		$today_date = DateTime::createFromFormat('Y-m-d', $date);
+		$prev_date = DateTime::createFromFormat('Y-m-d', $previous_date);
+		$diffDays = $prev_date->diff($today_date)->format("%a");
+
+		if($diffDays >= 30)return TRUE;
+		else return FALSE;
+	}
+
+	public function change_password()
+	{
+		if($_SERVER['REQUEST_METHOD']=='POST')
+		{
+			$this->form_validation->set_rules('password_reset_email','User email missed','required|valid_email');
+			$this->form_validation->set_rules('oldpassword','Old password','required');
+			$this->form_validation->set_rules('newpassword','New Password','required');
+			$this->form_validation->set_rules('passconfirm','Confirm New Password','required|matches[newpassword]');
+			if($this->form_validation->run()==TRUE)
+			{
+				 $reset_email = $this->security->xss_clean($this->input->post('password_reset_email'));
+				 $currentPassword = $this->security->xss_clean($this->input->post('oldpassword'));
+				 $encryptCurrentPassword = sha1($currentPassword);
+
+				 $check = $this->login_model->is_current_password_available($encryptCurrentPassword, $reset_email);
+				 if($check == FALSE)
+				 {
+					$this->session->set_flashdata('error','Current Password is wrong');
+					redirect(base_url('login/change_password'));
+				 }
+				 else
+				 {
+					// Password and email matches
+				 	$newPassword = $this->security->xss_clean($this->input->post('newpassword'));
+				 	$encryptedPassword = sha1($newPassword);
+
+				 	$update_password = $this->login_model->update_pmis_login_password($encryptedPassword, $check['id'], $this->today_date);
+
+					if($update_password)
+					{
+						$this->session->set_flashdata('feedback','Password changed successfully');
+						redirect(base_url('login'));
+					}
+					else
+					{
+						$this->session->set_flashdata('feedback','Password Not Changed');
+						$this->load->view('change_password');
+					}
+
+				 }
+			}
+			else
+			{
+				$this->load->view('change_password');
+			}
+		}
+		else
+		{
+			$this->load->view('login_change_password');
+		}
+	}
 
 	public function confirm_mail_send($email,$randcode){
 		$config = Array( 

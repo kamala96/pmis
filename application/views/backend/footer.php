@@ -12,8 +12,8 @@
     <script src="<?php echo base_url(); ?>assets/plugins/bootstrap/js/bootstrap.min.js"></script>
     <!-- slimscrollbar scrollbar JavaScript -->
     <script src="<?php echo base_url(); ?>assets/js/jquery.slimscroll.js"></script>
-     
-   
+    
+    
     <!--Wave Effects -->
     <script src="<?php echo base_url(); ?>assets/js/waves.js"></script>
     <!--Menu sidebar -->
@@ -24,7 +24,7 @@
     <script src="<?php echo base_url(); ?>assets/js/custom.min.js"></script>
 
     <!-- ============================================================== -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
     <!-- ============================================================== -->
     <!--sparkline JavaScript -->
     <script src="<?php echo base_url(); ?>assets/plugins/sparkline/jquery.sparkline.min.js"></script>
@@ -43,9 +43,9 @@
 
 
     
- <script src="<?php echo base_url(); ?>assets/plugins/moment/moment.js"></script>
+    <script src="<?php echo base_url(); ?>assets/plugins/moment/moment.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>  
-   
+    
     <script src="<?php echo base_url(); ?>assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
 
     <!-- Editable -->
@@ -64,7 +64,10 @@
     <script src="<?php echo base_url(); ?>assets/export/cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="<?php echo base_url(); ?>assets/export/cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
 
-   
+    
+    <script type="text/javascript" src="//gyrocode.github.io/jquery-datatables-checkboxes/1.2.12/js/dataTables.checkboxes.min.js"></script>
+
+    
     <!-- Clock Plugin JavaScript -->
     <script src="<?php echo base_url(); ?>assets/plugins/clockpicker/dist/jquery-clockpicker.min.js"></script>                        
     <!-- Date range Plugin JavaScript -->
@@ -87,46 +90,46 @@
     <script type="text/javascript">
         $(function () {
             $('.mydatetimepicker').datepicker({
-            format: "mm-yyyy",
-            viewMode: "years", 
-            minViewMode: "months"   
+                format: "mm-yyyy",
+                viewMode: "years", 
+                minViewMode: "months"   
             });
         });
         $(function () {
             $('.mydatetimepickerFull').datepicker({
-            format: "yyyy-mm-dd"   
+                format: "yyyy-mm-dd"   
             });
         });
     </script>      
     <script>
-    $(document).ready(function() {
-        $('#myTable').DataTable();
         $(document).ready(function() {
-            var table = $('#example').DataTable({
-                "columnDefs": [{
-                    "visible": false,
-                    "targets": 2
-                }],
-                "order": [
+            $('#myTable').DataTable();
+            $(document).ready(function() {
+                var table = $('#example').DataTable({
+                    "columnDefs": [{
+                        "visible": false,
+                        "targets": 2
+                    }],
+                    "order": [
                     [2, 'asc']
-                ],
-                "displayLength": 25,
-                "drawCallback": function(settings) {
-                    var api = this.api();
-                    var rows = api.rows({
-                        page: 'current'
-                    }).nodes();
-                    var last = null;
-                    api.column(2, {
-                        page: 'current'
-                    }).data().each(function(group, i) {
-                        if (last !== group) {
-                            $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
-                            last = group;
-                        }
-                    });
-                }
-            });
+                    ],
+                    "displayLength": 25,
+                    "drawCallback": function(settings) {
+                        var api = this.api();
+                        var rows = api.rows({
+                            page: 'current'
+                        }).nodes();
+                        var last = null;
+                        api.column(2, {
+                            page: 'current'
+                        }).data().each(function(group, i) {
+                            if (last !== group) {
+                                $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
+                                last = group;
+                            }
+                        });
+                    }
+                });
             // Order by the grouping
             $('#example tbody').on('click', 'tr.group', function() {
                 var currentOrder = table.order()[0];
@@ -137,42 +140,42 @@
                 }
             });
         });
-    });
-    $(function () {
-  $("#datepicker").datepicker({ 
-        autoclose: true, 
-        todayHighlight: true
-  }).datepicker('update', new Date());
-});
-    jQuery('.mydatepicker, #datepicker').datepicker();
-    jQuery('#datepicker-autoclose').datepicker({
-        autoclose: true,
-        todayHighlight: true
-    });        
-    $('#example23').DataTable({
-        dom: 'Bfrtip',
-        buttons: [
+        });
+        $(function () {
+          $("#datepicker").datepicker({ 
+            autoclose: true, 
+            todayHighlight: true
+        }).datepicker('update', new Date());
+      });
+        jQuery('.mydatepicker, #datepicker').datepicker();
+        jQuery('#datepicker-autoclose').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });        
+        $('#example23').DataTable({
+            dom: 'Bfrtip',
+            buttons: [
             'copy', 'csv', 'excel', 'pdf', 'print'
-        ]
-    });
-    $('#single-input').clockpicker({
-        placement: 'bottom',
-        align: 'left',
-        autoclose: true,
-        'default': 'now'
-    });
-    $('#single-input').clockpicker({
-        placement: 'bottom',
-        align: 'left',
-        autoclose: true,
-        'default': 'now'
-    });
-    $('.clockpicker').clockpicker({
-        donetext: 'Done',
-    }).find('input').change(function() {
-        console.log(this.value);
-    });
-    $('#check-minutes').click(function(e) {
+            ]
+        });
+        $('#single-input').clockpicker({
+            placement: 'bottom',
+            align: 'left',
+            autoclose: true,
+            'default': 'now'
+        });
+        $('#single-input').clockpicker({
+            placement: 'bottom',
+            align: 'left',
+            autoclose: true,
+            'default': 'now'
+        });
+        $('.clockpicker').clockpicker({
+            donetext: 'Done',
+        }).find('input').change(function() {
+            console.log(this.value);
+        });
+        $('#check-minutes').click(function(e) {
         // Have to stop propagation here
         e.stopPropagation();
         input.clockpicker('show').clockpicker('toggleView', 'minutes');
@@ -180,15 +183,15 @@
 
 
 
-    
-    $(function() {
-    $('#datetimepicker2').datetimepicker({
-      language: 'en',
-      pick12HourFormat: true
-    });
-  });
-  
-    $(".select2").select2();
+        
+        $(function() {
+            $('#datetimepicker2').datetimepicker({
+              language: 'en',
+              pick12HourFormat: true
+          });
+        });
+        
+        $(".select2").select2();
     </script>
 <!-- <script type="text/javascript">
 $('form').each(function() {
@@ -223,7 +226,7 @@ $('form').each(function() {
 });
 });
 
-    </script> -->
+</script> -->
 
 <!-- <script>
 setInterval(function () {
@@ -245,7 +248,7 @@ setInterval(function () {
 },1000);
 </script> -->
 
-    <script src="<?php echo base_url(); ?>assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+<script src="<?php echo base_url(); ?>assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
 </body>
 
 </html>
