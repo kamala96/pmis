@@ -1,15 +1,12 @@
-<!DOCTYPE html>
 <html lang="en-US">
 <head>
-  <link href="<?php echo base_url('assets/css/screen.css')?>" rel="stylesheet" type="text/css" />
   <link type="image/x-icon" href="<?php echo base_url('assets/images/pmisfavicon.ico'); ?>" rel="shortcut icon" />
+  <link href="<?php echo base_url('assets/css/screen.css')?>" rel="stylesheet" type="text/css" />
   <title>Posta Management Information System:: Log in</title>
 </head>
 
 <body class="modal-form">
-  <html lang="en-GB"><head>
-    <title>PMIS</title>
-  </head>
+  <title>Government Mailing System :: Log in</title>
 
   <style>
     span.reverse {
@@ -29,27 +26,25 @@
         <div id="sliderFrame">
           <div id="slider">
 
-            <a href="https://www.maliasili.go.tz/" target="_blank">
-              <img src="<?php echo base_url()?>assets/images/Tourist.png" alt="https://www.maliasili.go.tz/" />
-            </a>
-
-            <a href="https://www.tantrade.go.tz/" target="_blank">
-              <img src="https://admin.eganet.go.tz/iredadmin/static/default/images/sliders/TANTRED WEB 1.jpg" alt="https://www.tantrade.go.tz/" />
-            </a>
-            <a href="https://nbs.go.tz/" target="_blank">
-              <img src="https://admin.eganet.go.tz/iredadmin/static/default/images/sliders/MAKINDA.png" alt="https://nbs.go.tz/" />
-            </a>
+            <div class="sliderInner" style="background: url(&quot;https://admin.eganet.go.tz/iredadmin/static/default/images/sliders/BlueArea.jpg&quot;) no-repeat; border-radius: 3px;">
+            </div>
           </div>
         </div>
       </div>
       <div class="login_right">
 
         <div class="tr_logp">
-          <p>Please login to PMIS</p>
-          <?php if($this->session->flashdata('feedback')) { ?>
-            <h6 style="color:red;"><?php echo $this->session->flashdata('feedback');?></h6>
-          <?php } ?>
+          <p>Please, login to PMIS</p>
+          <?php   
+          if(validation_errors())
+          {
+            echo '<h6 style="color:red;">'.validation_errors().'</h6>';
+          }
 
+          if($this->session->flashdata('feedback'))
+          {
+            echo '<h6 style="color:red;">'.$this->session->flashdata('feedback').'</h6>';
+          } ?>
         </div>
         <form name="horde_login" id="horde_login" method="post" action="<?php echo base_url('login/Login_Auth'); ?>">
           <div id="tr_usr">
@@ -62,62 +57,42 @@
          <div id="tr_usr">
           <label for="horde_pass">Password</label>
         </div>
-         <div id="tr_input">
+        <div id="tr_input">
           <input type="password" class="tr_upass"  name="password" value="" style="direction:ltr" required />
         </div>
-
-        <div id="horde-login-pass-capslock" style="display:none">
-        Warning: Your Caps Lock key is on!                                    </div>
-
-          <!-- <div id="horde_select_view_div" style="display:none" class="tr_hsel">
-             <div id="tr_slabel"><label for="horde_select_view">Mode</label></div>
-             <div>
-              <select id="horde_select_view" name="horde_select_view" class="tr_sview">
-               <option value="auto">Automatic</option>
-               <option value="" disabled="disabled">- - - - - - - - - -</option>
-               <!option value="basic" selected="selected">Basic</option -->
-               <!-- <option value="dynamic">Computer (PC/Laptop)</option>
-               <option value="smartmobile">Mobile (Smartphone/Tablet)</option>
-               <option value="mobile">Mobile (Minimal)</option>
-               <option value="mobile_nojs" selected="selected">Mobile (No JavaScript)</option>
-             </select> -->
-             <!-- </div>
-             </div> --> 
-             <div class="login-submit">
-               <input id="login-button" name="login_button" class="horde-default submit-button" value="Log in" type="submit" />
-             </div>
-           </form>
-         </div>
-         <br>
+        <div class="login-submit">
+         <input id="login-button" name="login_button" class="horde-default submit-button" value="Log in" type="submit" />
        </div>
-       <div class="footer">
-        <p>For any Technical inquiry, Please contact  ICT Support Team at :  <span class="reverse">@troppustci</span>posta.co.tz.</p> 
-        <ul class="footer-login-copy">
-         <li>
-          Copyright &copy;2022 , tpc. All rights reserved.  
-        </li>
-        <li>
+     </form>
+   </div>
 
-        </li>
-      </ul> 
-    </div>
+   <br>
+ </div>
+ <div class="footer">
+  <p>For any Technical inquiry, Please contact  your ICT Support Team at :  <span class="reverse">@troppustci</span>posta.co.tz.</p> 
+  <ul class="footer-login-copy">
+   <li>
+    Copyright ©2022 , TPC. All rights reserved.  
+  </li>
+</ul> 
+</div>
 
-  </div>
-  <br>
-  <br />
-  <table width="100%">
-    <tr>
-      <td align="center">
-        <img src="/themes/default/graphics/horde-power1.png" alt="Powered by Horde" />
-      </td>
-    </tr>
-  </table>
+</div>
+<br>
+<br>
 
-  <script type="text/javascript" src="<?php echo base_url()?>assets/js/prototype.js"></script>
-  <script type="text/javascript" src="<?php echo base_url()?>assets/js/horde.js"></script>
-  <!-- <script type="text/javascript" src="/js/login.js?v=596ca0a81b7fe741719c6df2f8b52a22"></script> -->
-  <script type="text/javascript" src="<?php echo base_url()?>assets/js/loginjs.js"></script>
+
+ <!--  <script type="text/javascript" src="/js/prototype.js?v=596ca0a81b7fe741719c6df2f8b52a22"></script><script type="text/javascript" src="/js/horde.js?v=596ca0a81b7fe741719c6df2f8b52a22"></script>
+  <script type="text/javascript" src="/js/login.js?v=596ca0a81b7fe741719c6df2f8b52a22"></script>
+  <script type="text/javascript" src="/imp/js/login.js?v=00b6fb7403c5dd3e1dece8deb4772850"></script>
   <script type="text/javascript" src="/js/accesskeys.js?v=596ca0a81b7fe741719c6df2f8b52a22"></script>
-</body>
-</html>
+  <script type="text/javascript">//<![CDATA[
+  HordeLogin.user_error="Please enter a username.";HordeLogin.pass_error="Please enter a password.";HordeLogin.pre_sel="dynamic";HordeLogin.server_key_error="Please choose a mail server.";
+  //]]></script> -->
 
+  <!-- <script type="text/javascript" src="<m?php echo base_url('assets/js/login/prototype.js')?>"></script>
+<script type="text/javascript" src="<m?php echo base_url('assets/js/login/horde.js')?>"></script>
+<script type="text/javascript" src="<m?php echo base_url('assets/js/login/login.js')?>"></script>
+  <script type="text/javascript" src="<m?php echo base_url('assets/js/loginjs.js')?>"></script> -->
+  </body>
+  </html>

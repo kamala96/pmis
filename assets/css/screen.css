@@ -13,8 +13,8 @@
     font-family: "Open Sans","Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
 }
 body {
-
-    background: #FFFFFF;
+ 
+    background: #fff;
     background-image: url(graphics/flag_login.png);
     background-repeat: no-repeat;
     background-attachment: fixed;
@@ -34,7 +34,7 @@ img, .img, .img:active, .img:hover, .img:visited, .image {
     border: none;
     vertical-align: middle;
     background: transparent;
-
+    
 }
 /* This must be declared seperately or IE will ignore all of the selectors. */
 input[type=image] {
@@ -130,18 +130,18 @@ br.spacer {
 }
 
 h1.header a {
-	color: #000;
+    color: #000;
 }
 
 .impBlockSummary thead {
-	font-size: 14px;
-	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-	color: #2d4a84;
+    font-size: 14px;
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    color: #2d4a84;
 }
 
 .impBlockSummary tbody tr a{
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-	font-size: 13px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 13px;
 }
 
 .header a:hover, a.header:hover {
@@ -665,10 +665,16 @@ span.horde-tree-image-16 {
     background-size: 25% 160%;
 }
 
+.slider{
+    background-image: url('../image/login/kiganjani.jpg');
+    background-repeat: no-repeat;
+    height: 92px;
+    width: 700px;
+}
 .tr_logo #tr_head, .tr_logo #tr_tail  {
     text-align: center;
     margin-left: 148px;
-
+    
 }
 
 .tr_logo #tr_head {
@@ -690,6 +696,53 @@ span.horde-tree-image-16 {
     margin-top: 0px;
 
 }
+
+/* .slider{
+    width: 800px;
+    height:500px;
+    border-radius: 10px;  
+    overflow: hidden;
+}
+
+.slides{
+    width: 500%;
+    height:500px;
+    display:grid;
+}
+
+.slides input{
+    display:none;
+}
+
+.slide{
+    width:20%;
+    transition:2s;
+}
+
+.slide img{
+    width: 800px;
+    height:500px;
+}
+
+.navigation-manual{
+    position: absolute;
+    width: 800px;
+    margin-top: -40px;
+    display: grid;
+    justify-content: center;
+}
+
+.manual-btn{
+    border:2px solid #40D3DC;
+    padding:5px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:1s;
+}
+
+.manual-btn:not(:last-child){
+    margin-right:40px;
+} */
 
 #tr_usr {
     /*border:solid 1px red;*/
@@ -722,15 +775,17 @@ span.horde-tree-image-16 {
 }
 
 .tr_uname {
-    background-image: url(../images/login/username.png);
+    background-image: url('../images/login/username.png');
     background-repeat: no-repeat;
     background-position: 5px 3px;
+    /* background-attachment: fixed; */
 }
 
-.tr_upass{
-    background-image: url(../images/login/password.png);
+.tr_upass {
+    background-image: url('../images/login/password.png');
     background-repeat: no-repeat;
     background-position: 5px 3px;
+    /* background-attachment: fixed; */
 }
 
 .tr_logp {
@@ -805,7 +860,7 @@ div.modal-form {
     background-color: #fff;
     border-top: solid 5px #c31f26;
     border-bottom: solid 2px #c31f26;
-
+    
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
     border-radius: 10px;
@@ -2093,7 +2148,7 @@ a.horde-mainnavi {
     padding: 3px 0px 0px 0px;
 }
 .horde-point-arrow, .horde-point-arrow-active {
-
+  
     float: right;
     width: 0.45em;
     height: 8px;
@@ -2679,7 +2734,7 @@ margin-right: 30px;
     padding-left: 25px;
     background-position: left center, right center;
     background-repeat: no-repeat;
-
+    
 }
 .horde-buttonbar .horde-popdown {
     position: relative;
@@ -2993,7 +3048,7 @@ div.modal-form {
 }
 
 #tr_input input {
-    width: 185px;
+    width: 225px;
     padding: 4px 4px 10px 32px;
 }
 
@@ -3044,7 +3099,7 @@ select.tr_sview{
 
 .login-submit{
   float: right;
-  margin-right: 40px !important;
+  margin-right: 40px !important;  
 }
 
 .tr_logp {
@@ -3300,10 +3355,10 @@ nav{
   padding: 5px;
 }
 .page{
-	font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-	font-size: 13px;
-	line-height: 1.42857143;
-	color: #333;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: 13px;
+    line-height: 1.42857143;
+    color: #333;
 }
 .panel-body ul li{
   list-style:none;

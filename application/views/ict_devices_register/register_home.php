@@ -26,6 +26,13 @@
                 <a href="<?php echo base_url('services/ict_category_specs'); ?>" class="btn btn-primary text-white"><i class="fa fa-list" aria-hidden="true"></i> Specifications </a>
             </div>
         </div>
+        
+
+        <!-- Notification Area Start -->
+        <div id="error_message" class="alert alert-warning" role="alert" style="display:none;"></div>
+        <div id="success_message" class="alert alert-info" role="alert" style="display:none;"></div>
+        <!-- Notification Area End -->
+
 
         <!-- Add Pool Area Start -->
         <div class="row">            
@@ -89,19 +96,19 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-sm" id="poolDataTable">
-                                    <thead>
-                                        <tr>
-                                            <th scope="col">Title</th>
-                                            <th scope="col">Serial Number</th>
-                                            <th scope="col">Specifications</th>
-                                            <th scope="col">Destination</th>
-                                            <th scope="col">Action</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
+                                <div class="table-responsive">
+                                    <table class="table table-striped table-sm" id="poolDataTable">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Title</th>
+                                                <th scope="col">Serial Number</th>
+                                                <th scope="col">Specifications</th>
+                                                <th scope="col">Destination</th>
+                                                <th scope="col">Action</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -176,10 +183,7 @@
                                 <i class="fa fa-cart-arrow-down" aria-hidden="true"></i> <span id="poolCount"> Loading ... </span>
                             </button>
                         </div>
-                        <!-- Notification Area Start -->
-                        <div id="error_message" class="alert alert-warning" role="alert" style="display:none;"></div>
-                        <div id="success_message" class="alert alert-info" role="alert" style="display:none;"></div>
-                        <!-- Notification Area End -->
+
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-striped table-sm table-hover" id="ICTRegisterDataTable">
@@ -213,10 +217,10 @@
 
 // Populate category dropdowns list with ajax on page load 
 $.ajax({  
-   type: "GET",  
-   url: "<?php echo base_url('services/get_all_ict_device_categories_ajax_dropdown'); ?>",  
-   data: "{}",
-   success: function (data) {  
+ type: "GET",  
+ url: "<?php echo base_url('services/get_all_ict_device_categories_ajax_dropdown'); ?>",  
+ data: "{}",
+ success: function (data) {  
     data = JSON.parse(data)
     var s = '<option disabled selected>Please Select a Category</option>'; 
     $.each(data, function(key, value) {
@@ -232,10 +236,10 @@ find_devices_in_a_pool()
     function find_devices_in_a_pool(){    
     // Count and load total devices available in a pool 
     $.ajax({  
-       type: "GET",  
-       url: "<?php echo base_url('services/count_devices_in_a_pool'); ?>",  
-       data: "{}",
-       success: function (data) {  
+     type: "GET",  
+     url: "<?php echo base_url('services/count_devices_in_a_pool'); ?>",  
+     data: "{}",
+     success: function (data) {  
         data = JSON.parse(data);
         text = "No items";
         if(data == 1) text = '1 item';
@@ -574,7 +578,7 @@ $('#displayPool').on('shown.bs.modal', function (e) {
             "mRender": function (data, type, full)
             {
                 return '<button type="button" onclick="removeClicked(' + full.id + ')" class="btn btn-primary">'
-                    + '<i class="fa fa-trash-o"></i>' + '</button>';
+                + '<i class="fa fa-trash-o"></i>' + '</button>';
             }
         },
         ],
