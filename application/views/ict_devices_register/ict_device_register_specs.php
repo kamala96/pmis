@@ -93,7 +93,7 @@
                 <div class="card card-outline-info">
                     <div class="card-header">
                         <h4 class="m-b-0 text-white"><i class="fa fa-list" aria-hidden="true"></i> AVAILABLE LIST OF SPECIFICATIONS </h4>
-                        <button class="btn btn-outline-primary float-right" data-toggle="collapse" data-target="#DisplayAddICTRegisterSpecs">
+                        <button class="btn btn-primary float-right" data-toggle="collapse" data-target="#DisplayAddICTRegisterSpecs">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i> Add New Specs
                         </button>
                     </div>
