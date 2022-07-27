@@ -55,7 +55,7 @@ class Ict_devices_register_model extends CI_Model
 						$query_region = $this->get_region($region_code);
 						$region_name = $query_region['region_name'];
 					}
-	
+
 					$is_at_HQ_store = FALSE;
 					$current_location_name = $region_name;
 					if($row['dev_status'] == "IHQ")
@@ -63,7 +63,7 @@ class Ict_devices_register_model extends CI_Model
 						$is_at_HQ_store = TRUE;
 						$current_location_name = 'HQ Store';
 					}
-	
+
 					$data[] = array(
 						"id" => $row['dev_id'],
 						"sn" => $i,
@@ -214,6 +214,23 @@ class Ict_devices_register_model extends CI_Model
 		return FALSE;
 	}
 
+	public function is_device_at_hq($id)
+	{
+		$this->db->select();
+		$this->db->where('dev_id', $id);
+		$this->db->where('dev_status', 'IHQ');
+		$query = $this->db->get('ict_device_register');
+
+		if($query->num_rows() > 0)
+		{
+			return FALSE;
+		}
+		else
+		{
+			return TRUE;			
+		}
+	}
+
 	public function get_similar_devices($model, $specs, $dev_id, $category)
 	{
 		$this->db->select('dev_id', 'dev_detailed_specs');
@@ -323,6 +340,22 @@ class Ict_devices_register_model extends CI_Model
 	public function empty_pool_table()
 	{
 		$this->db->empty_table('ict_device_pool');
+	}
+
+	public function update_asset_number($device, $data)
+	{
+		$this->db->set('dev_asset_number', $data);
+		$this->db->where('dev_id', $device);
+		$this->db->update('ict_device_register');
+		$afftectedRows = $this->db->affected_rows();
+		if($afftectedRows > 0)
+		{
+			return TRUE;
+		}
+		else
+		{
+			return FALSE;
+		}
 	}
 }
 

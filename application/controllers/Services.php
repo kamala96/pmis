@@ -1959,6 +1959,54 @@ public function add_ict_category_specs_ajax_call()
     }
 }
 
+// Processing single device: on send to pool action
+public function get_single_device_to_pool_ajax()
+{
+    if($this->input->server('REQUEST_METHOD') === 'POST')
+    {
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+        $this->form_validation->set_rules('id','Device', 'required|numeric');
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            echo json_encode(array("status"=>FALSE ,'data'=>validation_errors()));
+        }
+        else
+        {
+            $postId = $this->security->xss_clean($this->input->post('id'));
+            $get_rms = $this->ict_devices_register_model->get_all_regional_managers();
+
+            $device_data = $this->ict_devices_register_model->get_device_info($postId);
+
+            if($device_data == FALSE)
+            {
+                echo json_encode(array("status" => FALSE , 'data' => "No such record"));
+            }
+            else
+            {
+                $is_at_hq_store = $this->ict_devices_register_model->is_device_at_hq($postId);
+
+                if($is_at_hq_store)
+                {
+                    echo json_encode(array("status" => FALSE , 'data' => "No available at HQ store"));
+                }
+                else
+                {
+                    $data = array(
+                        'device' => $device_data,
+                        'regions' => $get_rms,
+                    );
+                    echo json_encode(array("status" => TRUE , 'data' => $data));
+                }
+            }
+        }
+    }
+    else
+    {
+        echo json_encode(array("status" => FALSE , 'data' => "Request Not Allowed!"));
+    }
+}
+
 // Processing similar devices: on send action
 public function get_similar_devices_ajax_call()
 {
@@ -1990,6 +2038,60 @@ public function get_similar_devices_ajax_call()
     else
     {
         echo json_encode(array("status" => false , 'data' => "Request Not Allowed!"));
+    }
+}
+
+
+// Add device (single) to pool (temporary table - concept like that of e-commerce cat)
+public function add_device_to_pool_ajax()
+{
+    if ($this->input->server('REQUEST_METHOD') === 'POST')
+    {
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+        $this->form_validation->set_rules('id2','Oops!, some informations were not well captured!', 'required');
+        $this->form_validation->set_rules('modalDestination2','Devices Destination', 'required|is_natural_no_zero');
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            echo json_encode(array("status"=>FALSE ,'data'=>validation_errors()));
+        }
+        else
+        {
+            $id = $this->security->xss_clean($this->input->post('id2'));
+            $modalDestination = $this->security->xss_clean($this->input->post('modalDestination2'));
+            
+            $id = (Int)$id;
+
+            $is_available_in_register = $this->ict_devices_register_model->get_device_info_to_add_pool($id);
+            $is_not_available_in_pool = $this->ict_devices_register_model->check_not_available_in_pool($id);
+            
+            $insert_array = [];
+            if($is_available_in_register && $is_not_available_in_pool)
+            {
+                $insert_array[] = array
+                (
+                    'pool_device' => $id,
+                    'pool_destination' => $modalDestination,
+                );                
+                $insert = $this->ict_devices_register_model->save_to_pool($insert_array);
+                if($insert)
+                {
+                    echo json_encode(array("status" => TRUE , 'data' => "Sucess"));
+                }
+                else
+                {
+                    echo json_encode(array("status" => FALSE , 'data' => "Internal Server Error: " . $insert)); 
+                }
+            }
+            else
+            {
+                echo json_encode(array("status" => FALSE , 'data' => "Oops!, No data found"));
+            }
+        }
+    }
+    else
+    {        
+        echo json_encode(array("status" => FALSE , 'data' => "Request Not Allowed!"));
     }
 }
 
@@ -2124,6 +2226,40 @@ public function confirm_pool_ajax_call()
             $this->ict_devices_register_model->empty_pool_table();            
             echo json_encode(array("status" => TRUE , 'data' => "Sent sucessful"));
         }
+    }
+}
+
+public function save_changes_to_asset_number_ajax()
+{
+    if ($this->input->server('REQUEST_METHOD') === 'POST')
+    {
+        $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
+        $this->form_validation->set_rules('device_id','Device ID', 'required|numeric');
+        $this->form_validation->set_rules('new_asset_number','New Asset Number', 'required');
+
+        if ($this->form_validation->run() == FALSE)
+        {
+            echo json_encode(array("status"=>FALSE ,'data'=>validation_errors()));
+        }
+        else
+        {
+            $device_id = $this->security->xss_clean($this->input->post('device_id'));
+            $new_asset_number = $this->security->xss_clean($this->input->post('new_asset_number'));            
+
+            $change_asset_number = $this->ict_devices_register_model->update_asset_number($device_id, $new_asset_number);
+            if($change_asset_number)
+            {
+                echo json_encode(array("status" => TRUE , 'data' => "Sucess, your changes has been saved"));
+            }
+            else
+            {
+                echo json_encode(array("status" => FALSE , 'data' => "Oops!, failure to save changes, contact Posta ICT team"));
+            }
+        }
+    }
+    else
+    {        
+        echo json_encode(array("status" => FALSE , 'data' => "Oops!, no service"));
     }
 }
 

@@ -34,7 +34,47 @@
         <!-- Notification Area End -->
 
 
-        <!-- Add Pool Area Start -->
+        <!-- Add Single Pool Area Start -->
+        <div class="row">            
+            <div class="col-12">
+                <div class="modal fade" id="poolModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">CREATING A POOL</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form id="addPool2" method="post" action="javascript:void(0);">
+                                <div class="modal-body">
+                                    <div class="alert alert-secondary" id="modalDevice2" role="alert"></div>
+
+                                    <input type="text" id="id2" name="id2" class="form-control" style="display: none;" required>
+
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <label class="input-group-text" for="inputGroupSelect01">Destination</label>
+                                        </div>
+                                        <select class="custom-select" id="modalDestination2" name="modalDestination2" required>
+                                            <option selected disabled>Choose...</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary"> Push To a Pool</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  Add Single Pool Area End -->
+
+
+        <!-- Add Batch Pool Area Start -->
         <div class="row">            
             <div class="col-12">
                 <div class="modal fade" id="poolModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -73,7 +113,7 @@
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary"> Add To a Pool</button>
+                                    <button type="submit" class="btn btn-primary"> Push To a Pool</button>
                                 </div>
                             </form>
                         </div>
@@ -81,7 +121,42 @@
                 </div>
             </div>
         </div>
-        <!--  Add Pool Area End -->
+        <!--  Add Batch Pool Area End -->
+
+
+        <!-- Edit Asset Number Area Start -->
+        <div class="row">            
+            <div class="col-12">
+                <div class="modal fade" id="editSerialModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">EDITING ASSET NUMBER</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <form id="editAssetNumber" method="post" action="javascript:void(0);">
+                                <div class="modal-body">
+                                    <input type="number" id="device_id" name="device_id" class="form-control" style="display: none;" required>                                    
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">New Asset Number</span>
+                                        </div>
+                                        <input type="text" id="new_asset_number" name="new_asset_number" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary"> Save Changes</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  Edit Asset Number Area End -->
 
         <!-- Display Pool ---- Start -->
         <div class="row">            
@@ -219,10 +294,10 @@
 
 // Populate category dropdowns list with ajax on page load 
 $.ajax({  
- type: "GET",  
- url: "<?php echo base_url('services/get_all_ict_device_categories_ajax_dropdown'); ?>",  
- data: "{}",
- success: function (data) {  
+   type: "GET",  
+   url: "<?php echo base_url('services/get_all_ict_device_categories_ajax_dropdown'); ?>",  
+   data: "{}",
+   success: function (data) {  
     data = JSON.parse(data)
     var s = '<option disabled selected>Please Select a Category</option>'; 
     $.each(data, function(key, value) {
@@ -238,10 +313,10 @@ find_devices_in_a_pool()
     function find_devices_in_a_pool(){    
     // Count and load total devices available in a pool 
     $.ajax({  
-     type: "GET",  
-     url: "<?php echo base_url('services/count_devices_in_a_pool'); ?>",  
-     data: "{}",
-     success: function (data) {  
+       type: "GET",  
+       url: "<?php echo base_url('services/count_devices_in_a_pool'); ?>",  
+       data: "{}",
+       success: function (data) {  
         data = JSON.parse(data);
         text = "No items";
         if(data == 1) text = '1 item';
@@ -376,12 +451,7 @@ $(document).ready(function() {
             {
                 if(full.is_available)
                 {
-                    var edit_asset = ''
-                    if(full.asset == 'Not set') edit_asset = 'disabled'
-                    // return '<button type="button" onclick="sendClicked(' + full.id + ')" class="btn btn-primary">'
-                    // + '<i class="fa fa-plus-circle"></i>' + ' Pool' + '</button>';
-
-                    return '<div class="btn-group dropright"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-gear"></i> Action </button><div class="dropdown-menu"> <a class="dropdown-item" href="#" onclick="return sendClicked(' + full.id + ');"><i class="fa fa-plus-circle"></i> Add Pool Entry</a><a class="dropdown-item ' + edit_asset + '" href="#"><i class="fa fa-pencil-square-o"></i> Edit Serial Number</a></div></div>';
+                    return '<div class="btn-group dropright"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-gear"></i> Action </button><div class="dropdown-menu"> <button type="button" class="dropdown-item btn" onclick="sendSingleClicked(' + full.id + ')"><i class="fa fa-plus-circle"></i> Add Pool Entry (Single)</button><button type="button" class="dropdown-item btn" onclick="sendBatchClicked(' + full.id + ')"><i class="fa fa-search-plus"></i> Add Pool Entry (Batch)</button><button type="button" class="dropdown-item btn" onclick="openEditAsset(' + full['id'] + ')"><i class="fa fa-pencil-square-o"></i> Edit Asset Number</button></div></div>';
                 }
                 else
                 {
@@ -536,7 +606,52 @@ $(function () {
     });
 });
 
-function sendClicked(id){
+function sendSingleClicked(id) {
+    $("#isloading").show()
+    $("#addPool2").trigger("reset");
+    $('#modalDevice2').text('');  
+    $.ajax({
+        url: "<?php echo base_url('services/get_single_device_to_pool_ajax'); ?>",
+        type: "post",
+        data: {id: id},
+        dataType: "json",
+        success: function (response) {
+            $("#isloading").hide()
+            if (response.status) {
+                var device = response.data.device
+
+                var modelDeviceAppend = ''
+                if(device.dev_detailed_specs){
+                    modelDeviceAppend = modelDeviceAppend + ' | ' + device.dev_detailed_specs;
+                }
+                var modalDevice = device.category_name + ' | ' + device.dev_model + modelDeviceAppend
+
+                var modalDestination = response.data.regions
+
+                $('#poolModal2').modal('show').on('shown.bs.modal', function () {
+                    $('#modalDevice2').text(modalDevice);                    
+                    $("#id2").val(device.dev_id);
+                    
+                    $.each(modalDestination, function(key, value) {
+                        $('#modalDestination2')
+                        .append($("<option></option>")
+                            .attr("value", +value.reg_code)
+                            .text(value.region_name));                  
+                    });
+                }) 
+            } else {
+                $("#isloading").hide()
+                console.log("Problem ", data)
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            $("#isloading").hide()
+            console.error(errorThrown)
+        }
+    });    
+}
+
+function sendBatchClicked(id){
     $("#isloading").show()
     $("#addPool").trigger("reset");
     $('#modalDevice').text('');  
@@ -553,7 +668,7 @@ function sendClicked(id){
                 var modelDeviceAppend = ''
                 if(device.dev_detailed_specs) modelDeviceAppend = modelDeviceAppend + ' | ' + device.dev_detailed_specs
 
-                var modalDevice = device.category_name + ' | ' + device.dev_model + modelDeviceAppend
+                    var modalDevice = device.category_name + ' | ' + device.dev_model + modelDeviceAppend
 
                 var modalCount = Number(response.data.total)
                 var modalDestination = response.data.regions
@@ -577,7 +692,7 @@ function sendClicked(id){
                         $('#modalDestination')
                         .append($("<option></option>")
                             .attr("value", +value.reg_code)
-                            .text('RM - ' + value.region_name));                  
+                            .text(value.region_name));                  
                     });
                 }) 
             } else {
@@ -592,8 +707,66 @@ function sendClicked(id){
     });
 }
 
+function openEditAsset(id){
+    $("#editAssetNumber").trigger("reset");
+    $('#editSerialModal').modal('show').on('shown.bs.modal', function () {                   
+        $("#device_id").val(id);
+    }) 
+}
 
-// Ajax save pool to temporary table
+
+// Ajax save pool to temporary table: single
+$(function () {
+    $("#addPool2").validate({
+        rules: {
+            id2: {required: true, number: true,},
+            modalDestination2: {required: true,},
+        },
+        messages: {},
+
+        submitHandler: function () {
+            $("#isloading").show()
+            var formdata = $('#addPool2').serialize();
+            $.ajax({
+                url: "<?php echo base_url('services/add_device_to_pool_ajax'); ?>",
+                type: "POST",
+                data: formdata,
+                dataType: "JSON",
+                success: function (response) {
+                    $('#ICTRegisterDataTable').DataTable().ajax.reload();
+                    $('#poolModal2').modal('hide')
+                    find_devices_in_a_pool();
+                    $("#isloading").hide();
+                    if (response.status) {
+                        console.log(response)
+                        $('#success_message').fadeIn().html(response.data);
+                        setTimeout(function () {
+                            $('#success_message').fadeOut("slow");
+                        }, 4000);
+                    } else {
+                        console.log(response)
+                        $('#error_message').fadeIn().html(response.data);
+                        setTimeout(function () {
+                            $('#error_message').fadeOut("slow");
+                        }, 6000);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $('#poolModal2').modal('hide')
+                    $("#isloading").hide()
+                    $('#error_message').fadeIn().html(
+                        'An error occured, request not sent');
+                    setTimeout(function () {
+                        $('#error_message').fadeOut("slow");
+                    }, 4000);
+                }
+            });
+        }
+    });
+});
+
+
+// Ajax save pool to temporary table: multiple
 $(function () {
     $("#addPool").validate({
         rules: {
@@ -633,6 +806,57 @@ $(function () {
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     $('#poolModal').modal('hide')
+                    $("#isloading").hide()
+                    $('#error_message').fadeIn().html(
+                        'An error occured, request not sent');
+                    setTimeout(function () {
+                        $('#error_message').fadeOut("slow");
+                    }, 4000);
+                }
+            });
+        }
+    });
+});
+
+
+
+
+// Ajax save changes when asset number is edited
+$(function () {
+    $("#editAssetNumber").validate({
+        rules: {
+            device_id: {required: true, number: true,},
+            new_asset_number: {required: true,},
+        },
+        messages: {},
+
+        submitHandler: function () {
+            $("#isloading").show()
+            var formdata = $('#editAssetNumber').serialize();
+            $.ajax({
+                url: "<?php echo base_url('services/save_changes_to_asset_number_ajax'); ?>",
+                type: "POST",
+                data: formdata,
+                dataType: "JSON",
+                success: function (response) {
+                    $('#ICTRegisterDataTable').DataTable().ajax.reload();
+                    $('#editSerialModal').modal('hide')
+                    $("#isloading").hide();
+                    if (response.status) {
+                        $('#success_message').fadeIn().html(response.data);
+                        setTimeout(function () {
+                            $('#success_message').fadeOut("slow");
+                        }, 4000);
+                    } else {
+                        console.log(response)
+                        $('#error_message').fadeIn().html(response.data);
+                        setTimeout(function () {
+                            $('#error_message').fadeOut("slow");
+                        }, 6000);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    $('#editSerialModal').modal('hide')
                     $("#isloading").hide()
                     $('#error_message').fadeIn().html(
                         'An error occured, request not sent');
