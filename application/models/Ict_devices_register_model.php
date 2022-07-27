@@ -33,13 +33,19 @@ class Ict_devices_register_model extends CI_Model
 		$this->db->join('ict_register_category cat', 'cat.category_id    = r.dev_title', 'left');
 		$query = $this->db->get('ict_device_register r');
 
-		$data = [];   
+		$data = [];
+		$i = 0;
 		if($query->num_rows() > 0)
 		{
 			foreach ($query->result_array() as $row) 
 			{
 				if($this->check_not_available_in_pool($row['dev_id']))
 				{
+					$i++;
+
+					$dates = explode("-", $row['dev_date_tracker']);
+					$date_created =  gmdate("d F Y", $dates[0]);
+
 					$locate = explode("-", $row['dev_status']);
 					$region_name = 'Undefined';
 					if(isset($locate[1]))
@@ -60,6 +66,7 @@ class Ict_devices_register_model extends CI_Model
 	
 					$data[] = array(
 						"id" => $row['dev_id'],
+						"sn" => $i,
 						"title" => $row['category_name'],
 						"model" => $row['dev_model'],
 						"serial" => $row['dev_serial_number'],
@@ -67,6 +74,7 @@ class Ict_devices_register_model extends CI_Model
 						"detailed_specs" => $row['dev_detailed_specs'],
 						"where_located" => $current_location_name,
 						"is_available" => $is_at_HQ_store,
+						"date_created" => $date_created,
 					);
 				}
 			}
@@ -206,11 +214,13 @@ class Ict_devices_register_model extends CI_Model
 		return FALSE;
 	}
 
-	public function get_similar_devices($specs, $dev_id)
+	public function get_similar_devices($model, $specs, $dev_id, $category)
 	{
 		$this->db->select('dev_id', 'dev_detailed_specs');
 		$this->db->where('dev_status', 'IHQ');
-		$this->db->like('dev_detailed_specs', $specs, 'both');
+		$this->db->where('dev_title', $category);
+		if(empty($specs)) $this->db->where('dev_model', $model);
+		if(!empty($specs)) $this->db->like('dev_detailed_specs', $specs, 'both');		
 		$query = $this->db->get('ict_device_register');
 
 		$data = array();

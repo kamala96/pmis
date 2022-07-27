@@ -18,23 +18,23 @@
             $this->load->view('ems/ems-dashboard',@$data);
             
         } else {
-           redirect(base_url());
-       }
+         redirect(base_url());
+     }
 
-   }
+ }
 
-   public function Search_international()
-   {
+ public function Search_international()
+ {
     if ($this->session->userdata('user_login_access') != false) {
 
-       $data['region'] = $this->employee_model->regselect();
-       $date = $this->input->post('date');
-       $month= $this->input->post('month');
-       $region= $this->input->post('region');
-       $barcode= $this->input->post('barcode');
+     $data['region'] = $this->employee_model->regselect();
+     $date = $this->input->post('date');
+     $month= $this->input->post('month');
+     $region= $this->input->post('region');
+     $barcode= $this->input->post('barcode');
 
 
-       if (!empty($barcode) ) {
+     if (!empty($barcode) ) {
         $data['inter'] = $this->Ems_International_model->get_ems_international_Search_list_search($barcode);
         $data['sum'] = $this->Ems_International_model->get_ems_international_search_sum_sarch($barcode);
 
@@ -47,7 +47,7 @@
 
     } else {
 
-       if ($this->session->userdata('user_type') == "ACCOUNTANT" || $this->session->userdata('user_type') == "ADMIN"  || $this->session->userdata('user_type') == "RM" || $this->session->userdata('user_type') == "BOP") {
+     if ($this->session->userdata('user_type') == "ACCOUNTANT" || $this->session->userdata('user_type') == "ADMIN"  || $this->session->userdata('user_type') == "RM" || $this->session->userdata('user_type') == "BOP") {
         $data['inter'] = $this->Ems_International_model->get_ems_international_list_search($date,$month,$region);
         $data['sum'] = $this->Ems_International_model->get_ems_international_sum_sarch($date,$month,$region);
     }else{
@@ -172,8 +172,8 @@ public function Fleet(){
         $data['region'] = $this->FleetModel->get_regions();
         $this->load->view('fleet/add_vehicle',$data); 
     } else {
-       redirect(base_url());
-   }
+     redirect(base_url());
+ }
 
 }
 
@@ -183,8 +183,8 @@ public function Foreign_parcel(){
         $data['region'] = $this->employee_model->regselect();
         $this->load->view('FP/add_foreign_parcel',$data);
     } else {
-       redirect(base_url());
-   }
+     redirect(base_url());
+ }
 }
 
 /*public function Foreign_letter(){
@@ -216,8 +216,8 @@ public function Small_Packets(){
 
         $this->load->view('FGN/add_fgn',$data);
     } else {
-       redirect(base_url());
-   }
+     redirect(base_url());
+ }
 
 }
 
@@ -242,7 +242,7 @@ public function Posta_mlangoni(){
         $data['current_controller'] = $staff_section[0]['controller'];
 
         if (!empty($emslist)) {
-           foreach ($emslist as $key => $list) {
+         foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list->created_by);
 
             $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -268,8 +268,8 @@ public function Pcum(){
         $this->load->view('pcum/pcum_dashboard',@$data);
 
     } else {
-       redirect(base_url());
-   }
+     redirect(base_url());
+ }
 
 }
 
@@ -280,8 +280,8 @@ public function Bureau(){
         $this->load->view('bureau/dashboard',@$data);
 
     } else {
-       redirect(base_url());
-   }
+     redirect(base_url());
+ }
 
 }
 
@@ -323,57 +323,57 @@ public function Giro(){
 }
 public function Internet()
 {
-   if ($this->session->userdata('user_login_access') != false) {
+ if ($this->session->userdata('user_login_access') != false) {
 
     $data['cash'] = $this->dashboard_model->get_ems_international();
     $this->session->set_userdata('heading','Internet Dashboard');
     $this->load->view('internet/Internet-dashboard',@$data);
 
 } else {
-   redirect(base_url());
+ redirect(base_url());
 }
 }
 
 public function Ebusiness()
 {
-   if ($this->session->userdata('user_login_access') != false) {
+ if ($this->session->userdata('user_login_access') != false) {
 
             //$data['cash'] = @$this->dashboard_model->get_ems_international();
     $this->session->set_userdata('heading','Ebusiness Dashboard');
     $this->load->view('Eshoping/Ebusiness-dashboard');
 
 } else {
-   redirect(base_url());
+ redirect(base_url());
 }
 }
 
 
 public function Miscellaneous()
 {
-   if ($this->session->userdata('user_login_access') != false) {
+ if ($this->session->userdata('user_login_access') != false) {
 
             $data['cash'] = "";//$this->dashboard_model->get_ems_international();
             $this->session->set_userdata('heading','Miscellaneous Dashboard');
             $this->load->view('Miscellaneous/Miscellaneous-dashboard',@$data);
             
         } else {
-           redirect(base_url());
-       }
-   }
+         redirect(base_url());
+     }
+ }
 
 
 
-   public function PostShop()
-   {
-       if ($this->session->userdata('user_login_access') != false) {
+ public function PostShop()
+ {
+     if ($this->session->userdata('user_login_access') != false) {
 
         $data['cash'] = $this->dashboard_model->get_ems_international();
         $this->session->set_userdata('heading','Posta Shop Dashboard');
         $this->load->view('Post_shop/Post_shop-dashboard',@$data);
 
     } else {
-       redirect(base_url());
-   }
+     redirect(base_url());
+ }
 }
 public function posta_bus()
 {
@@ -384,8 +384,8 @@ public function posta_bus()
         $this->load->view('postabus/Postabus-dashboard',@$data);
 
     } else {
-       redirect(base_url());
-   }
+     redirect(base_url());
+ }
 }
 
 public function Inland_Mail()
@@ -438,7 +438,7 @@ public function Inland_Mail()
 
 
                     if (!empty($emslist)) {
-                       foreach ($emslist as $key => $list) {
+                     foreach ($emslist as $key => $list) {
                         $emplyo = $this->employee_model->GetBasic($list->created_by);
 
                         $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -540,7 +540,7 @@ public function Distributer(){
         $data = array();
 
         if (!empty($emslist)) {
-           foreach ($emslist as $key => $list) {
+         foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list['created_by']);
 
             $NewList[$list['created_by']]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -573,7 +573,7 @@ public function Foreign_letter(){
 
 
         if (!empty($emslist)) {
-           foreach ($emslist as $key => $list) {
+         foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list->created_by);
 
             $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -602,7 +602,7 @@ public function InWard(){
         $data['bags'] = $this->Box_Application_model->count_bags();
 
         if (!empty($emslist)) {
-           foreach ($emslist as $key => $list) {
+         foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list['created_by']);
 
             $NewList[$list['created_by']]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -692,24 +692,24 @@ public function pcum_passed_receive_list(){
         $data['bags'] = $this->Box_Application_model->count_bags();
 
         if (!empty($emslist)) {
-           foreach ($emslist as $key => $list) {
+         foreach ($emslist as $key => $list) {
             if ($list['created_by']) {
-             $emplyo = $this->employee_model->GetBasic($list['created_by']);
+               $emplyo = $this->employee_model->GetBasic($list['created_by']);
 
-             $NewList[$list['created_by']]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
-             $NewList[$list['created_by']]['em_sub_role'] = $emplyo->em_sub_role;
-             $NewList[$list['created_by']]['em_image'] = $emplyo->em_image;
-             $NewList[$list['created_by']]['pass_from'] = $list['pass_from'];
-             $NewList[$list['created_by']]['last_name'] = $emplyo->last_name;
+               $NewList[$list['created_by']]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
+               $NewList[$list['created_by']]['em_sub_role'] = $emplyo->em_sub_role;
+               $NewList[$list['created_by']]['em_image'] = $emplyo->em_image;
+               $NewList[$list['created_by']]['pass_from'] = $list['pass_from'];
+               $NewList[$list['created_by']]['last_name'] = $emplyo->last_name;
                 //$NewList[$list['created_by']]['total'] = count($list['created_by']);
-         }
+           }
 
-     }
+       }
 
-     if (!empty($NewList)) $data['counter_list'] = $NewList;
- }
+       if (!empty($NewList)) $data['counter_list'] = $NewList;
+   }
 
- $this->load->view('domestic_ems/pcum_passed_receive_list',$data);
+   $this->load->view('domestic_ems/pcum_passed_receive_list',$data);
 }else{
     redirect(base_url());
 }
@@ -775,7 +775,7 @@ public function Despatch(){
         $data['bags'] = $this->Box_Application_model->count_bags();
 
         if (!empty($emslist)) {
-           foreach ($emslist as $key => $list) {
+         foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list['created_by']);
 
             $NewList[$list['created_by']]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -812,18 +812,18 @@ public function Despatch_pass(){
 
 public function tracing(){
     if ($this->session->userdata('user_login_access') != false){
-     $this->load->view('backend/trace_edit.php');
+       $this->load->view('backend/trace_edit.php');
 
- }else{
+   }else{
     redirect(base_url());
 }
 }
 
 public function deliver_report(){
     if ($this->session->userdata('user_login_access') != false){
-     $this->load->view('ems/deliverer_report.php');
+       $this->load->view('ems/deliverer_report.php');
 
- }else{
+   }else{
     redirect(base_url());
 }
 }
@@ -891,11 +891,11 @@ public function tracing_master(){
                 $fromFullName = @$fromdata->first_name.' '.@$fromdata->middle_name.' '.@$fromdata->last_name;
 
                 if ($value['pass_to']) {
-                   $todata  = $this->Box_Application_model->GetBasic($value['pass_to']);
+                 $todata  = $this->Box_Application_model->GetBasic($value['pass_to']);
 
-                   $toFullName = @$todata->first_name.' '.@$todata->middle_name.' '.@$todata->last_name;
+                 $toFullName = @$todata->first_name.' '.@$todata->middle_name.' '.@$todata->last_name;
 
-               }else{
+             }else{
                 $toFullName = 'Null';
             }
             
@@ -945,7 +945,7 @@ public function InWard_mails(){
 
 
         if (!empty($emslist)) {
-           foreach ($emslist as $key => $list) {
+         foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list->created_by);
 
             $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -966,9 +966,9 @@ public function InWard_mails(){
 
 public function mail_tracing(){
     if ($this->session->userdata('user_login_access') != false){
-     $this->load->view('backend/mail_trace_edit.php');
+       $this->load->view('backend/mail_trace_edit.php');
 
- }else{
+   }else{
     redirect(base_url());
 }
 }
@@ -996,7 +996,7 @@ public function InLand_reg(){
 
 
         if (!empty($emslist)) {
-           foreach ($emslist as $key => $list) {
+         foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list->created_by);
 
             $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -1035,7 +1035,7 @@ public function mails_counters(){
 
 
         if (!empty($emslist)) {
-           foreach ($emslist as $key => $list) {
+         foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list->created_by);
 
             $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -1079,7 +1079,7 @@ public function InLand_parcel(){
 
         if (!empty($emslist)) {
 
-           foreach ($emslist as $key => $list) {
+         foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list->created_by);
 
             $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -1124,7 +1124,7 @@ public function OutBound(){
 
         if (!empty($emslist)) {
 
-           foreach ($emslist as $key => $list) {
+         foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list->created_by);
 
             $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -1169,7 +1169,7 @@ public function Return_letter_office(){
 
         if (!empty($emslist)) {
 
-           foreach ($emslist as $key => $list) {
+         foreach ($emslist as $key => $list) {
             $emplyo = $this->employee_model->GetBasic($list->created_by);
 
             $NewList[$list->created_by]['fullname'] = $emplyo->first_name.' '.$emplyo->middle_name.' '.$emplyo->last_name;
@@ -1221,11 +1221,11 @@ public function mail_tracing_master(){
                 $fromFullName = $fromdata->first_name.' '.$fromdata->middle_name.' '.$fromdata->last_name;
 
                 if ($value['pass_to']) {
-                   $todata  = $this->Box_Application_model->GetBasic($value['pass_to']);
+                 $todata  = $this->Box_Application_model->GetBasic($value['pass_to']);
 
-                   $toFullName = $todata->first_name.' '.$todata->middle_name.' '.$todata->last_name;
+                 $toFullName = $todata->first_name.' '.$todata->middle_name.' '.$todata->last_name;
 
-               }else{
+             }else{
                 $toFullName = 'Null';
             }
 
@@ -1277,9 +1277,9 @@ public function mail_tracing_master(){
 
 public function search_master(){
     if ($this->session->userdata('user_login_access') != false){
-     $this->load->view('backend/master_search');
+       $this->load->view('backend/master_search');
 
- }else{
+   }else{
     redirect(base_url());
 }
 }
@@ -1342,19 +1342,19 @@ public function search_transaction(){
 }
 
 public function cancelTransaction($transid){
- if ($this->session->userdata('user_login_access') != false){
+   if ($this->session->userdata('user_login_access') != false){
         // print_r($transid);
         // die();
 
     if ($transid) {
-     $data  = $this->Box_Application_model->searchTransaction($transid,$barcode='',$cnumber='',$mobile='');
+       $data  = $this->Box_Application_model->searchTransaction($transid,$barcode='',$cnumber='',$mobile='');
             //delete the transaction
-     $this->Box_Application_model->transactionDelete($transid);
+       $this->Box_Application_model->transactionDelete($transid);
             //process of copying data
-     $this->Box_Application_model->copyTransaction($data[0]);
+       $this->Box_Application_model->copyTransaction($data[0]);
 
-     redirect('Services/search_master');
- }else{
+       redirect('Services/search_master');
+   }else{
     redirect('Services/search_master');
 }
 
@@ -1365,8 +1365,8 @@ public function cancelTransaction($transid){
 
 public function mail_search_master(){
     if ($this->session->userdata('user_login_access') != false){
-     $this->load->view('backend/mail_master_search');
- }else{
+       $this->load->view('backend/mail_master_search');
+   }else{
     redirect(base_url());
 }
 }
@@ -1425,7 +1425,7 @@ public function mail_search_transaction(){
 }
 
 public function cancelMailTransaction($transid){
- if ($this->session->userdata('user_login_access') != false){
+   if ($this->session->userdata('user_login_access') != false){
 
     if ($transid) {
         $data  = $this->unregistered_model->mail_searchTransaction($transid,$barcode='',$mobile='');
@@ -1734,30 +1734,37 @@ public function add_ict_device_ajax_call()
             $serial_number = $this->security->xss_clean($this->input->post('serial'));
             $asset_number = $this->security->xss_clean($this->input->post('asset'));
 
-            $detailed_specs = '';
+            $detailed_specs = NULL;
             $category_specs = $this->ict_devices_register_model->get_all_ict_device_specifications($category);
 
-            foreach ($category_specs as $spec)
+            if(!empty($category_specs))
             {
-                $spec_post = $this->input->post($spec['spec_name']);
-                $input_post = $this->security->xss_clean($spec_post);
-                if( ! empty($input_post))
+                foreach ($category_specs as $spec)
                 {
-                    $detailed_specs .= $spec['spec_label'] . ': '. $input_post.' | ';
+                    $spec_post = $this->input->post($spec['spec_name']);
+                    $input_post = $this->security->xss_clean($spec_post);
+                    if( ! empty($input_post))
+                    {
+                        $detailed_specs .= $spec['spec_label'] . ': '. $input_post.' | ';
+                    }
                 }
-            }
 
-            $detailed_specs = trim($detailed_specs);
-            $detailed_specs = trim(rtrim($detailed_specs, '|'));
+                $detailed_specs = trim($detailed_specs);
+                $detailed_specs = trim(rtrim($detailed_specs, '|'));
+            }
 
             $insert_data_array = array(
                 'dev_title' => strtoupper($category),
                 'dev_model' => strtoupper($model),
                 'dev_serial_number' => strtoupper($serial_number),
-                'dev_detailed_specs' => $detailed_specs,
                 'dev_date_tracker' => now(),
                 'dev_status' => 'IHQ',
             );
+
+            if(!empty($detailed_specs))
+            {
+                $insert_data_array['dev_detailed_specs'] = $detailed_specs;
+            }
 
             if(!empty($asset_number))
             {
@@ -1968,8 +1975,8 @@ public function get_similar_devices_ajax_call()
         }
         else
         {
-            $count_similar = $this->ict_devices_register_model->get_similar_devices($get_post_id_data['dev_detailed_specs'], $get_post_id_data['dev_id']);
-          
+            $count_similar = $this->ict_devices_register_model->get_similar_devices($get_post_id_data['dev_model'], $get_post_id_data['dev_detailed_specs'], $get_post_id_data['dev_id'], $get_post_id_data['dev_title']);
+
             $data = array(
                 'device' => $get_post_id_data,
                 'total' =>  $count_similar['total'],

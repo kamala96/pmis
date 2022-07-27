@@ -189,11 +189,13 @@
                                 <table class="table table-striped table-sm table-hover" id="ICTRegisterDataTable">
                                     <thead>
                                         <tr>
+                                            <th scope="col">#</th>
                                             <th scope="col">Title</th>
                                             <th scope="col">Model</th>
-                                            <th scope="col">Serial Number</th>
-                                            <th scope="col">Asset Number</th>
-                                            <th scope="col">Detailed Specifications</th>
+                                            <th scope="col">Serial No.</th>
+                                            <th scope="col">Asset No.</th>
+                                            <th scope="col">Specs</th>
+                                            <th scope="col">Created-At</th>
                                             <th scope="col">Manage</th>
                                             <th scope="col">Location</th>
                                         </tr>
@@ -353,15 +355,20 @@ $(function() {
 
 // load data into datatable on page load
 $(document).ready(function() {
+    var title = 'ICT DEVICES REGISTER';
+    var number;
+
     $('#ICTRegisterDataTable').dataTable({
         "processing": true,
         "ajax": "<?php echo base_url('services/get_all_ict_devices_ajax'); ?>",
         "columns": [
+        {data: 'sn'},
         {data: 'title'},
         {data: 'model'},
         {data: 'serial'},
         {data: 'asset'},
         {data: 'detailed_specs'},
+        {data: 'date_created'},
         {
             "mData": null,
             "bSortable": false,
@@ -369,8 +376,12 @@ $(document).ready(function() {
             {
                 if(full.is_available)
                 {
-                    return '<button type="button" onclick="sendClicked(' + full.id + ')" class="btn btn-primary">'
-                    + '<i class="fa fa-plus-circle"></i>' + ' Pool' + '</button>';
+                    var edit_asset = ''
+                    if(full.asset == 'Not set') edit_asset = 'disabled'
+                    // return '<button type="button" onclick="sendClicked(' + full.id + ')" class="btn btn-primary">'
+                    // + '<i class="fa fa-plus-circle"></i>' + ' Pool' + '</button>';
+
+                    return '<div class="btn-group dropright"><button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-gear"></i> Action </button><div class="dropdown-menu"> <a class="dropdown-item" href="#" onclick="return sendClicked(' + full.id + ');"><i class="fa fa-plus-circle"></i> Add Pool Entry</a><a class="dropdown-item ' + edit_asset + '" href="#"><i class="fa fa-pencil-square-o"></i> Edit Serial Number</a></div></div>';
                 }
                 else
                 {
@@ -382,7 +393,79 @@ $(document).ready(function() {
         ],
         dom: 'Bfrtip',
         buttons: [
-        'copy', 'csv', 'excel', 'pdf', 'print'
+        {
+            extend: 'copy',
+            title: title,
+            exportOptions: {
+                orthogonal: "export",
+                columns: [ 0, 1, 2, 3, 5, 8 ],
+                rows: function(idx, data, node) {
+                    number = 1;
+                    return true;
+                }
+            }
+        },
+        {
+            extend: 'csv',
+            exportOptions: {
+                orthogonal: "export",
+                columns: [ 0, 1, 2, 3, 5, 8 ],
+                rows: function(idx, data, node) {
+                    number = 1;
+                    return true;
+                }
+            }
+        },
+        {
+            extend: 'excel',
+            title: title,
+            exportOptions: {
+                orthogonal: "export",
+                columns: [ 0, 1, 2, 3, 5, 8 ],
+                rows: function(idx, data, node) {
+                    number = 1;
+                    return true;
+                }
+            }
+        },
+        {
+            extend: 'pdf',
+            title: title,
+            exportOptions: {
+                orthogonal: "export",
+                columns: [ 0, 1, 2, 3, 5, 8 ],
+                rows: function(idx, data, node) {
+                    number = 1;
+                    return true;
+                }
+            }
+        },
+        {
+            extend: 'print',
+            title: title,
+            footer: true,
+            exportOptions: {
+                orthogonal: "export",
+                columns: [ 0, 1, 2, 3, 5, 8 ],
+                rows: function(idx, data, node) {
+                    number = 1;
+                    return true;
+                }
+            },
+        }
+        ],
+        columnDefs: [
+        {
+            targets: 0,
+            render: function(data, type)
+            {
+                return type === 'export'? number++ : data;
+            }
+        },
+        {
+            "targets": '_all',
+            "defaultContent": "<i>Not set</i>"
+        }
         ]
     });
 });
@@ -466,7 +549,12 @@ function sendClicked(id){
             $("#isloading").hide()
             if (response.status) {
                 var device = response.data.device
-                var modalDevice = device.category_name + ' | ' + device.dev_model + ' | ' + device.dev_detailed_specs
+
+                var modelDeviceAppend = ''
+                if(device.dev_detailed_specs) modelDeviceAppend = modelDeviceAppend + ' | ' + device.dev_detailed_specs
+
+                var modalDevice = device.category_name + ' | ' + device.dev_model + modelDeviceAppend
+
                 var modalCount = Number(response.data.total)
                 var modalDestination = response.data.regions
 
